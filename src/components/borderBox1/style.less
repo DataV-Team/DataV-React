@@ -1,0 +1,32 @@
+.dv-border-box-1 {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .border {
+    position: absolute;
+    display: block;
+  }
+
+  .right-top {
+    right: 0px;
+    transform: rotateY(180deg);
+  }
+
+  .left-bottom {
+    bottom: 0px;
+    transform: rotateX(180deg);
+  }
+
+  .right-bottom {
+    right: 0px;
+    bottom: 0px;
+    transform: rotateX(180deg) rotateY(180deg);
+  }
+
+  .border-box-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+}

@@ -1,0 +1,96 @@
+.dv-border-box-4 {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .dv-reverse {
+    transform: rotate(180deg);
+  }
+
+  .dv-border-svg-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+
+    polyline {
+      fill: none;
+    }
+  }
+
+  .sred {
+    stroke: red;
+  }
+
+  .sblue {
+    stroke: fade(blue, 80);
+  }
+
+  .sw1 {
+    stroke-width: 1;
+  }
+
+  .sw3 {
+    stroke-width: 3px;
+    stroke-linecap: round;
+  }
+
+  .dv-bb4-line-1 {
+    .sred;
+    .sw1;
+  }
+
+  .dv-bb4-line-2 {
+    .sblue;
+    .sw1;
+  }
+
+  .dv-bb4-line-3 {
+    .sred;
+    .sw3;
+  }
+
+  .dv-bb4-line-4 {
+    .sred;
+    .sw3;
+  }
+
+  .dv-bb4-line-5 {
+    .sred;
+    .sw1;
+  }
+
+  .dv-bb4-line-6 {
+    .sblue;
+    .sw1;
+  }
+
+  .dv-bb4-line-7 {
+    .sblue;
+    .sw1;
+  }
+
+  .dv-bb4-line-8 {
+    .sblue;
+    .sw3;
+  }
+
+  .dv-bb4-line-9 {
+    .sred;
+    .sw3;
+    stroke-dasharray: 100 250;
+  }
+
+  .dv-bb4-line-10 {
+    .sblue;
+    .sw1;
+    stroke-dasharray: 80 270;
+  }
+
+  .border-box-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+}

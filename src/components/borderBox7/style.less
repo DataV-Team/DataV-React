@@ -1,0 +1,38 @@
+.dv-border-box-7 {
+  @color: fade(gray, 30);
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 0 0 40px fade(@color, 30);
+  border: 1px solid @color;
+
+  .dv-svg-container {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+
+    polyline {
+      fill: none;
+      stroke-linecap: round;
+    }
+  }
+
+  .dv-bb7-line-width-2 {
+    stroke: @color;
+    stroke-width: 2;
+  }
+
+  .dv-bb7-line-width-5 {
+    stroke: fade(gray, 50);
+    stroke-width: 5;
+  }
+
+  .border-box-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+}
