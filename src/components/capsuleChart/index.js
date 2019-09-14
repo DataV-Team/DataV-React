@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react'
 
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types'
 
-import { deepMerge } from "@jiaminghi/charts/lib/util/index";
+import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
-import { deepClone } from "@jiaminghi/c-render/lib/plugin/util";
+import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
 
 const defaultConfig = {
   /**
@@ -21,74 +21,71 @@ const defaultConfig = {
    * @example color = ['#000', 'rgb(0, 0, 0)', 'rgba(0, 0, 0, 1)', 'red']
    */
   colors: [
-    "#37a2da",
-    "#32c5e9",
-    "#67e0e3",
-    "#9fe6b8",
-    "#ffdb5c",
-    "#ff9f7f",
-    "#fb7293"
+    '#37a2da',
+    '#32c5e9',
+    '#67e0e3',
+    '#9fe6b8',
+    '#ffdb5c',
+    '#ff9f7f',
+    '#fb7293'
   ],
   /**
    * @description Chart unit
    * @type {String}
    * @default unit = ''
    */
-  unit: ""
-};
+  unit: ''
+}
 
 const CapsuleChart = ({ config = {} }) => {
   const [{ mergedConfig, labelData, capsuleLength }, setState] = useState({
     mergedConfig: null,
     labelData: [],
     capsuleLength: []
-  });
+  })
 
   useEffect(() => {
-    const mergedConfig = deepMerge(
-      deepClone(defaultConfig, true),
-      config || {}
-    );
+    const mergedConfig = deepMerge(deepClone(defaultConfig, true), config || {})
 
-    const { data } = mergedConfig;
+    const { data } = mergedConfig
 
-    if (!data.length) return;
+    if (!data.length) return
 
-    const capsuleValue = data.map(({ value }) => value);
+    const capsuleValue = data.map(({ value }) => value)
 
-    const maxValue = Math.max(...capsuleValue);
+    const maxValue = Math.max(...capsuleValue)
 
-    const oneFifth = maxValue / 5;
+    const oneFifth = maxValue / 5
 
     setState({
       mergedConfig,
       capsuleLength: capsuleValue.map(v => (maxValue ? v / maxValue : 0)),
       labelData: new Array(6).fill(0).map((v, i) => Math.ceil(i * oneFifth))
-    });
-  }, [config]);
+    })
+  }, [config])
 
   return (
-    <div className="dv-capsule-chart">
+    <div className='dv-capsule-chart'>
       {!!mergedConfig && (
         <React.Fragment>
-          <div className="label-column">
+          <div className='label-column'>
             {mergedConfig.data.map(({ name }) => (
               <div key={name}>{name}</div>
             ))}
             <div>&nbsp;</div>
           </div>
 
-          <div className="capsule-container">
+          <div className='capsule-container'>
             {capsuleLength.map((capsule, index) => (
-              <div className="capsule-item" key={index}>
+              <div className='capsule-item' key={index}>
                 <div
                   style={`width: ${capsule * 100}%; background-color: ${
                     mergedConfig.colors[index % mergedConfig.colors.length]
                   };`}
-                ></div>
+                />
               </div>
             ))}
-            <div className="unit-label">
+            <div className='unit-label'>
               {labelData.map((label, index) => (
                 <div key={label + index}>{label}</div>
               ))}
@@ -96,21 +93,21 @@ const CapsuleChart = ({ config = {} }) => {
           </div>
 
           {!!mergedConfig.unit && (
-            <div className="unit-text">{mergedConfig.unit}</div>
+            <div className='unit-text'>{mergedConfig.unit}</div>
           )}
         </React.Fragment>
       )}
     </div>
-  );
-};
+  )
+}
 
 CapsuleChart.propTypes = {
   config: PropTypes.object
-};
+}
 
 // 指定 props 的默认值：
 CapsuleChart.defaultProps = {
   config: {}
-};
+}
 
-export default CapsuleChart;
+export default CapsuleChart

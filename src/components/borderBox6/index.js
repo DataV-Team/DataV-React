@@ -1,19 +1,21 @@
-import React from "react";
+import React from 'react'
 
-import useAutoResize from "../../use/autoResize";
+import PropTypes from 'prop-types'
 
-import "./style.less";
+import useAutoResize from '../../use/autoResize'
 
-export default ({ children }) => {
-  const { width, height, domRef } = useAutoResize();
+import './style.less'
+
+const BorderBox = ({ children }) => {
+  const { width, height, domRef } = useAutoResize()
 
   return (
-    <div className="dv-border-box-6" ref={domRef}>
-      <svg className="dv-svg-container" width={width} height={height}>
-        <circle cx="5" cy="5" r="2" />
-        <circle cx={width - 5} cy="5" r="2" />
-        <circle cx={width - 5} cy={height - 5} r="2" />
-        <circle cx="5" cy={height - 5} r="2" />
+    <div className='dv-border-box-6' ref={domRef}>
+      <svg className='dv-svg-container' width={width} height={height}>
+        <circle cx='5' cy='5' r='2' />
+        <circle cx={width - 5} cy='5' r='2' />
+        <circle cx={width - 5} cy={height - 5} r='2' />
+        <circle cx='5' cy={height - 5} r='2' />
         <polyline points={`10, 4 ${width - 10}, 4`} />
         <polyline points={`10, ${height - 4} ${width - 10}, ${height - 4}`} />
         <polyline points={`5, 70 5, ${height - 70}`} />
@@ -32,7 +34,13 @@ export default ({ children }) => {
         />
       </svg>
 
-      <div className="border-box-content">{children}</div>
+      <div className='border-box-content'>{children}</div>
     </div>
-  );
-};
+  )
+}
+
+BorderBox.propTypes = {
+  children: PropTypes.node
+}
+
+export default BorderBox

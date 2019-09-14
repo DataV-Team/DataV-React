@@ -1,61 +1,61 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from 'react'
 
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types'
 
-import Chart from "@jiaminghi/charts";
+import Chart from '@jiaminghi/charts'
 
-import useAutoResize from "../../use/autoResize";
+import useAutoResize from '../../use/autoResize'
 
-import "./style.less";
+import './style.less'
 
 const Charts = ({ option = {} }) => {
-  const { domRef } = useAutoResize(initChart, onResize);
+  const { domRef } = useAutoResize(initChart, onResize)
 
-  const chartRef = useRef(null);
+  const chartRef = useRef(null)
 
-  const chartInstanceofRef = useRef(null);
+  const chartInstanceofRef = useRef(null)
 
   function initChart() {
-    chartInstanceofRef.current = new Chart(chartRef.current);
+    chartInstanceofRef.current = new Chart(chartRef.current)
 
-    if (!option) return;
+    if (!option) return
 
-    chartInstanceofRef.current.setOption(option);
+    chartInstanceofRef.current.setOption(option)
   }
 
   function onResize() {
-    const chart = chartInstanceofRef.current;
+    const chart = chartInstanceofRef.current
 
-    if (!chart) return;
+    if (!chart) return
 
-    chart.resize();
+    chart.resize()
   }
 
   useEffect(() => {
-    let newOption = option;
-    const chart = chartInstanceofRef.current;
+    let newOption = option
+    const chart = chartInstanceofRef.current
 
-    if (!chart) return;
+    if (!chart) return
 
-    if (!newOption) newOption = {};
+    if (!newOption) newOption = {}
 
-    chart.setOption(newOption);
-  }, [option]);
+    chart.setOption(newOption)
+  }, [option])
 
   return (
-    <div className="dv-charts-container" ref={domRef}>
-      <div className="charts-canvas-container" ref={chartRef} />
+    <div className='dv-charts-container' ref={domRef}>
+      <div className='charts-canvas-container' ref={chartRef} />
     </div>
-  );
-};
+  )
+}
 
 Charts.propTypes = {
   option: PropTypes.object
-};
+}
 
 // 指定 props 的默认值：
 Charts.defaultProps = {
   option: {}
-};
+}
 
-export default Charts;
+export default Charts

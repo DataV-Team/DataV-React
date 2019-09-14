@@ -1,16 +1,16 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useRef, useCallback } from 'react'
 
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types'
 
-import { deepMerge } from "@jiaminghi/charts/lib/util/index";
+import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
-import { deepClone } from "@jiaminghi/c-render/lib/plugin/util";
+import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
 
-import useAutoResize from "../../use/autoResize";
+import useAutoResize from '../../use/autoResize'
 
-import { randomExtend, getPointDistance } from "../../util/index";
+import { randomExtend, getPointDistance } from '../../util/index'
 
-import "./style.less";
+import './style.less'
 
 const defaultConfig = {
   /**
@@ -37,13 +37,13 @@ const defaultConfig = {
    * @type {String}
    * @default orbitColor = 'rgba(103, 224, 227, .2)'
    */
-  orbitColor: "rgba(103, 224, 227, .2)",
+  orbitColor: 'rgba(103, 224, 227, .2)',
   /**
    * @description Flyline color
    * @type {String}
    * @default orbitColor = '#ffde93'
    */
-  flylineColor: "#ffde93",
+  flylineColor: '#ffde93',
   /**
    * @description K value
    * @type {Number}
@@ -81,7 +81,7 @@ const defaultConfig = {
    * @default bgImgUrl = ''
    * @example bgImgUrl = './img/bg.jpg'
    */
-  bgImgUrl: "",
+  bgImgUrl: '',
   /**
    * @description Text configuration
    * @type {Object}
@@ -98,7 +98,7 @@ const defaultConfig = {
      * @type {String}
      * @default color = '#ffdb5c'
      */
-    color: "#ffdb5c",
+    color: '#ffdb5c',
     /**
      * @description Text font size
      * @type {Number}
@@ -129,7 +129,7 @@ const defaultConfig = {
      * @type {String}
      * @default color = '#fb7293'
      */
-    color: "#fb7293",
+    color: '#fb7293',
     /**
      * @description Halo max radius
      * @type {Number}
@@ -159,7 +159,7 @@ const defaultConfig = {
      * @type {String}
      * @default url = ''
      */
-    url: ""
+    url: ''
   },
   /**
    * @description Points img configuration
@@ -184,36 +184,36 @@ const defaultConfig = {
      * @type {String}
      * @default url = ''
      */
-    url: ""
+    url: ''
   }
-};
+}
 
 function getControlPoint([sx, sy], [ex, ey], { curvature, k }) {
-  const [mx, my] = [(sx + ex) / 2, (sy + ey) / 2];
+  const [mx, my] = [(sx + ex) / 2, (sy + ey) / 2]
 
-  const distance = getPointDistance([sx, sy], [ex, ey]);
+  const distance = getPointDistance([sx, sy], [ex, ey])
 
-  const targetLength = distance / curvature;
-  const disDived = targetLength / 2;
+  const targetLength = distance / curvature
+  const disDived = targetLength / 2
 
-  let [dx, dy] = [mx, my];
+  let [dx, dy] = [mx, my]
 
   do {
-    dx += disDived;
-    dy = my - k * mx + k * dx;
-  } while (getPointDistance([mx, my], [dx, dy]) < targetLength);
+    dx += disDived
+    dy = my - k * mx + k * dx
+  } while (getPointDistance([mx, my], [dx, dy]) < targetLength)
 
-  return [dx, dy];
+  return [dx, dy]
 }
 
 const FlyLineChart = ({ config = {}, dev = false }) => {
-  const { width, height, domRef } = useAutoResize(calcData, calcData);
+  const { width, height, domRef } = useAutoResize(calcData, calcData)
 
   const { unique, gradientId, gradient2Id } = useRef({
     unique: Math.random(),
     gradientId: `gradient-id-${Date.now()}`,
     gradient2Id: `gradient2-id-${Date.now()}`
-  }).current;
+  }).current
 
   const [{ mergedConfig, paths, lengths, times, texts }, setState] = useState({
     mergedConfig: null,
@@ -221,97 +221,94 @@ const FlyLineChart = ({ config = {}, dev = false }) => {
     lengths: [],
     times: [],
     texts: []
-  });
+  })
 
-  const pathRef = useRef([]);
+  const pathRef = useRef([])
 
   function calcData() {
-    const mergedConfig = getMergedConfig();
+    const mergedConfig = getMergedConfig()
 
-    const paths = createFlylinePaths(mergedConfig);
+    const paths = createFlylinePaths(mergedConfig)
 
     const lengths = paths.map((foo, i) =>
       pathRef.current[i][0].getTotalLength()
-    );
+    )
 
-    const { duration, points } = mergedConfig;
+    const { duration, points } = mergedConfig
 
-    const times = points.map(foo => randomExtend(...duration) / 10);
+    const times = points.map(foo => randomExtend(...duration) / 10)
 
-    const texts = points.map(({ text }) => text);
+    const texts = points.map(({ text }) => text)
 
-    setState({ mergedConfig, paths, lengths, times, texts });
+    setState({ mergedConfig, paths, lengths, times, texts })
   }
 
   function getMergedConfig() {
-    const mergedConfig = deepMerge(
-      deepClone(defaultConfig, true),
-      config || {}
-    );
+    const mergedConfig = deepMerge(deepClone(defaultConfig, true), config || {})
 
     mergedConfig.points = mergedConfig.points.map(item => {
       if (Array.isArray(item)) {
-        return { position: item, text: "" };
+        return { position: item, text: '' }
       }
 
-      return item;
-    });
+      return item
+    })
 
-    return mergedConfig;
+    return mergedConfig
   }
 
   function createFlylinePaths(mergedConfig) {
-    const { centerPoint, relative } = mergedConfig;
-    let points = mergedConfig.points.map(({ position }) => position);
+    let { centerPoint, relative } = mergedConfig
+    let points = mergedConfig.points.map(({ position }) => position)
 
     if (relative) {
-      centerPoint = [width * centerPoint[0], height * centerPoint[1]];
-      points = points.map(([x, y]) => [width * x, height * y]);
+      centerPoint = [width * centerPoint[0], height * centerPoint[1]]
+      points = points.map(([x, y]) => [width * x, height * y])
     }
 
     return points.map(point => {
-      const controlPoint = getControlPoint(centerPoint, point, mergedConfig);
+      const controlPoint = getControlPoint(centerPoint, point, mergedConfig)
 
-      return [point, controlPoint, centerPoint];
-    });
+      return [point, controlPoint, centerPoint]
+    })
   }
 
   const consoleClickPos = useCallback(
     ({ offsetX, offsetY }) => {
-      if (!dev) return;
+      if (!dev) return
 
-      const relativeX = (offsetX / width).toFixed(2);
-      const relativeY = (offsetY / height).toFixed(2);
+      const relativeX = (offsetX / width).toFixed(2)
+      const relativeY = (offsetY / height).toFixed(2)
 
       console.warn(
         `dv-flyline-chart DEV: \n Click Position is [${offsetX}, ${offsetY}] \n Relative Position is [${relativeX}, ${relativeY}]`
-      );
+      )
     },
     [width, height, dev]
-  );
+  )
 
-  useEffect(calcData, [config]);
+  useEffect(calcData, [config])
 
   return (
     <div
-      className="dv-flyline-chart"
+      className='dv-flyline-chart'
       ref={domRef}
       style={`background-image: url(${
-        mergedConfig ? mergedConfig.bgImgUrl : ""
+        mergedConfig ? mergedConfig.bgImgUrl : ''
       })`}
       onClick={consoleClickPos}
     >
       {!!mergedConfig && (
         <svg width={width} height={height}>
           <defs>
-            <radialGradient id={gradientId} cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#fff" stop-opacity="1" />
-              <stop offset="100%" stop-color="#fff" stop-opacity="0" />
+            <radialGradient id={gradientId} cx='50%' cy='50%' r='50%'>
+              <stop offset='0%' stopColor='#fff' stopOpacity='1' />
+              <stop offset='100%' stopColor='#fff' stopOpacity='0' />
             </radialGradient>
 
-            <radialGradient id={gradient2Id} cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#fff" stop-opacity="0" />
-              <stop offset="100%" stop-color="#fff" stop-opacity="1" />
+            <radialGradient id={gradient2Id} cx='50%' cy='50%' r='50%'>
+              <stop offset='0%' stopColor='#fff' stopOpacity='0' />
+              <stop offset='100%' stopColor='#fff' stopOpacity='1' />
             </radialGradient>
 
             {!!paths[0] && (
@@ -321,16 +318,16 @@ const FlyLineChart = ({ config = {}, dev = false }) => {
                 cy={paths[0][2][1]}
               >
                 <animate
-                  attributeName="r"
+                  attributeName='r'
                   values={`1;${mergedConfig.halo.radius}`}
-                  dur={mergedConfig.halo.duration / 10 + "s"}
-                  repeatCount="indefinite"
+                  dur={mergedConfig.halo.duration / 10 + 's'}
+                  repeatCount='indefinite'
                 />
                 <animate
-                  attributeName="opacity"
-                  values="1;0"
-                  dur={mergedConfig.halo.duration / 10 + "s"}
-                  repeatCount="indefinite"
+                  attributeName='opacity'
+                  values='1;0'
+                  dur={mergedConfig.halo.duration / 10 + 's'}
+                  repeatCount='indefinite'
                 />
               </circle>
             )}
@@ -370,45 +367,45 @@ const FlyLineChart = ({ config = {}, dev = false }) => {
                   id={`path${path.toString()}`}
                   ref={e => (pathRef.current[i] = e)}
                   d={`M${path[0].toString()} Q${path[1].toString()} ${path[2].toString()}`}
-                  fill="transparent"
+                  fill='transparent'
                 />
               </defs>
 
               <use
                 href={`#path${path.toString()}`}
-                stroke-width={mergedConfig.lineWidth}
+                strokeWidth={mergedConfig.lineWidth}
                 stroke={mergedConfig.orbitColor}
               />
 
               {lengths[i] && (
                 <use
                   href={`#path${path.toString()}`}
-                  stroke-width={mergedConfig.lineWidth}
+                  strokeWidth={mergedConfig.lineWidth}
                   stroke={mergedConfig.flylineColor}
                   mask={`url(#mask${unique}${path.toString()})`}
                 >
                   <animate
-                    attributeName="stroke-dasharray"
+                    attributeName='stroke-dasharray'
                     from={`0, ${lengths[i]}`}
                     to={`${lengths[i]}, 0`}
                     dur={times[i] || 0}
-                    repeatCount="indefinite"
+                    repeatCount='indefinite'
                   />
                 </use>
               )}
 
               <mask id={`mask${unique}${path.toString()}`}>
                 <circle
-                  cx="0"
-                  cy="0"
+                  cx='0'
+                  cy='0'
                   r={mergedConfig.flylineRadius}
                   fill={`url(#${gradientId})`}
                 >
                   <animateMotion
                     dur={times[i] || 0}
                     path={`M${path[0].toString()} Q${path[1].toString()} ${path[2].toString()}`}
-                    rotate="auto"
-                    repeatCount="indefinite"
+                    rotate='auto'
+                    repeatCount='indefinite'
                   />
                 </circle>
               </mask>
@@ -434,18 +431,18 @@ const FlyLineChart = ({ config = {}, dev = false }) => {
         </svg>
       )}
     </div>
-  );
-};
+  )
+}
 
 FlyLineChart.propTypes = {
   config: PropTypes.object,
   dev: PropTypes.bool
-};
+}
 
 // 指定 props 的默认值：
 FlyLineChart.defaultProps = {
   config: {},
   dev: false
-};
+}
 
-export default FlyLineChart;
+export default FlyLineChart

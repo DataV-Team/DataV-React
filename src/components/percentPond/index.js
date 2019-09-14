@@ -1,12 +1,12 @@
-import React, { useEffect, useState, useRef, useMemo } from "react";
+import React, { useEffect, useState, useRef, useMemo } from 'react'
 
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types'
 
-import { deepMerge } from "@jiaminghi/charts/lib/util/index";
+import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
-import { deepClone } from "@jiaminghi/c-render/lib/plugin/util";
+import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
 
-import "./style.less";
+import './style.less'
 
 const defaultConfig = {
   /**
@@ -21,7 +21,7 @@ const defaultConfig = {
    * @default colors = ['#00BAFF', '#3DE7C9']
    * @example colors = ['#000', 'rgb(0, 0, 0)', 'rgba(0, 0, 0, 1)', 'red']
    */
-  colors: ["#3DE7C9", "#00BAFF"],
+  colors: ['#3DE7C9', '#00BAFF'],
   /**
    * @description Border width
    * @type {Number}
@@ -45,7 +45,7 @@ const defaultConfig = {
    * @type {String}
    * @default textColor = '#fff'
    */
-  textColor: "#fff",
+  textColor: '#fff',
   /**
    * @description Border radius
    * @type {Number}
@@ -64,162 +64,162 @@ const defaultConfig = {
    * @type {String}
    * @default formatter = '{value}%'
    */
-  formatter: "{value}%"
-};
+  formatter: '{value}%'
+}
 
 const PercentPond = ({ config = {} }) => {
-  const domRef = useRef(null);
+  const domRef = useRef(null)
 
   const { gradientId1, gradientId2 } = useRef({
     gradientId1: `percent-pond-gradientId1-${Date.now()}`,
     gradientId2: `percent-pond-gradientId2-${Date.now()}`
-  }).current;
+  }).current
 
   const [{ width, height, mergedConfig }, setState] = useState({
     width: 0,
     height: 0,
 
     mergedConfig: null
-  });
+  })
 
   const rectWidth = useMemo(() => {
-    if (!mergedConfig) return 0;
+    if (!mergedConfig) return 0
 
-    const { borderWidth } = mergedConfig;
+    const { borderWidth } = mergedConfig
 
-    return width - borderWidth;
-  }, [mergedConfig, width]);
+    return width - borderWidth
+  }, [mergedConfig, width])
 
   const rectHeight = useMemo(() => {
-    if (!mergedConfig) return 0;
+    if (!mergedConfig) return 0
 
-    const { borderWidth } = mergedConfig;
+    const { borderWidth } = mergedConfig
 
-    return height - borderWidth;
-  }, [mergedConfig, height]);
+    return height - borderWidth
+  }, [mergedConfig, height])
 
   const points = useMemo(() => {
-    const halfHeight = height / 2;
+    const halfHeight = height / 2
 
-    if (!mergedConfig) return `0, ${halfHeight} 0, ${halfHeight}`;
+    if (!mergedConfig) return `0, ${halfHeight} 0, ${halfHeight}`
 
-    const { borderWidth, borderGap, value } = mergedConfig;
+    const { borderWidth, borderGap, value } = mergedConfig
 
     const polylineLength =
-      ((width - (borderWidth + borderGap) * 2) / 100) * value;
+      ((width - (borderWidth + borderGap) * 2) / 100) * value
 
     return `
       ${borderWidth + borderGap}, ${halfHeight}
       ${borderWidth + borderGap + polylineLength}, ${halfHeight + 0.001}
-    `;
-  }, [mergedConfig, width, height]);
+    `
+  }, [mergedConfig, width, height])
 
   const polylineWidth = useMemo(() => {
-    if (!mergedConfig) return 0;
+    if (!mergedConfig) return 0
 
-    const { borderWidth, borderGap } = mergedConfig;
+    const { borderWidth, borderGap } = mergedConfig
 
-    return height - (borderWidth + borderGap) * 2;
-  }, [mergedConfig, height]);
+    return height - (borderWidth + borderGap) * 2
+  }, [mergedConfig, height])
 
   const linearGradient = useMemo(() => {
-    if (!mergedConfig) return [];
+    if (!mergedConfig) return []
 
-    const { colors } = mergedConfig;
+    const { colors } = mergedConfig
 
-    const colorNum = colors.length;
+    const colorNum = colors.length
 
-    const colorOffsetGap = 100 / (colorNum - 1);
+    const colorOffsetGap = 100 / (colorNum - 1)
 
-    return colors.map((c, i) => [colorOffsetGap * i, c]);
-  }, [mergedConfig]);
+    return colors.map((c, i) => [colorOffsetGap * i, c])
+  }, [mergedConfig])
 
   const polylineGradient = useMemo(() => {
-    if (!mergedConfig) return gradientId2;
+    if (!mergedConfig) return gradientId2
 
-    if (mergedConfig.localGradient) return gradientId1;
+    if (mergedConfig.localGradient) return gradientId1
 
-    return gradientId2;
-  }, [gradientId1, gradientId2, mergedConfig]);
+    return gradientId2
+  }, [gradientId1, gradientId2, mergedConfig])
 
   const gradient2XPos = useMemo(() => {
-    if (!mergedConfig) return "100%";
+    if (!mergedConfig) return '100%'
 
-    const { value } = mergedConfig;
+    const { value } = mergedConfig
 
-    return `${200 - value}%`;
-  }, [mergedConfig]);
+    return `${200 - value}%`
+  }, [mergedConfig])
 
   const details = useMemo(() => {
-    if (!mergedConfig) return "";
+    if (!mergedConfig) return ''
 
-    const { value, formatter } = mergedConfig;
+    const { value, formatter } = mergedConfig
 
-    return formatter.replace("{value}", value);
-  }, [mergedConfig]);
+    return formatter.replace('{value}', value)
+  }, [mergedConfig])
 
   function update() {
-    const { clientWidth: width, clientHeight: height } = domRef.current;
+    const { clientWidth: width, clientHeight: height } = domRef.current
 
     if (!config) {
-      setState(state => ({ ...state, width, height }));
+      setState(state => ({ ...state, width, height }))
 
-      return;
+      return
     }
 
     setState({
       width,
       height,
       mergedConfig: deepMerge(deepClone(defaultConfig, true), config || {})
-    });
+    })
   }
 
-  useEffect(update, [config]);
+  useEffect(update, [config])
 
   return (
-    <div className="dv-percent-pond" ref={domRef}>
+    <div className='dv-percent-pond' ref={domRef}>
       <svg>
         <defs>
-          <linearGradient id={gradientId1} x1="0%" y1="0%" x2="100%" y2="0%">
+          <linearGradient id={gradientId1} x1='0%' y1='0%' x2='100%' y2='0%'>
             {linearGradient.map(lc => (
-              <stop key={lc[0]} offset={`${lc[0]}%`} stop-color={lc[1]} />
+              <stop key={lc[0]} offset={`${lc[0]}%`} stopColor={lc[1]} />
             ))}
           </linearGradient>
 
           <linearGradient
             id={gradientId2}
-            x1="0%"
-            y1="0%"
+            x1='0%'
+            y1='0%'
             x2={gradient2XPos}
-            y2="0%"
+            y2='0%'
           >
             {linearGradient.map(lc => (
-              <stop key={lc[0]} offset={`${lc[0]}%`} stop-color={lc[1]} />
+              <stop key={lc[0]} offset={`${lc[0]}%`} stopColor={lc[1]} />
             ))}
           </linearGradient>
         </defs>
         <rect
-          x={mergedConfig ? mergedConfig.borderWidth / 2 : "0"}
-          y={mergedConfig ? mergedConfig.borderWidth / 2 : "0"}
-          rx={mergedConfig ? mergedConfig.borderRadius : "0"}
-          ry={mergedConfig ? mergedConfig.borderRadius : "0"}
-          fill="transparent"
-          stroke-width={mergedConfig ? mergedConfig.borderWidth : "0"}
+          x={mergedConfig ? mergedConfig.borderWidth / 2 : '0'}
+          y={mergedConfig ? mergedConfig.borderWidth / 2 : '0'}
+          rx={mergedConfig ? mergedConfig.borderRadius : '0'}
+          ry={mergedConfig ? mergedConfig.borderRadius : '0'}
+          fill='transparent'
+          strokeWidth={mergedConfig ? mergedConfig.borderWidth : '0'}
           stroke={`url(#${gradientId1})`}
           width={rectWidth > 0 ? rectWidth : 0}
           height={rectHeight > 0 ? rectHeight : 0}
         />
         <polyline
-          stroke-width={polylineWidth}
-          stroke-dasharray={
-            mergedConfig ? mergedConfig.lineDash.join(",") : "0"
+          strokeWidth={polylineWidth}
+          strokeDasharray={
+            mergedConfig ? mergedConfig.lineDash.join(',') : '0'
           }
           stroke={`url(#${polylineGradient})`}
           points={points}
         />
         <text
-          stroke={mergedConfig ? mergedConfig.textColor : "#fff"}
-          fill={mergedConfig ? mergedConfig.textColor : "#fff"}
+          stroke={mergedConfig ? mergedConfig.textColor : '#fff'}
+          fill={mergedConfig ? mergedConfig.textColor : '#fff'}
           x={width / 2}
           y={height / 2}
         >
@@ -227,16 +227,16 @@ const PercentPond = ({ config = {} }) => {
         </text>
       </svg>
     </div>
-  );
-};
+  )
+}
 
 PercentPond.propTypes = {
   config: PropTypes.object
-};
+}
 
 // 指定 props 的默认值：
 PercentPond.defaultProps = {
   config: {}
-};
+}
 
-export default PercentPond;
+export default PercentPond
