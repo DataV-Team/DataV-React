@@ -1,29 +1,84 @@
-# data-view-react
+[ENGLISH](./README_EN.md)
 
-> React Large screen data display component library
+<h1 align="center">DataV</h1>
+<p align="center">
+    <a href="https://github.com/jiaming743/datav/blob/master/LICENSE">
+      <img src="https://img.shields.io/github/license/jiaming743/datav.svg" alt="LICENSE" />
+    </a>
+    <a href="https://www.npmjs.com/package/@jiaminghi/data-view">
+      <img src="https://img.shields.io/npm/v/@jiaminghi/data-view.svg" alt="LICENSE" />
+    </a>
+</p>
 
-[![NPM](https://img.shields.io/npm/v/data-view-react.svg)](https://www.npmjs.com/package/data-view-react) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+## DataV是干什么的?
 
-## Install
+* DataV是一个基于**Vue**的数据可视化组件库
+* 提供用于提升页面视觉效果的**SVG**边框和装饰
+* 提供常用的**图表**如折线图等
+* 飞线图/轮播表等其他组件
 
-```bash
-npm install --save data-view-react
+### npm安装
+
+```shell
+$ npm install @jiaminghi/data-view
 ```
 
-## Usage
+### 使用
 
-```jsx
-import React, { Component } from "react";
+```js
+import Vue from 'vue'
+import DataV from '@jiaminghi/data-view'
 
-import MyComponent from "data-view-react";
+Vue.use(DataV)
 
-class Example extends Component {
-  render() {
-    return <MyComponent />;
-  }
-}
+// 按需引入
+import { borderBox1 } from '@jiaminghi/data-view'
+Vue.use(borderBox1)
 ```
 
-## License
+详细文档及示例请移步[HomePage](http://datav.jiaminghi.com).
 
-MIT © [yizhiyuyou](https://github.com/yizhiyuyou)
+### UMD版
+
+`UMD`版可直接使用`script`标签引入，`UMD`版文件位于项目`dist`目录下，引入后将自动把所有组件注册为**Vue全局组件**，引入`DataV`前请确保已引入`Vue`。
+
+[UMD版使用示例](./umdExample.html)
+
+### React版本
+
+React版本已在开发中，敬请期待
+
+### 调研
+
+关于React版本组件库及反馈请移步[问卷调查](https://www.wjx.cn/jq/45326197.aspx)
+
+![问卷调查](./questionnaire.jpg)
+
+### TODO
+
+* **飞线图**添加多中心点及反向飞线功能
+* **边框**及**装饰**添加颜色及其他必要配置项，增强可配置性及灵活性.
+
+### 致谢
+
+组件库的开发基于个人学习和兴趣，由于技术水平及经验的限制，组件尚有许多不完善之处，如有BUG可及时提交[issue](https://github.com/jiaming743/DataV/issues/new?template=bug_report.md)或添加反馈群进行反馈，也欢迎提供指正和建议，感谢各位的支持。
+
+### 反馈
+
+![Feedback](./QQGroup.png)
+
+### Demo
+
+Demo页面使用了全屏组件，请F11全屏后查看。
+
+* [施工养护综合数据](http://datav.jiaminghi.com/demo/construction-data/index.html)
+
+![construction-data](./demoImg/construction-data.jpg)
+
+* [机电运维管理台](http://datav.jiaminghi.com/demo/manage-desk/index.html)
+
+![manage-desk](./demoImg/manage-desk.jpg)
+
+* [机电设备电子档案](http://datav.jiaminghi.com/demo/electronic-file/index.html)
+
+![electronic-file](./demoImg/electronic-file.jpg)
