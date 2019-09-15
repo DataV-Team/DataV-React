@@ -6,18 +6,32 @@ import resolve from 'rollup-plugin-node-resolve'
 import url from 'rollup-plugin-url'
 import svgr from '@svgr/rollup'
 
-import pkg from './package.json'
+// 通过 mode 接口拿到 src/components 下的所有文件夹名作为打包后的模块
+const fs = require('fs')
+const path = require('path')
+const componentDir = 'src/components'
+const cModuleNames = fs.readdirSync(path.resolve(componentDir))
+const cModuleMap = cModuleNames.reduce((prev, name) => {
+  prev[name] = `${componentDir}/${name}/index.js`
+
+  return prev
+}, {})
 
 export default {
-  input: 'src/index.js',
+  input: {
+    index: 'src/index.js',
+    ...cModuleMap
+  },
   output: [
     {
-      file: pkg.main,
+      dir: 'lib',
+      entryFileNames: '[name]/index.js',
       format: 'cjs',
       sourcemap: true
     },
     {
-      file: pkg.module,
+      dir: 'es',
+      entryFileNames: '[name]/index.js',
       format: 'es',
       sourcemap: true
     }
@@ -31,9 +45,10 @@ export default {
     svgr(),
     babel({
       exclude: 'node_modules/**',
-      plugins: [ 'external-helpers' ]
+      plugins: ['external-helpers']
     }),
     resolve(),
     commonjs()
-  ]
+  ],
+  experimentalCodeSplitting: true
 }

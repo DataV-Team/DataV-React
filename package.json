@@ -5,8 +5,8 @@
   "author": "yizhiyuyou",
   "license": "MIT",
   "repository": "yizhiyuyou/datav-react",
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
+  "main": "lib/index/index.js",
+  "module": "es/index/index.js",
   "jsnext:main": "dist/index.es.js",
   "engines": {
     "node": ">=8",
@@ -58,6 +58,8 @@
     "rollup-plugin-url": "^1.4.0"
   },
   "files": [
-    "dist"
+    "src",
+    "lib",
+    "es"
   ]
 }
