@@ -102,7 +102,7 @@ const ScrollRankingBoard = ({ config, className, style }) => {
   function onResize() {
     if (!mergedConfig) return
 
-    calcHeights(true)
+    calcHeights(mergedConfig, true)
   }
 
   function calcData() {
