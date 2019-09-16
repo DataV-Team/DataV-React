@@ -1,6 +1,6 @@
 import { a as styleInject } from '../chunk-80bd9449.js';
 import React, { useState } from 'react';
-import { getPolylineLength } from '@jiaminghi/charts/lib/util';
+import { a as util_7 } from '../chunk-5dad6e83.js';
 import { a as useAutoResize } from '../chunk-45917cce.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
@@ -32,8 +32,8 @@ var index = (function () {
 
     var line2Points = [[width * 0.3, height * 0.8], [width * 0.7, height * 0.8]];
 
-    var line1Length = getPolylineLength(line1Points);
-    var line2Length = getPolylineLength(line2Points);
+    var line1Length = util_7(line1Points);
+    var line2Length = util_7(line2Points);
 
     line1Points = line1Points.map(function (point) {
       return point.join(',');

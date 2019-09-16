@@ -1,10 +1,14 @@
-import React, { useRef } from 'react'
+import React, { useRef, useMemo } from 'react'
+
+import PropTypes from 'prop-types'
+
+import classnames from 'classnames'
 
 import useAutoResize from '../../use/autoResize'
 
 import './style.less'
 
-export default () => {
+const Decoration = ({ className, style }) => {
   const { width, height, domRef } = useAutoResize()
 
   const {
@@ -27,8 +31,13 @@ export default () => {
     animationId7: `d10ani7${Date.now()}`
   })
 
+  const classNames = useMemo(
+    () => classnames('dv-decoration-10', className),
+    className
+  )
+
   return (
-    <div className='dv-decoration-10' ref={domRef}>
+    <div className={classNames} style={style} ref={domRef}>
       <svg width={width} height={height}>
         <polyline
           stroke='rgba(0, 194, 255, 0.3)'
@@ -176,3 +185,10 @@ export default () => {
     </div>
   )
 }
+
+Decoration.propTypes = {
+  className: PropTypes.string,
+  style: PropTypes.object
+}
+
+export default Decoration

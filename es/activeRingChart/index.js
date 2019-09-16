@@ -1,13 +1,12 @@
 import { a as styleInject } from '../chunk-80bd9449.js';
 import React, { useRef, useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import Charts from '@jiaminghi/charts';
+import { a as Chart } from '../chunk-bf664eb8.js';
 import DvDigitalFlop from '../digitalFlop/index.js';
-import { deepMerge } from '@jiaminghi/charts/lib/util/index';
-import { deepClone } from '@jiaminghi/c-render/lib/plugin/util';
+import { j as util_2, k as util_1 } from '../chunk-5dad6e83.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
-import '@jiaminghi/c-render';
-import '@jiaminghi/charts/lib/extend/index';
+import '../chunk-835a1fab.js';
+import '../chunk-0180a416.js';
 
 var css = ".style_dv-active-ring-chart__3JD_M {\n  position: relative;\n}\n.style_dv-active-ring-chart__3JD_M .style_active-ring-chart-container__2ZTWq {\n  width: 100%;\n  height: 100%;\n}\n.style_dv-active-ring-chart__3JD_M .style_active-ring-info__3c1XP {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0px;\n  top: 0px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.style_dv-active-ring-chart__3JD_M .style_active-ring-info__3c1XP .style_dv-digital-flop__3M4Kw {\n  width: 100px;\n  height: 30px;\n}\n.style_dv-active-ring-chart__3JD_M .style_active-ring-info__3c1XP .style_active-ring-name__ko6zF {\n  width: 100px;\n  height: 30px;\n  color: #fff;\n  text-align: center;\n  vertical-align: middle;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n";
 styleInject(css);
@@ -196,9 +195,9 @@ var ActiveRingChart = function ActiveRingChart(_ref) {
 
   useEffect(function () {
     // 第一次时初始化
-    chartRef.current || (chartRef.current = new Charts(domRef.current));
+    chartRef.current || (chartRef.current = new Chart(domRef.current));
 
-    var mergedConfig = deepMerge(deepClone(defaultConfig, true), config || {});
+    var mergedConfig = util_2(util_1(defaultConfig, true), config || {});
 
     chartRef.current.setOption(getRingOption(mergedConfig));
 

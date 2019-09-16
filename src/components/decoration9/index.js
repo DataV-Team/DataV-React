@@ -1,6 +1,8 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useMemo } from 'react'
 
 import PropTypes from 'prop-types'
+
+import classnames from 'classnames'
 
 import useAutoResize from '../../use/autoResize'
 
@@ -8,7 +10,7 @@ import './style.less'
 
 const svgWH = [100, 100]
 
-const Decoration = ({ children }) => {
+const Decoration = ({ children, className, style }) => {
   const { width, height, domRef } = useAutoResize(calcScale, calcScale)
 
   const [svgScale, setSvgScale] = useState([1, 1])
@@ -21,12 +23,17 @@ const Decoration = ({ children }) => {
     setSvgScale([width / w, height / h])
   }
 
+  const classNames = useMemo(
+    () => classnames('dv-decoration-9', className),
+    className
+  )
+
   return (
-    <div className='dv-decoration-9' ref={domRef}>
+    <div className={classNames} style={style} ref={domRef}>
       <svg
         width={`${svgWH[0]}px`}
         height={`${svgWH[1]}px`}
-        style={`transform:scale(${svgScale[0]},${svgScale[1]});`}
+        style={{ transform: `scale(${svgScale[0]},${svgScale[1]})` }}
       >
         <defs>
           <polygon
@@ -117,7 +124,9 @@ const Decoration = ({ children }) => {
 }
 
 Decoration.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  className: PropTypes.string,
+  style: PropTypes.object
 }
 
 export default Decoration

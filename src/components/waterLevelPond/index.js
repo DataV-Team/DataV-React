@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState, useMemo } from 'react'
 
 import PropTypes from 'prop-types'
 
+import classnames from 'classnames'
+
 import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
 import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
@@ -76,7 +78,7 @@ function mergeOffset([x, y], [ox, oy]) {
   return [x + ox, y + oy]
 }
 
-const WaterLevelPond = ({ config }) => {
+const WaterLevelPond = ({ config, className, style }) => {
   const [{ mergedConfig, svgBorderGradient, details }, setState] = useState({
     mergedConfig: {},
 
@@ -256,8 +258,13 @@ const WaterLevelPond = ({ config }) => {
     setTimeout(calcData, 0)
   }, [config])
 
+  const classNames = useMemo(
+    () => classnames('dv-water-pond-level', className),
+    className
+  )
+
   return (
-    <div className='dv-water-pond-level'>
+    <div className={classNames} style={style}>
       {!!renderer && (
         <svg>
           <defs>
@@ -299,13 +306,15 @@ const WaterLevelPond = ({ config }) => {
         </svg>
       )}
 
-      <canvas ref={domRef} style={`border-radius: ${radius};`} />
+      <canvas ref={domRef} style={{ borderRadius: `${radius}` }} />
     </div>
   )
 }
 
 WaterLevelPond.propTypes = {
-  config: PropTypes.object
+  config: PropTypes.object,
+  className: PropTypes.string,
+  style: PropTypes.object
 }
 
 // 指定 props 的默认值：

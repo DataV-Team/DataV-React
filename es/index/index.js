@@ -35,12 +35,10 @@ import 'react';
 import 'prop-types';
 import '../chunk-45917cce.js';
 import '../chunk-0e3b7ae4.js';
-import '@jiaminghi/charts/lib/util';
-import '@jiaminghi/charts';
-import '@jiaminghi/charts/lib/util/index';
-import '@jiaminghi/c-render/lib/plugin/util';
-import '@jiaminghi/c-render';
-import '@jiaminghi/charts/lib/extend/index';
+import '../chunk-5dad6e83.js';
+import '../chunk-bf664eb8.js';
+import '../chunk-835a1fab.js';
+import '../chunk-0180a416.js';
 
 /**
  * IMPORT COMPONENTS

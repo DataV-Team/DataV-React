@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect, useMemo } from 'react'
 
 import PropTypes from 'prop-types'
 
+import classnames from 'classnames'
+
 import Charts from '@jiaminghi/charts'
 
 import DvDigitalFlop from '../digitalFlop'
@@ -74,7 +76,7 @@ const defaultConfig = {
   animationFrame: 50
 }
 
-const ActiveRingChart = ({ config = {} }) => {
+const ActiveRingChart = ({ config = {}, className, style }) => {
   const [{ activeIndex, mergedConfig }, setState] = useState({
     activeIndex: 0,
     mergedConfig: null
@@ -106,8 +108,8 @@ const ActiveRingChart = ({ config = {} }) => {
   const fontSize = useMemo(
     () =>
       !mergedConfig
-        ? ''
-        : `font-size: ${mergedConfig.digitalFlopStyle.fontSize}px;`,
+        ? {}
+        : { fontSize: `${mergedConfig.digitalFlopStyle.fontSize}px` },
     [mergedConfig]
   )
 
@@ -191,8 +193,13 @@ const ActiveRingChart = ({ config = {} }) => {
 
   useEffect(ringAnimation, [activeIndex, mergedConfig])
 
+  const classNames = useMemo(
+    () => classnames('dv-active-ring-chart', className),
+    className
+  )
+
   return (
-    <div className='dv-active-ring-chart'>
+    <div className={classNames} style={style}>
       <div className='active-ring-chart-container' ref={domRef} />
       <div className='active-ring-info'>
         <DvDigitalFlop config={digitalFlop} />
@@ -205,7 +212,9 @@ const ActiveRingChart = ({ config = {} }) => {
 }
 
 ActiveRingChart.propTypes = {
-  config: PropTypes.object
+  config: PropTypes.object,
+  className: PropTypes.string,
+  style: PropTypes.object
 }
 
 // 指定 props 的默认值：

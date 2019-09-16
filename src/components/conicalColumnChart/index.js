@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 
 import PropTypes from 'prop-types'
+
+import classnames from 'classnames'
 
 import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
@@ -76,7 +78,7 @@ function getData(mergedConfig) {
   return data
 }
 
-const ConicalColumnChart = ({ config = {} }) => {
+const ConicalColumnChart = ({ config = {}, className, style }) => {
   const { width, height, domRef } = useAutoResize(calcData, calcData)
 
   const [{ mergedConfig, column }, setState] = useState({
@@ -85,7 +87,7 @@ const ConicalColumnChart = ({ config = {} }) => {
     column: []
   })
 
-  function calcData () {
+  function calcData() {
     const mergedConfig = deepMerge(deepClone(defaultConfig, true), config || {})
 
     mergedConfig.data = getData(mergedConfig)
@@ -135,14 +137,19 @@ const ConicalColumnChart = ({ config = {} }) => {
 
   useEffect(calcData, [config])
 
+  const classNames = useMemo(
+    () => classnames('dv-conical-column-chart', className),
+    className
+  )
+
   return (
-    <div className='dv-conical-column-chart' ref={domRef}>
+    <div className={classNames} style={style} ref={domRef}>
       <svg width={width} height={height}>
         {column.map((item, i) => (
           <g key={i}>
             <path d={item.d} fill={mergedConfig.columnColor} />
             <text
-              style={`fontSize:${mergedConfig.fontSize}px`}
+              style={{ fontSize: `${mergedConfig.fontSize}px` }}
               fill={mergedConfig.textColor}
               x={item.x}
               y={height - 4}
@@ -160,7 +167,7 @@ const ConicalColumnChart = ({ config = {} }) => {
             )}
             {mergedConfig.showValue && (
               <text
-                style={`fontSize:${mergedConfig.fontSize}px`}
+                style={{ fontSize: `${mergedConfig.fontSize}px` }}
                 fill={mergedConfig.textColor}
                 x={item.x}
                 y={item.textY}
@@ -176,7 +183,9 @@ const ConicalColumnChart = ({ config = {} }) => {
 }
 
 ConicalColumnChart.propTypes = {
-  config: PropTypes.object
+  config: PropTypes.object,
+  className: PropTypes.string,
+  style: PropTypes.object
 }
 
 // 指定 props 的默认值：

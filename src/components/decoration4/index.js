@@ -1,22 +1,29 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import PropTypes from 'prop-types'
+
+import classnames from 'classnames'
 
 import useAutoResize from '../../use/autoResize'
 
 import './style.less'
 
-const Decoration = ({ reverse = false }) => {
+const Decoration = ({ reverse = false, className, style }) => {
   const { width, height, domRef } = useAutoResize()
 
+  const classNames = useMemo(
+    () => classnames('dv-decoration-4', className),
+    className
+  )
+
   return (
-    <div className='dv-decoration-4' ref={domRef}>
+    <div className={classNames} style={style} ref={domRef}>
       <div
         className={`container ${reverse ? 'reverse' : 'normal'}`}
         style={
           reverse
-            ? `width:${width}px;height:5px`
-            : `width:5px;height:${height}px;`
+            ? { width: `${width}px`, height: `5px` }
+            : { width: `5px`, height: `${height}px` }
         }
       >
         <svg width={reverse ? width : 5} height={reverse ? 5 : height}>
@@ -39,7 +46,9 @@ const Decoration = ({ reverse = false }) => {
 }
 
 Decoration.propTypes = {
-  reverse: PropTypes.bool
+  reverse: PropTypes.bool,
+  className: PropTypes.string,
+  style: PropTypes.object
 }
 
 // 指定 props 的默认值：

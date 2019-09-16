@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 
 import PropTypes from 'prop-types'
+
+import classnames from 'classnames'
 
 import useAutoResize from '../../use/autoResize'
 
 import './style.less'
 
-const Decoration = ({ reverse = false }) => {
+const Decoration = ({ reverse = false, className, style }) => {
   const { width, height, domRef } = useAutoResize(calcSVGData, calcSVGData)
 
   const [{ x, y, w, h }, setState] = useState({ x: 0, y: 0, w: 0, h: 0 })
@@ -21,8 +23,13 @@ const Decoration = ({ reverse = false }) => {
 
   useEffect(calcSVGData, [reverse])
 
+  const classNames = useMemo(
+    () => classnames('dv-decoration-2', className),
+    className
+  )
+
   return (
-    <div className='dv-decoration-2' ref={domRef}>
+    <div className={classNames} style={style} ref={domRef}>
       <svg width={`${width}px`} height={`${height}px`}>
         <rect x={x} y={y} width={w} height={h} fill='#3faacb'>
           <animate
@@ -55,7 +62,9 @@ const Decoration = ({ reverse = false }) => {
 }
 
 Decoration.propTypes = {
-  reverse: PropTypes.bool
+  reverse: PropTypes.bool,
+  className: PropTypes.string,
+  style: PropTypes.object
 }
 
 // 指定 props 的默认值：

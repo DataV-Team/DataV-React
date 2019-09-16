@@ -1,8 +1,7 @@
 import { a as styleInject } from '../chunk-80bd9449.js';
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { deepMerge } from '@jiaminghi/charts/lib/util/index';
-import { deepClone } from '@jiaminghi/c-render/lib/plugin/util';
+import { j as util_2, k as util_1 } from '../chunk-5dad6e83.js';
 import { a as useAutoResize, b as randomExtend, c as getPointDistance } from '../chunk-45917cce.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
@@ -281,7 +280,7 @@ var FlyLineChart = function FlyLineChart(_ref6) {
   }
 
   function getMergedConfig() {
-    var mergedConfig = deepMerge(deepClone(defaultConfig, true), config || {});
+    var mergedConfig = util_2(util_1(defaultConfig, true), config || {});
 
     mergedConfig.points = mergedConfig.points.map(function (item) {
       if (Array.isArray(item)) {

@@ -1,14 +1,21 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import PropTypes from 'prop-types'
+
+import classnames from 'classnames'
 
 import './style.less'
 
 const border = ['left-top', 'right-top', 'left-bottom', 'right-bottom']
 
-const BorderBox = ({ children }) => {
+const BorderBox = ({ children, className, style }) => {
+  const classNames = useMemo(
+    () => classnames('dv-border-box-1', className),
+    className
+  )
+
   return (
-    <div className='dv-border-box-1'>
+    <div className={classNames} style={style}>
       {border.map(borderName => (
         <svg
           width='150px'
@@ -60,7 +67,9 @@ const BorderBox = ({ children }) => {
 }
 
 BorderBox.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  className: PropTypes.string,
+  style: PropTypes.object
 }
 
 export default BorderBox

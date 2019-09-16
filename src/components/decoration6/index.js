@@ -1,4 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
+
+import PropTypes from 'prop-types'
+
+import classnames from 'classnames'
 
 import useAutoResize from '../../use/autoResize'
 
@@ -53,7 +57,7 @@ function getData() {
   return { heights, minHeights, randoms }
 }
 
-export default () => {
+const Decoration = ({ className, style }) => {
   const { width, height, domRef } = useAutoResize(calcSVGData, calcSVGData)
 
   const [
@@ -75,12 +79,17 @@ export default () => {
     })
   }
 
+  const classNames = useMemo(
+    () => classnames('dv-decoration-6', className),
+    className
+  )
+
   return (
-    <div className='dv-decoration-6' ref={domRef}>
+    <div className={classNames} style={style} ref={domRef}>
       <svg
         width={`${svgWH[0]}px`}
         height={`${svgWH[1]}px`}
-        style={`transform:scale(${svgScale[0]},${svgScale[1]});`}
+        style={{ transform: `scale(${svgScale[0]},${svgScale[1]})` }}
       >
         {points.map((point, i) => (
           <rect
@@ -118,3 +127,10 @@ export default () => {
     </div>
   )
 }
+
+Decoration.propTypes = {
+  className: PropTypes.string,
+  style: PropTypes.object
+}
+
+export default Decoration

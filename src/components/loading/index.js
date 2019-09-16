@@ -1,12 +1,19 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import PropTypes from 'prop-types'
 
+import classnames from 'classnames'
+
 import './style.less'
 
-const Loading = ({ children }) => {
+const Loading = ({ children, className, style }) => {
+  const classNames = useMemo(
+    () => classnames('dv-loading', className),
+    className
+  )
+
   return (
-    <div className='dv-loading'>
+    <div className={classNames} style={style}>
       <svg width='50px' height='50px'>
         <circle
           cx='25'
@@ -64,7 +71,9 @@ const Loading = ({ children }) => {
 }
 
 Loading.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  className: PropTypes.string,
+  style: PropTypes.object
 }
 
 export default Loading

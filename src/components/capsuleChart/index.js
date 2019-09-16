@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 
 import PropTypes from 'prop-types'
+
+import classnames from 'classnames'
 
 import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
@@ -37,7 +39,7 @@ const defaultConfig = {
   unit: ''
 }
 
-const CapsuleChart = ({ config = {} }) => {
+const CapsuleChart = ({ config = {}, className, style }) => {
   const [{ mergedConfig, labelData, capsuleLength }, setState] = useState({
     mergedConfig: null,
     labelData: [],
@@ -64,8 +66,13 @@ const CapsuleChart = ({ config = {} }) => {
     })
   }, [config])
 
+  const classNames = useMemo(
+    () => classnames('dv-capsule-chart', className),
+    className
+  )
+
   return (
-    <div className='dv-capsule-chart'>
+    <div className={classNames} style={style}>
       {!!mergedConfig && (
         <React.Fragment>
           <div className='label-column'>
@@ -79,9 +86,12 @@ const CapsuleChart = ({ config = {} }) => {
             {capsuleLength.map((capsule, index) => (
               <div className='capsule-item' key={index}>
                 <div
-                  style={`width: ${capsule * 100}%; background-color: ${
-                    mergedConfig.colors[index % mergedConfig.colors.length]
-                  };`}
+                  style={{
+                    width: `${capsule * 100}%`,
+                    backgroundColor: `${
+                      mergedConfig.colors[index % mergedConfig.colors.length]
+                    }`
+                  }}
                 />
               </div>
             ))}
@@ -102,7 +112,9 @@ const CapsuleChart = ({ config = {} }) => {
 }
 
 CapsuleChart.propTypes = {
-  config: PropTypes.object
+  config: PropTypes.object,
+  className: PropTypes.string,
+  style: PropTypes.object
 }
 
 // 指定 props 的默认值：

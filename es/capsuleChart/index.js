@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { deepMerge } from '@jiaminghi/charts/lib/util/index';
-import { deepClone } from '@jiaminghi/c-render/lib/plugin/util';
+import { j as util_2, k as util_1 } from '../chunk-5dad6e83.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
 var defaultConfig = {
@@ -44,7 +43,7 @@ var CapsuleChart = function CapsuleChart(_ref) {
       setState = _useState2[1];
 
   useEffect(function () {
-    var mergedConfig = deepMerge(deepClone(defaultConfig, true), config || {});
+    var mergedConfig = util_2(util_1(defaultConfig, true), config || {});
 
     var data = mergedConfig.data;
 

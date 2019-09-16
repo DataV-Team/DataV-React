@@ -1,4 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
+
+import PropTypes from 'prop-types'
+
+import classnames from 'classnames'
 
 import { getPolylineLength } from '@jiaminghi/charts/lib/util'
 
@@ -6,7 +10,7 @@ import useAutoResize from '../../use/autoResize'
 
 import './style.less'
 
-export default () => {
+const Decoration = ({ className, style }) => {
   const { width, height, domRef } = useAutoResize(calcSVGData, calcSVGData)
 
   const [
@@ -44,8 +48,13 @@ export default () => {
     setState({ line1Points, line2Points, line1Length, line2Length })
   }
 
+  const classNames = useMemo(
+    () => classnames('dv-decoration-5', className),
+    className
+  )
+
   return (
-    <div className='dv-decoration-5' ref={domRef}>
+    <div className={classNames} style={style} ref={domRef}>
       <svg width={width} height={height}>
         <polyline
           fill='transparent'
@@ -89,3 +98,10 @@ export default () => {
     </div>
   )
 }
+
+Decoration.propTypes = {
+  className: PropTypes.string,
+  style: PropTypes.object
+}
+
+export default Decoration

@@ -1,6 +1,8 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react'
+import React, { useEffect, useState, useRef, useCallback, useMemo } from 'react'
 
 import PropTypes from 'prop-types'
+
+import classnames from 'classnames'
 
 import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
@@ -206,7 +208,7 @@ function getControlPoint([sx, sy], [ex, ey], { curvature, k }) {
   return [dx, dy]
 }
 
-const FlyLineChart = ({ config = {}, dev = false }) => {
+const FlyLineChart = ({ config = {}, dev = false, className, style }) => {
   const { width, height, domRef } = useAutoResize(calcData, calcData)
 
   const { unique, gradientId, gradient2Id } = useRef({
@@ -289,13 +291,19 @@ const FlyLineChart = ({ config = {}, dev = false }) => {
 
   useEffect(calcData, [config])
 
+  const classNames = useMemo(
+    () => classnames('dv-flyline-chart', className),
+    className
+  )
+
   return (
     <div
-      className='dv-flyline-chart'
+      className={classNames}
       ref={domRef}
-      style={`background-image: url(${
-        mergedConfig ? mergedConfig.bgImgUrl : ''
-      })`}
+      style={{
+        backgroundImage: `url(${mergedConfig ? mergedConfig.bgImgUrl : ''})`,
+        ...style
+      }}
       onClick={consoleClickPos}
     >
       {!!mergedConfig && (
@@ -419,7 +427,7 @@ const FlyLineChart = ({ config = {}, dev = false }) => {
               />
 
               <text
-                style={`fontSize:${mergedConfig.text.fontSize}px;`}
+                style={{ fontSize: `${mergedConfig.text.fontSize}px` }}
                 fill={mergedConfig.text.color}
                 x={path[0][0] + mergedConfig.text.offset[0]}
                 y={path[0][1] + mergedConfig.text.offset[1]}
@@ -436,7 +444,9 @@ const FlyLineChart = ({ config = {}, dev = false }) => {
 
 FlyLineChart.propTypes = {
   config: PropTypes.object,
-  dev: PropTypes.bool
+  dev: PropTypes.bool,
+  className: PropTypes.string,
+  style: PropTypes.object
 }
 
 // 指定 props 的默认值：

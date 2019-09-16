@@ -1,9 +1,8 @@
 import { a as styleInject } from '../chunk-80bd9449.js';
 import React, { useEffect, useRef, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { deepMerge } from '@jiaminghi/charts/lib/util/index';
-import { deepClone } from '@jiaminghi/c-render/lib/plugin/util';
-import CRender from '@jiaminghi/c-render';
+import { j as util_2, k as util_1 } from '../chunk-5dad6e83.js';
+import { f as CRender } from '../chunk-0180a416.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
 var css = ".style_dv-water-pond-level__2t6WR {\n  position: relative;\n}\n.style_dv-water-pond-level__2t6WR svg {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  top: 0px;\n  left: 0px;\n}\n.style_dv-water-pond-level__2t6WR text {\n  font-size: 25px;\n  font-weight: bold;\n  text-anchor: middle;\n  dominant-baseline: middle;\n}\n.style_dv-water-pond-level__2t6WR ellipse,\n.style_dv-water-pond-level__2t6WR rect {\n  fill: none;\n  stroke-width: 3;\n}\n.style_dv-water-pond-level__2t6WR canvas {\n  margin-top: 8px;\n  margin-left: 8px;\n  width: calc(100% - 16px);\n  height: calc(100% - 16px);\n  box-sizing: border-box;\n}\n";
@@ -209,7 +208,7 @@ var WaterLevelPond = function WaterLevelPond(_ref7) {
   }
 
   function calcData() {
-    var mergedConfig = deepMerge(deepClone(defaultConfig, true), config);
+    var mergedConfig = util_2(util_1(defaultConfig, true), config);
 
     var svgBorderGradient = calcSvgBorderGradient(mergedConfig);
 

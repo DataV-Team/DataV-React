@@ -21,6 +21,9 @@
     "predeploy": "cd example && yarn install && yarn run build",
     "deploy": "gh-pages -d example/build"
   },
+  "dependencies": {
+    "@jiaminghi/charts": "*"
+  },
   "peerDependencies": {
     "prop-types": "^15.7.2",
     "react": "^16.8.3",

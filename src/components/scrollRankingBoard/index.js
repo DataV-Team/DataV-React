@@ -1,6 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useMemo } from 'react'
 
 import PropTypes from 'prop-types'
+
+import classnames from 'classnames'
 
 import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
@@ -73,7 +75,7 @@ function calcRowsData({ data, rowNum }) {
   return data
 }
 
-const ScrollRankingBoard = ({ config }) => {
+const ScrollRankingBoard = ({ config, className, style }) => {
   const { height, domRef } = useAutoResize(calcData, onResize)
 
   const [state, setState] = useState({
@@ -185,13 +187,18 @@ const ScrollRankingBoard = ({ config }) => {
     return () => clearTimeout(timerRef.current)
   }, [config])
 
+  const classNames = useMemo(
+    () => classnames('dv-scroll-ranking-board', className),
+    className
+  )
+
   return (
-    <div className='dv-scroll-ranking-board' ref={domRef}>
+    <div className={classNames} style={style} ref={domRef}>
       {rows.map((item, i) => (
         <div
           className='row-item'
           key={item.toString() + item.scroll}
-          style={`height: ${heights[i]}px;`}
+          style={{ height: `${heights[i]}px` }}
         >
           <div className='ranking-info'>
             <div className='rank'>No.{item.ranking}</div>
@@ -202,7 +209,10 @@ const ScrollRankingBoard = ({ config }) => {
           </div>
 
           <div className='ranking-column'>
-            <div className='inside-column' style={`width: ${item.percent}%;`}>
+            <div
+              className='inside-column'
+              style={{ width: `${item.percent}%` }}
+            >
               <div className='shine' />
             </div>
           </div>
@@ -213,7 +223,9 @@ const ScrollRankingBoard = ({ config }) => {
 }
 
 ScrollRankingBoard.propTypes = {
-  config: PropTypes.object
+  config: PropTypes.object,
+  className: PropTypes.string,
+  style: PropTypes.object
 }
 
 // 指定 props 的默认值：

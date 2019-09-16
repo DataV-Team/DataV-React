@@ -1,12 +1,19 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import PropTypes from 'prop-types'
 
+import classnames from 'classnames'
+
 import './style.less'
 
-const Decoration = ({ children }) => {
+const Decoration = ({ children, className, style }) => {
+  const classNames = useMemo(
+    () => classnames('dv-decoration-7', className),
+    className
+  )
+
   return (
-    <div className='dv-decoration-7'>
+    <div className={classNames} style={style}>
       <svg width='21px' height='20px'>
         <polyline
           strokeWidth='4'
@@ -41,7 +48,9 @@ const Decoration = ({ children }) => {
 }
 
 Decoration.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  className: PropTypes.string,
+  style: PropTypes.object
 }
 
 export default Decoration

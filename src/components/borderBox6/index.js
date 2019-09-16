@@ -1,16 +1,23 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import PropTypes from 'prop-types'
+
+import classnames from 'classnames'
 
 import useAutoResize from '../../use/autoResize'
 
 import './style.less'
 
-const BorderBox = ({ children }) => {
+const BorderBox = ({ children, className, style }) => {
   const { width, height, domRef } = useAutoResize()
 
+  const classNames = useMemo(
+    () => classnames('dv-border-box-6', className),
+    className
+  )
+
   return (
-    <div className='dv-border-box-6' ref={domRef}>
+    <div className={classNames} style={style} ref={domRef}>
       <svg className='dv-svg-container' width={width} height={height}>
         <circle cx='5' cy='5' r='2' />
         <circle cx={width - 5} cy='5' r='2' />
@@ -40,7 +47,9 @@ const BorderBox = ({ children }) => {
 }
 
 BorderBox.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  className: PropTypes.string,
+  style: PropTypes.object
 }
 
 export default BorderBox

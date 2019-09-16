@@ -1,6 +1,8 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useMemo } from 'react'
 
 import PropTypes from 'prop-types'
+
+import classnames from 'classnames'
 
 import Chart from '@jiaminghi/charts'
 
@@ -8,7 +10,7 @@ import useAutoResize from '../../use/autoResize'
 
 import './style.less'
 
-const Charts = ({ option = {} }) => {
+const Charts = ({ option = {}, className, style }) => {
   const { domRef } = useAutoResize(initChart, onResize)
 
   const chartRef = useRef(null)
@@ -42,15 +44,22 @@ const Charts = ({ option = {} }) => {
     chart.setOption(newOption)
   }, [option])
 
+  const classNames = useMemo(
+    () => classnames('dv-charts-container', className),
+    className
+  )
+
   return (
-    <div className='dv-charts-container' ref={domRef}>
+    <div className={classNames} style={style} ref={domRef}>
       <div className='charts-canvas-container' ref={chartRef} />
     </div>
   )
 }
 
 Charts.propTypes = {
-  option: PropTypes.object
+  option: PropTypes.object,
+  className: PropTypes.string,
+  style: PropTypes.object
 }
 
 // 指定 props 的默认值：

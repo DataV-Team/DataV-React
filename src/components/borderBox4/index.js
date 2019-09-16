@@ -1,16 +1,23 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 
 import PropTypes from 'prop-types'
+
+import classnames from 'classnames'
 
 import useAutoResize from '../../use/autoResize'
 
 import './style.less'
 
-const BorderBox = ({ children, reverse = false }) => {
+const BorderBox = ({ children, reverse = false, className, style }) => {
   const { width, height, domRef } = useAutoResize()
 
+  const classNames = useMemo(
+    () => classnames('dv-border-box-4', className),
+    className
+  )
+
   return (
-    <div className='dv-border-box-4' ref={domRef}>
+    <div className={classNames} style={style} ref={domRef}>
       <svg
         className={`dv-border-svg-container ${reverse && 'dv-reverse'}`}
         width={width}
@@ -55,7 +62,9 @@ const BorderBox = ({ children, reverse = false }) => {
 
 BorderBox.propTypes = {
   children: PropTypes.node,
-  reverse: PropTypes.bool
+  reverse: PropTypes.bool,
+  className: PropTypes.string,
+  style: PropTypes.object
 }
 
 // 指定 props 的默认值：

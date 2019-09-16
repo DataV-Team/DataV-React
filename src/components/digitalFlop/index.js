@@ -1,6 +1,8 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useMemo } from 'react'
 
 import PropTypes from 'prop-types'
+
+import classnames from 'classnames'
 
 import CRender from '@jiaminghi/c-render'
 
@@ -62,7 +64,7 @@ const defaultConfig = {
   animationFrame: 50
 }
 
-const DigitalFlop = ({ config = {} }) => {
+const DigitalFlop = ({ config = {}, className, style }) => {
   const domRef = useRef(null)
   const rendererRef = useRef(null)
   const graphRef = useRef(null)
@@ -144,15 +146,22 @@ const DigitalFlop = ({ config = {} }) => {
     }
   }, [config])
 
+  const classNames = useMemo(
+    () => classnames('dv-digital-flop', className),
+    className
+  )
+
   return (
-    <div className='dv-digital-flop'>
+    <div className={classNames} style={style}>
       <canvas ref={domRef} />
     </div>
   )
 }
 
 DigitalFlop.propTypes = {
-  config: PropTypes.object
+  config: PropTypes.object,
+  className: PropTypes.string,
+  style: PropTypes.object
 }
 
 // 指定 props 的默认值：

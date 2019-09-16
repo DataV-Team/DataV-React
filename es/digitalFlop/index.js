@@ -1,10 +1,9 @@
 import { a as styleInject } from '../chunk-80bd9449.js';
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import CRender from '@jiaminghi/c-render';
-import '@jiaminghi/charts/lib/extend/index';
-import { deepMerge } from '@jiaminghi/charts/lib/util/index';
-import { deepClone } from '@jiaminghi/c-render/lib/plugin/util';
+import { f as CRender } from '../chunk-0180a416.js';
+import '../chunk-835a1fab.js';
+import { j as util_2, k as util_1 } from '../chunk-5dad6e83.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
 var css = ".style_dv-digital-flop__3tU40 canvas {\n  width: 100%;\n  height: 100%;\n}\n";
@@ -81,7 +80,7 @@ var DigitalFlop = function DigitalFlop(_ref) {
   }
 
   var getMergedConfig = function getMergedConfig() {
-    return deepMerge(deepClone(defaultConfig, true), config || {});
+    return util_2(util_1(defaultConfig, true), config || {});
   };
 
   function getGraph() {
@@ -124,7 +123,7 @@ var DigitalFlop = function DigitalFlop(_ref) {
         textAlign = _mergedConfigRef$curr3.textAlign;
 
 
-    return deepMerge(style, {
+    return util_2(style, {
       textAlign: textAlign,
       textBaseline: 'middle'
     });

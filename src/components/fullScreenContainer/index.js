@@ -6,7 +6,7 @@ import useAutoResize from '../../use/autoResize'
 
 import './style.less'
 
-const FullScreenContainer = ({ children }) => {
+const FullScreenContainer = ({ children, className, style }) => {
   const { domRef } = useAutoResize(afterAutoResizeMixinInit, () =>
     setAppScale(allWidth)
   )
@@ -34,14 +34,21 @@ const FullScreenContainer = ({ children }) => {
       allWidth})`)
 
   return (
-    <div id='dv-full-screen-container' ref={domRef}>
+    <div
+      id='dv-full-screen-container'
+      className={className}
+      style={style}
+      ref={domRef}
+    >
       {ready && children}
     </div>
   )
 }
 
 FullScreenContainer.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  className: PropTypes.string,
+  style: PropTypes.object
 }
 
 export default FullScreenContainer

@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef, useMemo } from 'react'
 
 import PropTypes from 'prop-types'
 
+import classnames from 'classnames'
+
 import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
 import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
@@ -67,7 +69,7 @@ const defaultConfig = {
   formatter: '{value}%'
 }
 
-const PercentPond = ({ config = {} }) => {
+const PercentPond = ({ config = {}, className, style }) => {
   const domRef = useRef(null)
 
   const { gradientId1, gradientId2 } = useRef({
@@ -176,8 +178,13 @@ const PercentPond = ({ config = {} }) => {
 
   useEffect(update, [config])
 
+  const classNames = useMemo(
+    () => classnames('dv-percent-pond', className),
+    className
+  )
+
   return (
-    <div className='dv-percent-pond' ref={domRef}>
+    <div className={classNames} style={style} ref={domRef}>
       <svg>
         <defs>
           <linearGradient id={gradientId1} x1='0%' y1='0%' x2='100%' y2='0%'>
@@ -211,9 +218,7 @@ const PercentPond = ({ config = {} }) => {
         />
         <polyline
           strokeWidth={polylineWidth}
-          strokeDasharray={
-            mergedConfig ? mergedConfig.lineDash.join(',') : '0'
-          }
+          strokeDasharray={mergedConfig ? mergedConfig.lineDash.join(',') : '0'}
           stroke={`url(#${polylineGradient})`}
           points={points}
         />
@@ -231,7 +236,9 @@ const PercentPond = ({ config = {} }) => {
 }
 
 PercentPond.propTypes = {
-  config: PropTypes.object
+  config: PropTypes.object,
+  className: PropTypes.string,
+  style: PropTypes.object
 }
 
 // 指定 props 的默认值：

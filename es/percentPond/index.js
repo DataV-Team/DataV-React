@@ -1,8 +1,7 @@
 import { a as styleInject } from '../chunk-80bd9449.js';
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { deepMerge } from '@jiaminghi/charts/lib/util/index';
-import { deepClone } from '@jiaminghi/c-render/lib/plugin/util';
+import { j as util_2, k as util_1 } from '../chunk-5dad6e83.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
 var css = ".style_dv-percent-pond__1RSUY {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n}\n.style_dv-percent-pond__1RSUY svg {\n  position: absolute;\n  left: 0px;\n  top: 0px;\n  width: 100%;\n  height: 100%;\n}\n.style_dv-percent-pond__1RSUY polyline {\n  transition: all 0.3s;\n}\n.style_dv-percent-pond__1RSUY text {\n  font-size: 25px;\n  font-weight: bold;\n  text-anchor: middle;\n  dominant-baseline: middle;\n}\n";
@@ -195,7 +194,7 @@ var PercentPond = function PercentPond(_ref) {
     setState({
       width: width,
       height: height,
-      mergedConfig: deepMerge(deepClone(defaultConfig, true), config || {})
+      mergedConfig: util_2(util_1(defaultConfig, true), config || {})
     });
   }
 

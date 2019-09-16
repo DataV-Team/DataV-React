@@ -1,6 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useMemo } from 'react'
 
 import PropTypes from 'prop-types'
+
+import classnames from 'classnames'
 
 import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
@@ -135,7 +137,7 @@ function calcAligns(mergedConfig, header) {
   return deepMerge(aligns, align)
 }
 
-const ScrollBoard = ({ onClick, config }) => {
+const ScrollBoard = ({ onClick, config, className, style }) => {
   const { width, height, domRef } = useAutoResize(calcData, onResize)
 
   const [state, setState] = useState({
@@ -303,22 +305,27 @@ const ScrollBoard = ({ onClick, config }) => {
     return () => clearTimeout(timerRef.current)
   }, [config])
 
+  const classNames = useMemo(
+    () => classnames('dv-scroll-board', className),
+    className
+  )
+
   return (
-    <div className='dv-scroll-board' ref={domRef}>
+    <div className={classNames} style={style} ref={domRef}>
       {!!header.length && !!mergedConfig && (
         <div
           className='header'
-          style={`background-color: ${mergedConfig.headerBGC};`}
+          style={{ backgroundColor: `${mergedConfig.headerBGC}` }}
         >
           {header.map((headerItem, i) => (
             <div
               className='header-item'
               key={headerItem + i}
-              style={`
-                    height: ${mergedConfig.headerHeight}px;
-                    line-height: ${mergedConfig.headerHeight}px;
-                    width: ${widths[i]}px;
-                  `}
+              style={{
+                height: `${mergedConfig.headerHeight}px`,
+                lineHeight: `${mergedConfig.headerHeight}px`,
+                width: `${widths[i]}px`
+              }}
               align={aligns[i]}
               dangerouslySetInnerHTML={{ __html: headerItem }}
             />
@@ -329,24 +336,26 @@ const ScrollBoard = ({ onClick, config }) => {
       {!!mergedConfig && (
         <div
           className='rows'
-          style={`height: ${height -
-            (header.length ? mergedConfig.headerHeight : 0)}px;`}
+          style={{
+            height: `${height -
+              (header.length ? mergedConfig.headerHeight : 0)}px`
+          }}
         >
           {rows.map((row, ri) => (
             <div
               className='row-item'
               key={row.toString() + row.scroll}
-              style={`
-                    height: ${heights[ri]}px;
-                    line-height: ${heights[ri]}px;
-                    background-color: ${getBackgroundColor(row.rowIndex)};
-                  `}
+              style={{
+                height: `${heights[ri]}px`,
+                lineHeight: `${heights[ri]}px`,
+                backgroundColor: `${getBackgroundColor(row.rowIndex)}`
+              }}
             >
               {row.ceils.map((ceil, ci) => (
                 <div
                   className='ceil'
                   key={ceil + ri + ci}
-                  style={`width: ${widths[ci]}px;`}
+                  style={{ width: `${widths[ci]}px` }}
                   align={aligns[ci]}
                   dangerouslySetInnerHTML={{ __html: ceil }}
                   onClick={() => emitEvent(ri, ci, row, ceil)}
@@ -362,7 +371,9 @@ const ScrollBoard = ({ onClick, config }) => {
 
 ScrollBoard.propTypes = {
   config: PropTypes.object,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  className: PropTypes.string,
+  style: PropTypes.object
 }
 
 // 指定 props 的默认值：
