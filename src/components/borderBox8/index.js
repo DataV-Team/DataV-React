@@ -23,10 +23,9 @@ const BorderBox = ({ children, className, style }) => {
 
   const length = useMemo(() => (width + height - 5) * 2, [width, height])
 
-  const classNames = useMemo(
-    () => classnames('dv-border-box-8', className),
+  const classNames = useMemo(() => classnames('dv-border-box-8', className), [
     className
-  )
+  ])
 
   return (
     <div className={classNames} style={style} ref={domRef}>

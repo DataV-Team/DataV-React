@@ -1,7 +1,8 @@
 import { a as styleInject } from '../chunk-80bd9449.js';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { j as util_2, k as util_1 } from '../chunk-5dad6e83.js';
+import { a as classnames } from '../chunk-84657507.js';
+import { h as util_2, i as util_1 } from '../chunk-41d81e09.js';
 import { a as useAutoResize } from '../chunk-45917cce.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
@@ -228,7 +229,9 @@ var ScrollBoard = function ScrollBoard(_ref3) {
   }();
 
   var onClick = _ref3.onClick,
-      config = _ref3.config;
+      config = _ref3.config,
+      className = _ref3.className,
+      style = _ref3.style;
 
   var _useAutoResize = useAutoResize(calcData, onResize),
       width = _useAutoResize.width,
@@ -369,20 +372,28 @@ var ScrollBoard = function ScrollBoard(_ref3) {
     };
   }, [config]);
 
+  var classNames = useMemo(function () {
+    return classnames('dv-scroll-board', className);
+  }, className);
+
   return React.createElement(
     'div',
-    { className: 'dv-scroll-board', ref: domRef },
+    { className: classNames, style: style, ref: domRef },
     !!header.length && !!mergedConfig && React.createElement(
       'div',
       {
         className: 'header',
-        style: 'background-color: ' + mergedConfig.headerBGC + ';'
+        style: { backgroundColor: '' + mergedConfig.headerBGC }
       },
       header.map(function (headerItem, i) {
         return React.createElement('div', {
           className: 'header-item',
           key: headerItem + i,
-          style: '\n                    height: ' + mergedConfig.headerHeight + 'px;\n                    line-height: ' + mergedConfig.headerHeight + 'px;\n                    width: ' + widths[i] + 'px;\n                  ',
+          style: {
+            height: mergedConfig.headerHeight + 'px',
+            lineHeight: mergedConfig.headerHeight + 'px',
+            width: widths[i] + 'px'
+          },
           align: aligns[i],
           dangerouslySetInnerHTML: { __html: headerItem }
         });
@@ -392,7 +403,9 @@ var ScrollBoard = function ScrollBoard(_ref3) {
       'div',
       {
         className: 'rows',
-        style: 'height: ' + (height - (header.length ? mergedConfig.headerHeight : 0)) + 'px;'
+        style: {
+          height: height - (header.length ? mergedConfig.headerHeight : 0) + 'px'
+        }
       },
       rows.map(function (row, ri) {
         return React.createElement(
@@ -400,13 +413,17 @@ var ScrollBoard = function ScrollBoard(_ref3) {
           {
             className: 'row-item',
             key: row.toString() + row.scroll,
-            style: '\n                    height: ' + heights[ri] + 'px;\n                    line-height: ' + heights[ri] + 'px;\n                    background-color: ' + getBackgroundColor(row.rowIndex) + ';\n                  '
+            style: {
+              height: heights[ri] + 'px',
+              lineHeight: heights[ri] + 'px',
+              backgroundColor: '' + getBackgroundColor(row.rowIndex)
+            }
           },
           row.ceils.map(function (ceil, ci) {
             return React.createElement('div', {
               className: 'ceil',
               key: ceil + ri + ci,
-              style: 'width: ' + widths[ci] + 'px;',
+              style: { width: widths[ci] + 'px' },
               align: aligns[ci],
               dangerouslySetInnerHTML: { __html: ceil },
               onClick: function onClick() {
@@ -422,7 +439,9 @@ var ScrollBoard = function ScrollBoard(_ref3) {
 
 ScrollBoard.propTypes = {
   config: PropTypes.object,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  className: PropTypes.string,
+  style: PropTypes.object
 
   // 指定 props 的默认值：
 };ScrollBoard.defaultProps = {

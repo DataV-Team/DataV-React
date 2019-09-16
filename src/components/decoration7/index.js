@@ -7,10 +7,9 @@ import classnames from 'classnames'
 import './style.less'
 
 const Decoration = ({ children, className, style }) => {
-  const classNames = useMemo(
-    () => classnames('dv-decoration-7', className),
+  const classNames = useMemo(() => classnames('dv-decoration-7', className), [
     className
-  )
+  ])
 
   return (
     <div className={classNames} style={style}>

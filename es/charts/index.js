@@ -1,11 +1,12 @@
 import { a as styleInject } from '../chunk-80bd9449.js';
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { a as Chart } from '../chunk-bf664eb8.js';
+import { a as classnames } from '../chunk-84657507.js';
+import { a as Chart } from '../chunk-93c11e7c.js';
 import { a as useAutoResize } from '../chunk-45917cce.js';
-import '../chunk-5dad6e83.js';
-import '../chunk-835a1fab.js';
-import '../chunk-0180a416.js';
+import '../chunk-41d81e09.js';
+import '../chunk-e9d8b894.js';
+import '../chunk-ea5efeaf.js';
 import '../chunk-0e3b7ae4.js';
 
 var css = ".style_dv-charts-container__3djB5 {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.style_dv-charts-container__3djB5 .style_charts-canvas-container__36Qhn {\n  width: 100%;\n  height: 100%;\n}\n";
@@ -13,7 +14,9 @@ styleInject(css);
 
 var Charts = function Charts(_ref) {
   var _ref$option = _ref.option,
-      option = _ref$option === undefined ? {} : _ref$option;
+      option = _ref$option === undefined ? {} : _ref$option,
+      className = _ref.className,
+      style = _ref.style;
 
   var _useAutoResize = useAutoResize(initChart, onResize),
       domRef = _useAutoResize.domRef;
@@ -49,15 +52,21 @@ var Charts = function Charts(_ref) {
     chart.setOption(newOption);
   }, [option]);
 
+  var classNames = useMemo(function () {
+    return classnames('dv-charts-container', className);
+  }, className);
+
   return React.createElement(
     'div',
-    { className: 'dv-charts-container', ref: domRef },
+    { className: classNames, style: style, ref: domRef },
     React.createElement('div', { className: 'charts-canvas-container', ref: chartRef })
   );
 };
 
 Charts.propTypes = {
-  option: PropTypes.object
+  option: PropTypes.object,
+  className: PropTypes.string,
+  style: PropTypes.object
 
   // 指定 props 的默认值：
 };Charts.defaultProps = {

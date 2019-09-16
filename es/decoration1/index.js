@@ -1,5 +1,7 @@
 import { a as styleInject } from '../chunk-80bd9449.js';
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { a as classnames } from '../chunk-84657507.js';
 import { a as useAutoResize } from '../chunk-45917cce.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
@@ -35,7 +37,10 @@ function getPoints() {
   }, []);
 }
 
-var index = (function () {
+var Decoration = function Decoration(_ref) {
+  var className = _ref.className,
+      style = _ref.style;
+
   var _useAutoResize = useAutoResize(calcSVGData, calcSVGData),
       width = _useAutoResize.width,
       height = _useAutoResize.height,
@@ -65,15 +70,19 @@ var index = (function () {
     });
   }
 
+  var classNames = useMemo(function () {
+    return classnames('dv-decoration-1', className);
+  }, className);
+
   return React.createElement(
     'div',
-    { className: 'dv-decoration-1', ref: domRef },
+    { className: classNames, style: style, ref: domRef },
     React.createElement(
       'svg',
       {
         width: svgWH[0] + 'px',
         height: svgWH[1] + 'px',
-        style: 'transform:scale(' + svgScale[0] + ',' + svgScale[1] + ');'
+        style: { transform: 'scale(' + svgScale[0] + ',' + svgScale[1] + ')' }
       },
       points.reduce(function (prev, point, i) {
         return Math.random() > 0.6 ? [].concat(toConsumableArray(prev), [React.createElement(
@@ -153,7 +162,12 @@ var index = (function () {
       )
     )
   );
-});
+};
 
-export default index;
+Decoration.propTypes = {
+  className: PropTypes.string,
+  style: PropTypes.object
+};
+
+export default Decoration;
 //# sourceMappingURL=index.js.map

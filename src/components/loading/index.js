@@ -7,10 +7,9 @@ import classnames from 'classnames'
 import './style.less'
 
 const Loading = ({ children, className, style }) => {
-  const classNames = useMemo(
-    () => classnames('dv-loading', className),
+  const classNames = useMemo(() => classnames('dv-loading', className), [
     className
-  )
+  ])
 
   return (
     <div className={classNames} style={style}>

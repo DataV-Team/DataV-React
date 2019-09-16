@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { j as util_2, k as util_1 } from '../chunk-5dad6e83.js';
+import { a as classnames } from '../chunk-84657507.js';
+import { h as util_2, i as util_1 } from '../chunk-41d81e09.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
 var defaultConfig = {
@@ -28,7 +29,9 @@ var defaultConfig = {
 
 var CapsuleChart = function CapsuleChart(_ref) {
   var _ref$config = _ref.config,
-      config = _ref$config === undefined ? {} : _ref$config;
+      config = _ref$config === undefined ? {} : _ref$config,
+      className = _ref.className,
+      style = _ref.style;
 
   var _useState = useState({
     mergedConfig: null,
@@ -70,9 +73,13 @@ var CapsuleChart = function CapsuleChart(_ref) {
     });
   }, [config]);
 
+  var classNames = useMemo(function () {
+    return classnames('dv-capsule-chart', className);
+  }, className);
+
   return React.createElement(
     'div',
-    { className: 'dv-capsule-chart' },
+    { className: classNames, style: style },
     !!mergedConfig && React.createElement(
       React.Fragment,
       null,
@@ -101,7 +108,10 @@ var CapsuleChart = function CapsuleChart(_ref) {
             'div',
             { className: 'capsule-item', key: index },
             React.createElement('div', {
-              style: 'width: ' + capsule * 100 + '%; background-color: ' + mergedConfig.colors[index % mergedConfig.colors.length] + ';'
+              style: {
+                width: capsule * 100 + '%',
+                backgroundColor: '' + mergedConfig.colors[index % mergedConfig.colors.length]
+              }
             })
           );
         }),
@@ -127,7 +137,9 @@ var CapsuleChart = function CapsuleChart(_ref) {
 };
 
 CapsuleChart.propTypes = {
-  config: PropTypes.object
+  config: PropTypes.object,
+  className: PropTypes.string,
+  style: PropTypes.object
 
   // 指定 props 的默认值：
 };CapsuleChart.defaultProps = {

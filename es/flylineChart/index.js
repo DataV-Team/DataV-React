@@ -1,7 +1,8 @@
 import { a as styleInject } from '../chunk-80bd9449.js';
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { j as util_2, k as util_1 } from '../chunk-5dad6e83.js';
+import { a as classnames } from '../chunk-84657507.js';
+import { h as util_2, i as util_1 } from '../chunk-41d81e09.js';
 import { a as useAutoResize, b as randomExtend, c as getPointDistance } from '../chunk-45917cce.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
@@ -220,7 +221,9 @@ var FlyLineChart = function FlyLineChart(_ref6) {
   var _ref6$config = _ref6.config,
       config = _ref6$config === undefined ? {} : _ref6$config,
       _ref6$dev = _ref6.dev,
-      dev = _ref6$dev === undefined ? false : _ref6$dev;
+      dev = _ref6$dev === undefined ? false : _ref6$dev,
+      className = _ref6.className,
+      style = _ref6.style;
 
   var _useAutoResize = useAutoResize(calcData, calcData),
       width = _useAutoResize.width,
@@ -334,12 +337,18 @@ var FlyLineChart = function FlyLineChart(_ref6) {
 
   useEffect(calcData, [config]);
 
+  var classNames = useMemo(function () {
+    return classnames('dv-flyline-chart', className);
+  }, className);
+
   return React.createElement(
     'div',
     {
-      className: 'dv-flyline-chart',
+      className: classNames,
       ref: domRef,
-      style: 'background-image: url(' + (mergedConfig ? mergedConfig.bgImgUrl : '') + ')',
+      style: _extends({
+        backgroundImage: 'url(' + (mergedConfig ? mergedConfig.bgImgUrl : '') + ')'
+      }, style),
       onClick: consoleClickPos
     },
     !!mergedConfig && React.createElement(
@@ -467,7 +476,7 @@ var FlyLineChart = function FlyLineChart(_ref6) {
           React.createElement(
             'text',
             {
-              style: 'fontSize:' + mergedConfig.text.fontSize + 'px;',
+              style: { fontSize: mergedConfig.text.fontSize + 'px' },
               fill: mergedConfig.text.color,
               x: path[0][0] + mergedConfig.text.offset[0],
               y: path[0][1] + mergedConfig.text.offset[1]
@@ -482,7 +491,9 @@ var FlyLineChart = function FlyLineChart(_ref6) {
 
 FlyLineChart.propTypes = {
   config: PropTypes.object,
-  dev: PropTypes.bool
+  dev: PropTypes.bool,
+  className: PropTypes.string,
+  style: PropTypes.object
 
   // 指定 props 的默认值：
 };FlyLineChart.defaultProps = {

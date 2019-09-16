@@ -24,7 +24,7 @@ const Decoration = ({ reverse = false, className, style }) => {
 
   const classNames = useMemo(
     () => classnames('dv-decoration-8', className),
-    className
+    [className]
   )
 
   return (

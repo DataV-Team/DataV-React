@@ -146,10 +146,9 @@ const DigitalFlop = ({ config = {}, className, style }) => {
     }
   }, [config])
 
-  const classNames = useMemo(
-    () => classnames('dv-digital-flop', className),
+  const classNames = useMemo(() => classnames('dv-digital-flop', className), [
     className
-  )
+  ])
 
   return (
     <div className={classNames} style={style}>

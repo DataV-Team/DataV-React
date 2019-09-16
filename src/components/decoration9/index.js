@@ -23,10 +23,9 @@ const Decoration = ({ children, className, style }) => {
     setSvgScale([width / w, height / h])
   }
 
-  const classNames = useMemo(
-    () => classnames('dv-decoration-9', className),
+  const classNames = useMemo(() => classnames('dv-decoration-9', className), [
     className
-  )
+  ])
 
   return (
     <div className={classNames} style={style} ref={domRef}>

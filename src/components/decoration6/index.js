@@ -79,10 +79,9 @@ const Decoration = ({ className, style }) => {
     })
   }
 
-  const classNames = useMemo(
-    () => classnames('dv-decoration-6', className),
-    className
-  )
+  const classNames = useMemo(() => classnames('dv-decoration-6', className), [
+    [className]
+  ])
 
   return (
     <div className={classNames} style={style} ref={domRef}>

@@ -1,7 +1,8 @@
 import { a as styleInject } from '../chunk-80bd9449.js';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { j as util_2, k as util_1 } from '../chunk-5dad6e83.js';
+import { a as classnames } from '../chunk-84657507.js';
+import { h as util_2, i as util_1 } from '../chunk-41d81e09.js';
 import { a as useAutoResize } from '../chunk-45917cce.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
@@ -166,7 +167,9 @@ var ScrollRankingBoard = function ScrollRankingBoard(_ref5) {
     };
   }();
 
-  var config = _ref5.config;
+  var config = _ref5.config,
+      className = _ref5.className,
+      style = _ref5.style;
 
   var _useAutoResize = useAutoResize(calcData, onResize),
       height = _useAutoResize.height,
@@ -245,16 +248,20 @@ var ScrollRankingBoard = function ScrollRankingBoard(_ref5) {
     };
   }, [config]);
 
+  var classNames = useMemo(function () {
+    return classnames('dv-scroll-ranking-board', className);
+  }, className);
+
   return React.createElement(
     'div',
-    { className: 'dv-scroll-ranking-board', ref: domRef },
+    { className: classNames, style: style, ref: domRef },
     rows.map(function (item, i) {
       return React.createElement(
         'div',
         {
           className: 'row-item',
           key: item.toString() + item.scroll,
-          style: 'height: ' + heights[i] + 'px;'
+          style: { height: heights[i] + 'px' }
         },
         React.createElement(
           'div',
@@ -281,7 +288,10 @@ var ScrollRankingBoard = function ScrollRankingBoard(_ref5) {
           { className: 'ranking-column' },
           React.createElement(
             'div',
-            { className: 'inside-column', style: 'width: ' + item.percent + '%;' },
+            {
+              className: 'inside-column',
+              style: { width: item.percent + '%' }
+            },
             React.createElement('div', { className: 'shine' })
           )
         )
@@ -291,7 +301,9 @@ var ScrollRankingBoard = function ScrollRankingBoard(_ref5) {
 };
 
 ScrollRankingBoard.propTypes = {
-  config: PropTypes.object
+  config: PropTypes.object,
+  className: PropTypes.string,
+  style: PropTypes.object
 
   // 指定 props 的默认值：
 };ScrollRankingBoard.defaultProps = {

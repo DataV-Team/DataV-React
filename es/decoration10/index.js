@@ -1,12 +1,17 @@
 import { a as styleInject } from '../chunk-80bd9449.js';
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { a as classnames } from '../chunk-84657507.js';
 import { a as useAutoResize } from '../chunk-45917cce.js';
 import '../chunk-0e3b7ae4.js';
 
 var css = ".style_dv-decoration-10__KWIf9 {\n  width: 100%;\n  height: 100%;\n  display: flex;\n}\n";
 styleInject(css);
 
-var index = (function () {
+var Decoration = function Decoration(_ref) {
+  var className = _ref.className,
+      style = _ref.style;
+
   var _useAutoResize = useAutoResize(),
       width = _useAutoResize.width,
       height = _useAutoResize.height,
@@ -30,9 +35,13 @@ var index = (function () {
       animationId6 = _useRef$current.animationId6,
       animationId7 = _useRef$current.animationId7;
 
+  var classNames = useMemo(function () {
+    return classnames('dv-decoration-10', className);
+  }, className);
+
   return React.createElement(
     'div',
-    { className: 'dv-decoration-10', ref: domRef },
+    { className: classNames, style: style, ref: domRef },
     React.createElement(
       'svg',
       { width: width, height: height },
@@ -185,7 +194,12 @@ var index = (function () {
       )
     )
   );
-});
+};
 
-export default index;
+Decoration.propTypes = {
+  className: PropTypes.string,
+  style: PropTypes.object
+};
+
+export default Decoration;
 //# sourceMappingURL=index.js.map

@@ -48,10 +48,9 @@ const Decoration = ({ className, style }) => {
     setState({ line1Points, line2Points, line1Length, line2Length })
   }
 
-  const classNames = useMemo(
-    () => classnames('dv-decoration-5', className),
+  const classNames = useMemo(() => classnames('dv-decoration-5', className), [
     className
-  )
+  ])
 
   return (
     <div className={classNames} style={style} ref={domRef}>

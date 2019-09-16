@@ -1,7 +1,8 @@
 import { a as styleInject } from '../chunk-80bd9449.js';
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { j as util_2, k as util_1 } from '../chunk-5dad6e83.js';
+import { a as classnames } from '../chunk-84657507.js';
+import { h as util_2, i as util_1 } from '../chunk-41d81e09.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
 var css = ".style_dv-percent-pond__1RSUY {\n  position: relative;\n  display: flex;\n  flex-direction: column;\n}\n.style_dv-percent-pond__1RSUY svg {\n  position: absolute;\n  left: 0px;\n  top: 0px;\n  width: 100%;\n  height: 100%;\n}\n.style_dv-percent-pond__1RSUY polyline {\n  transition: all 0.3s;\n}\n.style_dv-percent-pond__1RSUY text {\n  font-size: 25px;\n  font-weight: bold;\n  text-anchor: middle;\n  dominant-baseline: middle;\n}\n";
@@ -68,7 +69,9 @@ var defaultConfig = {
 
 var PercentPond = function PercentPond(_ref) {
   var _ref$config = _ref.config,
-      config = _ref$config === undefined ? {} : _ref$config;
+      config = _ref$config === undefined ? {} : _ref$config,
+      className = _ref.className,
+      style = _ref.style;
 
   var domRef = useRef(null);
 
@@ -200,9 +203,13 @@ var PercentPond = function PercentPond(_ref) {
 
   useEffect(update, [config]);
 
+  var classNames = useMemo(function () {
+    return classnames('dv-percent-pond', className);
+  }, className);
+
   return React.createElement(
     'div',
-    { className: 'dv-percent-pond', ref: domRef },
+    { className: classNames, style: style, ref: domRef },
     React.createElement(
       'svg',
       null,
@@ -262,7 +269,9 @@ var PercentPond = function PercentPond(_ref) {
 };
 
 PercentPond.propTypes = {
-  config: PropTypes.object
+  config: PropTypes.object,
+  className: PropTypes.string,
+  style: PropTypes.object
 
   // 指定 props 的默认值：
 };PercentPond.defaultProps = {

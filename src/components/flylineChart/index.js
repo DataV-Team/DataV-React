@@ -291,10 +291,9 @@ const FlyLineChart = ({ config = {}, dev = false, className, style }) => {
 
   useEffect(calcData, [config])
 
-  const classNames = useMemo(
-    () => classnames('dv-flyline-chart', className),
+  const classNames = useMemo(() => classnames('dv-flyline-chart', className), [
     className
-  )
+  ])
 
   return (
     <div

@@ -1,6 +1,7 @@
 import { a as styleInject } from '../chunk-80bd9449.js';
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { a as classnames } from '../chunk-84657507.js';
 import { a as useAutoResize } from '../chunk-45917cce.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
@@ -9,7 +10,9 @@ styleInject(css);
 
 var Decoration = function Decoration(_ref) {
   var _ref$reverse = _ref.reverse,
-      reverse = _ref$reverse === undefined ? false : _ref$reverse;
+      reverse = _ref$reverse === undefined ? false : _ref$reverse,
+      className = _ref.className,
+      style = _ref.style;
 
   var _useAutoResize = useAutoResize(),
       width = _useAutoResize.width,
@@ -28,9 +31,13 @@ var Decoration = function Decoration(_ref) {
       pointsTwo = _useMemo2[1],
       pointsThree = _useMemo2[2];
 
+  var classNames = useMemo(function () {
+    return classnames('dv-decoration-8', className);
+  }, className);
+
   return React.createElement(
     'div',
-    { className: 'dv-decoration-8', ref: domRef },
+    { className: classNames, style: style, ref: domRef },
     React.createElement(
       'svg',
       { width: width, height: height },
@@ -57,7 +64,9 @@ var Decoration = function Decoration(_ref) {
 };
 
 Decoration.propTypes = {
-  reverse: PropTypes.bool
+  reverse: PropTypes.bool,
+  className: PropTypes.string,
+  style: PropTypes.object
 
   // 指定 props 的默认值：
 };Decoration.defaultProps = {

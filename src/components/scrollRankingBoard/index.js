@@ -112,13 +112,16 @@ const ScrollRankingBoard = ({ config, className, style }) => {
 
     const heightData = calcHeights(mergedConfig)
 
-    setState(state => ({
-      ...state,
+    const data = {
       mergedConfig,
       rowsData,
       rows: [...rowsData],
       ...heightData
-    }))
+    }
+
+    Object.assign(stateRef.current, data)
+
+    setState(state => ({ ...state, ...data }))
 
     animation(true)
   }
@@ -189,7 +192,7 @@ const ScrollRankingBoard = ({ config, className, style }) => {
 
   const classNames = useMemo(
     () => classnames('dv-scroll-ranking-board', className),
-    className
+    [className]
   )
 
   return (

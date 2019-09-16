@@ -133,7 +133,7 @@ const WaterLevelPond = ({ config, className, style }) => {
 
     setState({ mergedConfig, svgBorderGradient, details })
 
-    addWave()
+    addWave(mergedConfig)
 
     animationWave()
   }
@@ -260,7 +260,7 @@ const WaterLevelPond = ({ config, className, style }) => {
 
   const classNames = useMemo(
     () => classnames('dv-water-pond-level', className),
-    className
+    [className]
   )
 
   return (

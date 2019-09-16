@@ -195,7 +195,7 @@ const ActiveRingChart = ({ config = {}, className, style }) => {
 
   const classNames = useMemo(
     () => classnames('dv-active-ring-chart', className),
-    className
+    [className]
   )
 
   return (

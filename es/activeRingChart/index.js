@@ -1,12 +1,13 @@
 import { a as styleInject } from '../chunk-80bd9449.js';
 import React, { useRef, useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { a as Chart } from '../chunk-bf664eb8.js';
+import { a as classnames } from '../chunk-84657507.js';
+import { a as Chart } from '../chunk-93c11e7c.js';
 import DvDigitalFlop from '../digitalFlop/index.js';
-import { j as util_2, k as util_1 } from '../chunk-5dad6e83.js';
+import { h as util_2, i as util_1 } from '../chunk-41d81e09.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
-import '../chunk-835a1fab.js';
-import '../chunk-0180a416.js';
+import '../chunk-e9d8b894.js';
+import '../chunk-ea5efeaf.js';
 
 var css = ".style_dv-active-ring-chart__3JD_M {\n  position: relative;\n}\n.style_dv-active-ring-chart__3JD_M .style_active-ring-chart-container__2ZTWq {\n  width: 100%;\n  height: 100%;\n}\n.style_dv-active-ring-chart__3JD_M .style_active-ring-info__3c1XP {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0px;\n  top: 0px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.style_dv-active-ring-chart__3JD_M .style_active-ring-info__3c1XP .style_dv-digital-flop__3M4Kw {\n  width: 100px;\n  height: 30px;\n}\n.style_dv-active-ring-chart__3JD_M .style_active-ring-info__3c1XP .style_active-ring-name__ko6zF {\n  width: 100px;\n  height: 30px;\n  color: #fff;\n  text-align: center;\n  vertical-align: middle;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n";
 styleInject(css);
@@ -75,7 +76,9 @@ var defaultConfig = {
 
 var ActiveRingChart = function ActiveRingChart(_ref) {
   var _ref$config = _ref.config,
-      config = _ref$config === undefined ? {} : _ref$config;
+      config = _ref$config === undefined ? {} : _ref$config,
+      className = _ref.className,
+      style = _ref.style;
 
   var _useState = useState({
     activeIndex: 0,
@@ -117,7 +120,7 @@ var ActiveRingChart = function ActiveRingChart(_ref) {
   }, [mergedConfig, activeIndex]);
 
   var fontSize = useMemo(function () {
-    return !mergedConfig ? '' : 'font-size: ' + mergedConfig.digitalFlopStyle.fontSize + 'px;';
+    return !mergedConfig ? {} : { fontSize: mergedConfig.digitalFlopStyle.fontSize + 'px' };
   }, [mergedConfig]);
 
   function getRingOption(mergedConfig) {
@@ -210,9 +213,13 @@ var ActiveRingChart = function ActiveRingChart(_ref) {
 
   useEffect(ringAnimation, [activeIndex, mergedConfig]);
 
+  var classNames = useMemo(function () {
+    return classnames('dv-active-ring-chart', className);
+  }, className);
+
   return React.createElement(
     'div',
-    { className: 'dv-active-ring-chart' },
+    { className: classNames, style: style },
     React.createElement('div', { className: 'active-ring-chart-container', ref: domRef }),
     React.createElement(
       'div',
@@ -228,7 +235,9 @@ var ActiveRingChart = function ActiveRingChart(_ref) {
 };
 
 ActiveRingChart.propTypes = {
-  config: PropTypes.object
+  config: PropTypes.object,
+  className: PropTypes.string,
+  style: PropTypes.object
 
   // 指定 props 的默认值：
 };ActiveRingChart.defaultProps = {

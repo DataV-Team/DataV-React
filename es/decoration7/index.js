@@ -1,16 +1,23 @@
 import { a as styleInject } from '../chunk-80bd9449.js';
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { a as classnames } from '../chunk-84657507.js';
 
 var css = ".style_dv-decoration-7__ebGDg {\n  display: flex;\n  width: 100%;\n  height: 100%;\n  justify-content: center;\n  align-items: center;\n}\n";
 styleInject(css);
 
 var Decoration = function Decoration(_ref) {
-  var children = _ref.children;
+  var children = _ref.children,
+      className = _ref.className,
+      style = _ref.style;
+
+  var classNames = useMemo(function () {
+    return classnames('dv-decoration-7', className);
+  }, className);
 
   return React.createElement(
     'div',
-    { className: 'dv-decoration-7' },
+    { className: classNames, style: style },
     React.createElement(
       'svg',
       { width: '21px', height: '20px' },
@@ -48,7 +55,9 @@ var Decoration = function Decoration(_ref) {
 };
 
 Decoration.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  className: PropTypes.string,
+  style: PropTypes.object
 };
 
 export default Decoration;

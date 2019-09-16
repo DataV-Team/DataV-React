@@ -1,6 +1,7 @@
 import { a as styleInject } from '../chunk-80bd9449.js';
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { a as classnames } from '../chunk-84657507.js';
 
 var css = ".style_dv-border-box-1__VsS-M {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.style_dv-border-box-1__VsS-M .style_border__33xOM {\n  position: absolute;\n  display: block;\n}\n.style_dv-border-box-1__VsS-M .style_right-top__2fn9S {\n  right: 0px;\n  transform: rotateY(180deg);\n}\n.style_dv-border-box-1__VsS-M .style_left-bottom__1QhnE {\n  bottom: 0px;\n  transform: rotateX(180deg);\n}\n.style_dv-border-box-1__VsS-M .style_right-bottom__2yum9 {\n  right: 0px;\n  bottom: 0px;\n  transform: rotateX(180deg) rotateY(180deg);\n}\n.style_dv-border-box-1__VsS-M .style_border-box-content__z50KH {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n";
 styleInject(css);
@@ -8,11 +9,17 @@ styleInject(css);
 var border = ['left-top', 'right-top', 'left-bottom', 'right-bottom'];
 
 var BorderBox = function BorderBox(_ref) {
-  var children = _ref.children;
+  var children = _ref.children,
+      className = _ref.className,
+      style = _ref.style;
+
+  var classNames = useMemo(function () {
+    return classnames('dv-border-box-1', className);
+  }, className);
 
   return React.createElement(
     'div',
-    { className: 'dv-border-box-1' },
+    { className: classNames, style: style },
     border.map(function (borderName) {
       return React.createElement(
         'svg',
@@ -75,7 +82,9 @@ var BorderBox = function BorderBox(_ref) {
 };
 
 BorderBox.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  className: PropTypes.string,
+  style: PropTypes.object
 };
 
 export default BorderBox;

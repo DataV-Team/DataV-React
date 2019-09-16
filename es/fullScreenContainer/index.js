@@ -8,7 +8,9 @@ var css = "#style_dv-full-screen-container__31S-J {\n  position: fixed;\n  top: 
 styleInject(css);
 
 var FullScreenContainer = function FullScreenContainer(_ref) {
-  var children = _ref.children;
+  var children = _ref.children,
+      className = _ref.className,
+      style = _ref.style;
 
   var _useAutoResize = useAutoResize(afterAutoResizeMixinInit, function () {
     return setAppScale(allWidth);
@@ -47,13 +49,20 @@ var FullScreenContainer = function FullScreenContainer(_ref) {
 
   return React.createElement(
     'div',
-    { id: 'dv-full-screen-container', ref: domRef },
+    {
+      id: 'dv-full-screen-container',
+      className: className,
+      style: style,
+      ref: domRef
+    },
     ready && children
   );
 };
 
 FullScreenContainer.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  className: PropTypes.string,
+  style: PropTypes.object
 };
 
 export default FullScreenContainer;

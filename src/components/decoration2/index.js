@@ -23,10 +23,9 @@ const Decoration = ({ reverse = false, className, style }) => {
 
   useEffect(calcSVGData, [reverse])
 
-  const classNames = useMemo(
-    () => classnames('dv-decoration-2', className),
+  const classNames = useMemo(() => classnames('dv-decoration-2', className), [
     className
-  )
+  ])
 
   return (
     <div className={classNames} style={style} ref={domRef}>

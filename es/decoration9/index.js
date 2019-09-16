@@ -1,6 +1,7 @@
 import { a as styleInject } from '../chunk-80bd9449.js';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { a as classnames } from '../chunk-84657507.js';
 import { a as useAutoResize } from '../chunk-45917cce.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
@@ -10,7 +11,9 @@ styleInject(css);
 var svgWH = [100, 100];
 
 var Decoration = function Decoration(_ref) {
-  var children = _ref.children;
+  var children = _ref.children,
+      className = _ref.className,
+      style = _ref.style;
 
   var _useAutoResize = useAutoResize(calcScale, calcScale),
       width = _useAutoResize.width,
@@ -32,15 +35,19 @@ var Decoration = function Decoration(_ref) {
     setSvgScale([width / w, height / h]);
   }
 
+  var classNames = useMemo(function () {
+    return classnames('dv-decoration-9', className);
+  }, className);
+
   return React.createElement(
     'div',
-    { className: 'dv-decoration-9', ref: domRef },
+    { className: classNames, style: style, ref: domRef },
     React.createElement(
       'svg',
       {
         width: svgWH[0] + 'px',
         height: svgWH[1] + 'px',
-        style: 'transform:scale(' + svgScale[0] + ',' + svgScale[1] + ');'
+        style: { transform: 'scale(' + svgScale[0] + ',' + svgScale[1] + ')' }
       },
       React.createElement(
         'defs',
@@ -131,7 +138,9 @@ var Decoration = function Decoration(_ref) {
 };
 
 Decoration.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  className: PropTypes.string,
+  style: PropTypes.object
 };
 
 export default Decoration;

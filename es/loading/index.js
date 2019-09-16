@@ -1,16 +1,23 @@
 import { a as styleInject } from '../chunk-80bd9449.js';
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { a as classnames } from '../chunk-84657507.js';
 
 var css = ".style_dv-loading__1Un5F {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.style_dv-loading__1Un5F .style_loading-tip__1AFth {\n  font-size: 15px;\n}\n";
 styleInject(css);
 
 var Loading = function Loading(_ref) {
-  var children = _ref.children;
+  var children = _ref.children,
+      className = _ref.className,
+      style = _ref.style;
+
+  var classNames = useMemo(function () {
+    return classnames('dv-loading', className);
+  }, className);
 
   return React.createElement(
     'div',
-    { className: 'dv-loading' },
+    { className: classNames, style: style },
     React.createElement(
       'svg',
       { width: '50px', height: '50px' },
@@ -76,7 +83,9 @@ var Loading = function Loading(_ref) {
 };
 
 Loading.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  className: PropTypes.string,
+  style: PropTypes.object
 };
 
 export default Loading;

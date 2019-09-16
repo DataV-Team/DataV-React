@@ -1,9 +1,10 @@
 import { a as styleInject } from '../chunk-80bd9449.js';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { f as CRender } from '../chunk-0180a416.js';
-import '../chunk-835a1fab.js';
-import { j as util_2, k as util_1 } from '../chunk-5dad6e83.js';
+import { a as classnames } from '../chunk-84657507.js';
+import { f as CRender } from '../chunk-ea5efeaf.js';
+import '../chunk-e9d8b894.js';
+import { h as util_2, i as util_1 } from '../chunk-41d81e09.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
 var css = ".style_dv-digital-flop__3tU40 canvas {\n  width: 100%;\n  height: 100%;\n}\n";
@@ -61,7 +62,9 @@ var defaultConfig = {
 
 var DigitalFlop = function DigitalFlop(_ref) {
   var _ref$config = _ref.config,
-      config = _ref$config === undefined ? {} : _ref$config;
+      config = _ref$config === undefined ? {} : _ref$config,
+      className = _ref.className,
+      style = _ref.style;
 
   var domRef = useRef(null);
   var rendererRef = useRef(null);
@@ -160,15 +163,21 @@ var DigitalFlop = function DigitalFlop(_ref) {
     };
   }, [config]);
 
+  var classNames = useMemo(function () {
+    return classnames('dv-digital-flop', className);
+  }, className);
+
   return React.createElement(
     'div',
-    { className: 'dv-digital-flop' },
+    { className: classNames, style: style },
     React.createElement('canvas', { ref: domRef })
   );
 };
 
 DigitalFlop.propTypes = {
-  config: PropTypes.object
+  config: PropTypes.object,
+  className: PropTypes.string,
+  style: PropTypes.object
 
   // 指定 props 的默认值：
 };DigitalFlop.defaultProps = {

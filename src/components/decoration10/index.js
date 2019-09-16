@@ -31,10 +31,9 @@ const Decoration = ({ className, style }) => {
     animationId7: `d10ani7${Date.now()}`
   })
 
-  const classNames = useMemo(
-    () => classnames('dv-decoration-10', className),
+  const classNames = useMemo(() => classnames('dv-decoration-10', className), [
     className
-  )
+  ])
 
   return (
     <div className={classNames} style={style} ref={domRef}>

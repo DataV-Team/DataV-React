@@ -1,6 +1,7 @@
 import { a as styleInject } from '../chunk-80bd9449.js';
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
+import { a as classnames } from '../chunk-84657507.js';
 import { a as useAutoResize } from '../chunk-45917cce.js';
 import '../chunk-0e3b7ae4.js';
 
@@ -8,16 +9,22 @@ var css = ".style_dv-border-box-3__2cbFa {\n  position: relative;\n  width: 100%
 styleInject(css);
 
 var BorderBox = function BorderBox(_ref) {
-  var children = _ref.children;
+  var children = _ref.children,
+      className = _ref.className,
+      style = _ref.style;
 
   var _useAutoResize = useAutoResize(),
       width = _useAutoResize.width,
       height = _useAutoResize.height,
       domRef = _useAutoResize.domRef;
 
+  var classNames = useMemo(function () {
+    return classnames('dv-border-box-3', className);
+  }, className);
+
   return React.createElement(
     'div',
-    { className: 'dv-border-box-3', ref: domRef },
+    { className: classNames, style: style, ref: domRef },
     React.createElement(
       'svg',
       { className: 'dv-border-svg-container', width: width, height: height },
@@ -47,7 +54,9 @@ var BorderBox = function BorderBox(_ref) {
 };
 
 BorderBox.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  className: PropTypes.string,
+  style: PropTypes.object
 };
 
 export default BorderBox;

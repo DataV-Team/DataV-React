@@ -9,10 +9,9 @@ import './style.less'
 const border = ['left-top', 'right-top', 'left-bottom', 'right-bottom']
 
 const BorderBox = ({ children, className, style }) => {
-  const classNames = useMemo(
-    () => classnames('dv-border-box-10', className),
+  const classNames = useMemo(() => classnames('dv-border-box-10', className), [
     className
-  )
+  ])
 
   return (
     <div className={classNames} style={style}>

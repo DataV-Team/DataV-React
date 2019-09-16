@@ -139,7 +139,7 @@ const ConicalColumnChart = ({ config = {}, className, style }) => {
 
   const classNames = useMemo(
     () => classnames('dv-conical-column-chart', className),
-    className
+    [className]
   )
 
   return (

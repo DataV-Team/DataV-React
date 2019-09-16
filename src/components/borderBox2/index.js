@@ -11,10 +11,9 @@ import './style.less'
 const BorderBox = ({ children, className, style }) => {
   const { width, height, domRef } = useAutoResize()
 
-  const classNames = useMemo(
-    () => classnames('dv-border-box-2', className),
+  const classNames = useMemo(() => classnames('dv-border-box-2', className), [
     className
-  )
+  ])
 
   return (
     <div className={classNames} style={style} ref={domRef}>

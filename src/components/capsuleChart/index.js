@@ -66,10 +66,9 @@ const CapsuleChart = ({ config = {}, className, style }) => {
     })
   }, [config])
 
-  const classNames = useMemo(
-    () => classnames('dv-capsule-chart', className),
+  const classNames = useMemo(() => classnames('dv-capsule-chart', className), [
     className
-  )
+  ])
 
   return (
     <div className={classNames} style={style}>

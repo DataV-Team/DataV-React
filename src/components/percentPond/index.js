@@ -178,10 +178,9 @@ const PercentPond = ({ config = {}, className, style }) => {
 
   useEffect(update, [config])
 
-  const classNames = useMemo(
-    () => classnames('dv-percent-pond', className),
+  const classNames = useMemo(() => classnames('dv-percent-pond', className), [
     className
-  )
+  ])
 
   return (
     <div className={classNames} style={style} ref={domRef}>

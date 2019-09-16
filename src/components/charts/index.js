@@ -46,7 +46,7 @@ const Charts = ({ option = {}, className, style }) => {
 
   const classNames = useMemo(
     () => classnames('dv-charts-container', className),
-    className
+    [className]
   )
 
   return (

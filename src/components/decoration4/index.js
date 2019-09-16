@@ -11,10 +11,9 @@ import './style.less'
 const Decoration = ({ reverse = false, className, style }) => {
   const { width, height, domRef } = useAutoResize()
 
-  const classNames = useMemo(
-    () => classnames('dv-decoration-4', className),
+  const classNames = useMemo(() => classnames('dv-decoration-4', className), [
     className
-  )
+  ])
 
   return (
     <div className={classNames} style={style} ref={domRef}>

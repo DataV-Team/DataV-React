@@ -198,8 +198,7 @@ const ScrollBoard = ({ onClick, config, className, style }) => {
 
     const aligns = calcAligns(mergedConfig, header)
 
-    setState(state => ({
-      ...state,
+    const data = {
       mergedConfig,
       header,
       rowsData,
@@ -207,7 +206,11 @@ const ScrollBoard = ({ onClick, config, className, style }) => {
       widths,
       ...heightData,
       aligns
-    }))
+    }
+
+    Object.assign(stateRef.current, data)
+
+    setState(state => ({ ...state, ...data }))
 
     animation(true)
   }
@@ -305,10 +308,9 @@ const ScrollBoard = ({ onClick, config, className, style }) => {
     return () => clearTimeout(timerRef.current)
   }, [config])
 
-  const classNames = useMemo(
-    () => classnames('dv-scroll-board', className),
+  const classNames = useMemo(() => classnames('dv-scroll-board', className), [
     className
-  )
+  ])
 
   return (
     <div className={classNames} style={style} ref={domRef}>
