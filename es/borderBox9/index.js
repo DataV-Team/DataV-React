@@ -5,7 +5,7 @@ import { a as classnames } from '../chunk-84657507.js';
 import { a as useAutoResize } from '../chunk-45917cce.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
-var css = ".style_dv-border-box-9__1CLZw {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.style_dv-border-box-9__1CLZw svg {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0px;\n  top: 0px;\n}\n.style_dv-border-box-9__1CLZw .style_border-box-content__2rrpN {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n";
+var css = ".dv-border-box-9 {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.dv-border-box-9 svg {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0px;\n  top: 0px;\n}\n.dv-border-box-9 .border-box-content {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n";
 styleInject(css);
 
 var BorderBox = function BorderBox(_ref) {
@@ -33,7 +33,7 @@ var BorderBox = function BorderBox(_ref) {
 
   var classNames = useMemo(function () {
     return classnames('dv-border-box-9', className);
-  }, className);
+  }, [className]);
 
   return React.createElement(
     'div',

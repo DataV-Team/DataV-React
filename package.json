@@ -1,6 +1,6 @@
 {
   "name": "@jiaminghi/data-view-react",
-  "version": "0.0.1",
+  "version": "0.0.3-rc.1",
   "description": "React Large screen data display component library",
   "author": "Duan Yu",
   "license": "MIT",

@@ -5,7 +5,7 @@ import { a as classnames } from '../chunk-84657507.js';
 import { a as useAutoResize } from '../chunk-45917cce.js';
 import '../chunk-0e3b7ae4.js';
 
-var css = ".style_dv-decoration-4__Eadez {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.style_dv-decoration-4__Eadez .style_container__1twl- {\n  display: flex;\n  overflow: hidden;\n  position: absolute;\n}\n.style_dv-decoration-4__Eadez .style_normal__2l1Fz {\n  height: 0% !important;\n  animation: style_ani-height__3ubtD 3s ease-in-out infinite;\n  left: 50%;\n  margin-left: -2px;\n}\n.style_dv-decoration-4__Eadez .style_reverse__3hqVY {\n  width: 0% !important;\n  animation: style_ani-width__19LJB 3s ease-in-out infinite;\n  top: 50%;\n  margin-top: -2px;\n}\n@keyframes style_ani-height__3ubtD {\n  70% {\n    height: 100%;\n  }\n  100% {\n    height: 100%;\n  }\n}\n@keyframes style_ani-width__19LJB {\n  70% {\n    width: 100%;\n  }\n  100% {\n    width: 100%;\n  }\n}\n";
+var css = ".dv-decoration-4 {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.dv-decoration-4 .container {\n  display: flex;\n  overflow: hidden;\n  position: absolute;\n}\n.dv-decoration-4 .normal {\n  height: 0% !important;\n  animation: ani-height 3s ease-in-out infinite;\n  left: 50%;\n  margin-left: -2px;\n}\n.dv-decoration-4 .reverse {\n  width: 0% !important;\n  animation: ani-width 3s ease-in-out infinite;\n  top: 50%;\n  margin-top: -2px;\n}\n@keyframes ani-height {\n  70% {\n    height: 100%;\n  }\n  100% {\n    height: 100%;\n  }\n}\n@keyframes ani-width {\n  70% {\n    width: 100%;\n  }\n  100% {\n    width: 100%;\n  }\n}\n";
 styleInject(css);
 
 var Decoration = function Decoration(_ref) {
@@ -21,7 +21,7 @@ var Decoration = function Decoration(_ref) {
 
   var classNames = useMemo(function () {
     return classnames('dv-decoration-4', className);
-  }, className);
+  }, [className]);
 
   return React.createElement(
     'div',

@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { a as classnames } from '../chunk-84657507.js';
 
-var css = ".style_dv-loading__1Un5F {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.style_dv-loading__1Un5F .style_loading-tip__1AFth {\n  font-size: 15px;\n}\n";
+var css = ".dv-loading {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.dv-loading .loading-tip {\n  font-size: 15px;\n}\n";
 styleInject(css);
 
 var Loading = function Loading(_ref) {
@@ -13,7 +13,7 @@ var Loading = function Loading(_ref) {
 
   var classNames = useMemo(function () {
     return classnames('dv-loading', className);
-  }, className);
+  }, [className]);
 
   return React.createElement(
     'div',

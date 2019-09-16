@@ -6,7 +6,7 @@ import { h as util_2, i as util_1 } from '../chunk-41d81e09.js';
 import { a as useAutoResize } from '../chunk-45917cce.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
-var css = ".style_dv-conical-column-chart__2zCbn {\n  width: 100%;\n  height: 100%;\n}\n.style_dv-conical-column-chart__2zCbn text {\n  text-anchor: middle;\n}\n";
+var css = ".dv-conical-column-chart {\n  width: 100%;\n  height: 100%;\n}\n.dv-conical-column-chart text {\n  text-anchor: middle;\n}\n";
 styleInject(css);
 
 var defaultConfig = {
@@ -150,7 +150,7 @@ var ConicalColumnChart = function ConicalColumnChart(_ref3) {
 
   var classNames = useMemo(function () {
     return classnames('dv-conical-column-chart', className);
-  }, className);
+  }, [className]);
 
   return React.createElement(
     'div',

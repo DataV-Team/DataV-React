@@ -5,7 +5,7 @@ import { a as classnames } from '../chunk-84657507.js';
 import { a as useAutoResize } from '../chunk-45917cce.js';
 import '../chunk-0e3b7ae4.js';
 
-var css = ".style_dv-border-box-3__2cbFa {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.style_dv-border-box-3__2cbFa .style_dv-border-svg-container__3PAzM {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  top: 0px;\n  left: 0px;\n}\n.style_dv-border-box-3__2cbFa .style_dv-border-svg-container__3PAzM polyline {\n  fill: none;\n  stroke: #2862b7;\n}\n.style_dv-border-box-3__2cbFa .style_dv-bb3-line1__2VMLv {\n  stroke-width: 3;\n}\n.style_dv-border-box-3__2cbFa .style_dv-bb3-line2__474N_ {\n  stroke-width: 1;\n}\n.style_dv-border-box-3__2cbFa .style_border-box-content__2fpRt {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n";
+var css = ".dv-border-box-3 {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.dv-border-box-3 .dv-border-svg-container {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  top: 0px;\n  left: 0px;\n}\n.dv-border-box-3 .dv-border-svg-container polyline {\n  fill: none;\n  stroke: #2862b7;\n}\n.dv-border-box-3 .dv-bb3-line1 {\n  stroke-width: 3;\n}\n.dv-border-box-3 .dv-bb3-line2 {\n  stroke-width: 1;\n}\n.dv-border-box-3 .border-box-content {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n";
 styleInject(css);
 
 var BorderBox = function BorderBox(_ref) {
@@ -20,7 +20,7 @@ var BorderBox = function BorderBox(_ref) {
 
   var classNames = useMemo(function () {
     return classnames('dv-border-box-3', className);
-  }, className);
+  }, [className]);
 
   return React.createElement(
     'div',

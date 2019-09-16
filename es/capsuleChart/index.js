@@ -75,7 +75,7 @@ var CapsuleChart = function CapsuleChart(_ref) {
 
   var classNames = useMemo(function () {
     return classnames('dv-capsule-chart', className);
-  }, className);
+  }, [className]);
 
   return React.createElement(
     'div',

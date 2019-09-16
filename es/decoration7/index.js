@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { a as classnames } from '../chunk-84657507.js';
 
-var css = ".style_dv-decoration-7__ebGDg {\n  display: flex;\n  width: 100%;\n  height: 100%;\n  justify-content: center;\n  align-items: center;\n}\n";
+var css = ".dv-decoration-7 {\n  display: flex;\n  width: 100%;\n  height: 100%;\n  justify-content: center;\n  align-items: center;\n}\n";
 styleInject(css);
 
 var Decoration = function Decoration(_ref) {
@@ -13,7 +13,7 @@ var Decoration = function Decoration(_ref) {
 
   var classNames = useMemo(function () {
     return classnames('dv-decoration-7', className);
-  }, className);
+  }, [className]);
 
   return React.createElement(
     'div',

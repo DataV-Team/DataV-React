@@ -38,9 +38,7 @@ export default {
   ],
   plugins: [
     external(),
-    postcss({
-      modules: true
-    }),
+    postcss(),
     url(),
     svgr(),
     babel({

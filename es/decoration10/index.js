@@ -5,7 +5,7 @@ import { a as classnames } from '../chunk-84657507.js';
 import { a as useAutoResize } from '../chunk-45917cce.js';
 import '../chunk-0e3b7ae4.js';
 
-var css = ".style_dv-decoration-10__KWIf9 {\n  width: 100%;\n  height: 100%;\n  display: flex;\n}\n";
+var css = ".dv-decoration-10 {\n  width: 100%;\n  height: 100%;\n  display: flex;\n}\n";
 styleInject(css);
 
 var Decoration = function Decoration(_ref) {
@@ -37,7 +37,7 @@ var Decoration = function Decoration(_ref) {
 
   var classNames = useMemo(function () {
     return classnames('dv-decoration-10', className);
-  }, className);
+  }, [className]);
 
   return React.createElement(
     'div',

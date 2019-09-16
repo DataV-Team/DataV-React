@@ -6,7 +6,7 @@ import { h as util_2, i as util_1 } from '../chunk-41d81e09.js';
 import { a as useAutoResize } from '../chunk-45917cce.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
-var css = ".style_dv-scroll-board__2NwCo {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  color: #fff;\n}\n.style_dv-scroll-board__2NwCo .style_text__7EIBe {\n  padding: 0 10px;\n  box-sizing: border-box;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.style_dv-scroll-board__2NwCo .style_header__uEJat {\n  display: flex;\n  flex-direction: row;\n  font-size: 15px;\n}\n.style_dv-scroll-board__2NwCo .style_header__uEJat .style_header-item__2l0ty {\n  padding: 0 10px;\n  box-sizing: border-box;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  transition: all 0.3s;\n}\n.style_dv-scroll-board__2NwCo .style_rows__1lKgD {\n  overflow: hidden;\n}\n.style_dv-scroll-board__2NwCo .style_rows__1lKgD .style_row-item__16zdv {\n  display: flex;\n  font-size: 14px;\n  transition: all 0.3s;\n}\n.style_dv-scroll-board__2NwCo .style_rows__1lKgD .style_ceil__LnLbS {\n  padding: 0 10px;\n  box-sizing: border-box;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.style_dv-scroll-board__2NwCo .style_rows__1lKgD .style_index__jidhL {\n  border-radius: 3px;\n  padding: 0px 3px;\n}\n";
+var css = ".dv-scroll-board {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  color: #fff;\n}\n.dv-scroll-board .text {\n  padding: 0 10px;\n  box-sizing: border-box;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.dv-scroll-board .header {\n  display: flex;\n  flex-direction: row;\n  font-size: 15px;\n}\n.dv-scroll-board .header .header-item {\n  padding: 0 10px;\n  box-sizing: border-box;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  transition: all 0.3s;\n}\n.dv-scroll-board .rows {\n  overflow: hidden;\n}\n.dv-scroll-board .rows .row-item {\n  display: flex;\n  font-size: 14px;\n  transition: all 0.3s;\n}\n.dv-scroll-board .rows .ceil {\n  padding: 0 10px;\n  box-sizing: border-box;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.dv-scroll-board .rows .index {\n  border-radius: 3px;\n  padding: 0px 3px;\n}\n";
 styleInject(css);
 
 var defaultConfig = {
@@ -300,16 +300,20 @@ var ScrollBoard = function ScrollBoard(_ref3) {
 
     var aligns = calcAligns(mergedConfig, header);
 
+    var data = _extends({
+      mergedConfig: mergedConfig,
+      header: header,
+      rowsData: rowsData,
+      rows: [].concat(toConsumableArray(rowsData)),
+      widths: widths
+    }, heightData, {
+      aligns: aligns
+    });
+
+    Object.assign(stateRef.current, data);
+
     setState(function (state) {
-      return _extends({}, state, {
-        mergedConfig: mergedConfig,
-        header: header,
-        rowsData: rowsData,
-        rows: [].concat(toConsumableArray(rowsData)),
-        widths: widths
-      }, heightData, {
-        aligns: aligns
-      });
+      return _extends({}, state, data);
     });
 
     animation(true);
@@ -374,7 +378,7 @@ var ScrollBoard = function ScrollBoard(_ref3) {
 
   var classNames = useMemo(function () {
     return classnames('dv-scroll-board', className);
-  }, className);
+  }, [className]);
 
   return React.createElement(
     'div',

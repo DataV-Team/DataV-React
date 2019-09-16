@@ -6,7 +6,7 @@ import { h as util_2, i as util_1 } from '../chunk-41d81e09.js';
 import { f as CRender } from '../chunk-ea5efeaf.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
-var css = ".style_dv-water-pond-level__2t6WR {\n  position: relative;\n}\n.style_dv-water-pond-level__2t6WR svg {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  top: 0px;\n  left: 0px;\n}\n.style_dv-water-pond-level__2t6WR text {\n  font-size: 25px;\n  font-weight: bold;\n  text-anchor: middle;\n  dominant-baseline: middle;\n}\n.style_dv-water-pond-level__2t6WR ellipse,\n.style_dv-water-pond-level__2t6WR rect {\n  fill: none;\n  stroke-width: 3;\n}\n.style_dv-water-pond-level__2t6WR canvas {\n  margin-top: 8px;\n  margin-left: 8px;\n  width: calc(100% - 16px);\n  height: calc(100% - 16px);\n  box-sizing: border-box;\n}\n";
+var css = ".dv-water-pond-level {\n  position: relative;\n}\n.dv-water-pond-level svg {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  top: 0px;\n  left: 0px;\n}\n.dv-water-pond-level text {\n  font-size: 25px;\n  font-weight: bold;\n  text-anchor: middle;\n  dominant-baseline: middle;\n}\n.dv-water-pond-level ellipse,\n.dv-water-pond-level rect {\n  fill: none;\n  stroke-width: 3;\n}\n.dv-water-pond-level canvas {\n  margin-top: 8px;\n  margin-left: 8px;\n  width: calc(100% - 16px);\n  height: calc(100% - 16px);\n  box-sizing: border-box;\n}\n";
 styleInject(css);
 
 var defaultConfig = {
@@ -219,7 +219,7 @@ var WaterLevelPond = function WaterLevelPond(_ref7) {
 
     setState({ mergedConfig: mergedConfig, svgBorderGradient: svgBorderGradient, details: details });
 
-    addWave();
+    addWave(mergedConfig);
 
     animationWave();
   }
@@ -332,7 +332,7 @@ var WaterLevelPond = function WaterLevelPond(_ref7) {
 
   var classNames = useMemo(function () {
     return classnames('dv-water-pond-level', className);
-  }, className);
+  }, [className]);
 
   return React.createElement(
     'div',

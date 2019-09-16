@@ -5,7 +5,7 @@ import { a as classnames } from '../chunk-84657507.js';
 import { a as useAutoResize, b as randomExtend } from '../chunk-45917cce.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
-var css = ".style_dv-decoration-6__1Va5X {\n  width: 100%;\n  height: 100%;\n}\n.style_dv-decoration-6__1Va5X svg {\n  transform-origin: left top;\n}\n";
+var css = ".dv-decoration-6 {\n  width: 100%;\n  height: 100%;\n}\n.dv-decoration-6 svg {\n  transform-origin: left top;\n}\n";
 styleInject(css);
 
 var svgWH = [300, 35];
@@ -88,7 +88,7 @@ var Decoration = function Decoration(_ref) {
 
   var classNames = useMemo(function () {
     return classnames('dv-decoration-6', className);
-  }, className);
+  }, [[className]]);
 
   return React.createElement(
     'div',

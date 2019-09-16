@@ -7,7 +7,7 @@ import '../chunk-e9d8b894.js';
 import { h as util_2, i as util_1 } from '../chunk-41d81e09.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
-var css = ".style_dv-digital-flop__3tU40 canvas {\n  width: 100%;\n  height: 100%;\n}\n";
+var css = ".dv-digital-flop canvas {\n  width: 100%;\n  height: 100%;\n}\n";
 styleInject(css);
 
 var defaultConfig = {
@@ -165,7 +165,7 @@ var DigitalFlop = function DigitalFlop(_ref) {
 
   var classNames = useMemo(function () {
     return classnames('dv-digital-flop', className);
-  }, className);
+  }, [className]);
 
   return React.createElement(
     'div',

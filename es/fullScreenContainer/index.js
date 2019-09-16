@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { a as useAutoResize } from '../chunk-45917cce.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
-var css = "#style_dv-full-screen-container__31S-J {\n  position: fixed;\n  top: 0px;\n  left: 0px;\n  overflow: hidden;\n  transform-origin: left top;\n  z-index: 999;\n}\n";
+var css = "#dv-full-screen-container {\n  position: fixed;\n  top: 0px;\n  left: 0px;\n  overflow: hidden;\n  transform-origin: left top;\n  z-index: 999;\n}\n";
 styleInject(css);
 
 var FullScreenContainer = function FullScreenContainer(_ref) {

@@ -6,7 +6,7 @@ import { a as util_7 } from '../chunk-41d81e09.js';
 import { a as useAutoResize } from '../chunk-45917cce.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
-var css = ".style_dv-decoration-5__22hlk {\n  width: 100%;\n  height: 100%;\n}\n";
+var css = ".dv-decoration-5 {\n  width: 100%;\n  height: 100%;\n}\n";
 styleInject(css);
 
 var Decoration = function Decoration(_ref) {
@@ -52,7 +52,7 @@ var Decoration = function Decoration(_ref) {
 
   var classNames = useMemo(function () {
     return classnames('dv-decoration-5', className);
-  }, className);
+  }, [className]);
 
   return React.createElement(
     'div',

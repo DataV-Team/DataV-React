@@ -6,7 +6,7 @@ import { h as util_2, i as util_1 } from '../chunk-41d81e09.js';
 import { a as useAutoResize, b as randomExtend, c as getPointDistance } from '../chunk-45917cce.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
-var css = ".style_dv-flyline-chart__3DSXm {\n  display: flex;\n  flex-direction: column;\n  background-size: 100% 100%;\n}\n.style_dv-flyline-chart__3DSXm polyline {\n  transition: all 0.3s;\n}\n.style_dv-flyline-chart__3DSXm text {\n  text-anchor: middle;\n  dominant-baseline: middle;\n}\n";
+var css = ".dv-flyline-chart {\n  display: flex;\n  flex-direction: column;\n  background-size: 100% 100%;\n}\n.dv-flyline-chart polyline {\n  transition: all 0.3s;\n}\n.dv-flyline-chart text {\n  text-anchor: middle;\n  dominant-baseline: middle;\n}\n";
 styleInject(css);
 
 var defaultConfig = {
@@ -339,7 +339,7 @@ var FlyLineChart = function FlyLineChart(_ref6) {
 
   var classNames = useMemo(function () {
     return classnames('dv-flyline-chart', className);
-  }, className);
+  }, [className]);
 
   return React.createElement(
     'div',

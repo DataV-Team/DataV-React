@@ -5,7 +5,7 @@ import { a as classnames } from '../chunk-84657507.js';
 import { a as useAutoResize } from '../chunk-45917cce.js';
 import '../chunk-0e3b7ae4.js';
 
-var css = ".style_dv-border-box-2__3FzMd {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.style_dv-border-box-2__3FzMd .style_dv-border-svg-container__1628i {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  top: 0px;\n  left: 0px;\n}\n.style_dv-border-box-2__3FzMd .style_dv-border-svg-container__1628i polyline {\n  fill: none;\n  stroke-width: 1;\n}\n.style_dv-border-box-2__3FzMd .style_dv-border-svg-container__1628i circle {\n  fill: #fff;\n}\n.style_dv-border-box-2__3FzMd .style_dv-bb2-line1__3ZsBN {\n  stroke: #fff;\n}\n.style_dv-border-box-2__3FzMd .style_dv-bb2-line2__gXkBv {\n  stroke: rgba(255, 255, 255, 0.6);\n}\n.style_dv-border-box-2__3FzMd .style_border-box-content__15l8N {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n";
+var css = ".dv-border-box-2 {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.dv-border-box-2 .dv-border-svg-container {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  top: 0px;\n  left: 0px;\n}\n.dv-border-box-2 .dv-border-svg-container polyline {\n  fill: none;\n  stroke-width: 1;\n}\n.dv-border-box-2 .dv-border-svg-container circle {\n  fill: #fff;\n}\n.dv-border-box-2 .dv-bb2-line1 {\n  stroke: #fff;\n}\n.dv-border-box-2 .dv-bb2-line2 {\n  stroke: rgba(255, 255, 255, 0.6);\n}\n.dv-border-box-2 .border-box-content {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n";
 styleInject(css);
 
 var BorderBox = function BorderBox(_ref) {
@@ -20,7 +20,7 @@ var BorderBox = function BorderBox(_ref) {
 
   var classNames = useMemo(function () {
     return classnames('dv-border-box-2', className);
-  }, className);
+  }, [className]);
 
   return React.createElement(
     'div',

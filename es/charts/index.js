@@ -9,7 +9,7 @@ import '../chunk-e9d8b894.js';
 import '../chunk-ea5efeaf.js';
 import '../chunk-0e3b7ae4.js';
 
-var css = ".style_dv-charts-container__3djB5 {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.style_dv-charts-container__3djB5 .style_charts-canvas-container__36Qhn {\n  width: 100%;\n  height: 100%;\n}\n";
+var css = ".dv-charts-container {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.dv-charts-container .charts-canvas-container {\n  width: 100%;\n  height: 100%;\n}\n";
 styleInject(css);
 
 var Charts = function Charts(_ref) {
@@ -54,7 +54,7 @@ var Charts = function Charts(_ref) {
 
   var classNames = useMemo(function () {
     return classnames('dv-charts-container', className);
-  }, className);
+  }, [className]);
 
   return React.createElement(
     'div',
