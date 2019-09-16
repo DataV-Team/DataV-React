@@ -6,10 +6,8 @@ node_modules
 
 # builds
 build
-dist
-lib
-es
 .rpt2_cache
+/deploy/config.js
 
 # misc
 .DS_Store
