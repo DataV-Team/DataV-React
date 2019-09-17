@@ -1,4 +1,4 @@
-export function randomExtend (minNum, maxNum) {
+export function randomExtend(minNum, maxNum) {
   if (arguments.length === 1) {
     return parseInt(Math.random() * minNum + 1, 10)
   } else {
@@ -16,7 +16,7 @@ export function randomExtend (minNum, maxNum) {
 export function debounce(fn, delay = 600, runFirstFn = true) {
   let timer = null
 
-  return function (...rest) {
+  return function(...rest) {
     // 清除定时器
     clearTimeout(timer)
     if (runFirstFn) {
@@ -30,20 +30,47 @@ export function debounce(fn, delay = 600, runFirstFn = true) {
   }
 }
 
-export function observerDomResize (dom, callback) {
-  const MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
+export function observerDomResize(dom, callback) {
+  const MutationObserver =
+    window.MutationObserver ||
+    window.WebKitMutationObserver ||
+    window.MozMutationObserver
 
   const observer = new MutationObserver(callback)
 
-  observer.observe(dom, { attributes: true, attributeFilter: ['style'], attributeOldValue: true })
+  observer.observe(dom, {
+    attributes: true,
+    attributeFilter: ['style'],
+    attributeOldValue: true
+  })
 
   return observer
 }
 
-export function getPointDistance (pointOne, pointTwo) {
+export function getPointDistance(pointOne, pointTwo) {
   const minusX = Math.abs(pointOne[0] - pointTwo[0])
 
   const minusY = Math.abs(pointOne[1] - pointTwo[1])
 
   return Math.sqrt(minusX * minusX + minusY * minusY)
+}
+
+export function co(gen) {
+  if (!gen || typeof gen.next !== 'function') return
+
+  next(gen.next())
+
+  function next(ret) {
+    if (ret.done) return ret.value
+
+    const value = ret.value
+
+    if (value && !isPromise(value)) return next(gen.next())
+
+    if (value && isPromise(value)) return value.then(() => next(gen.next()))
+  }
+
+  function isPromise(obj) {
+    return typeof obj.then === 'function'
+  }
 }

@@ -205,7 +205,7 @@ var ScrollRankingBoard = function ScrollRankingBoard(_ref5) {
   function onResize() {
     if (!mergedConfig) return;
 
-    calcHeights(true);
+    calcHeights(mergedConfig, true);
   }
 
   function calcData() {
