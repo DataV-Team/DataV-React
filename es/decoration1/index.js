@@ -1,8 +1,8 @@
 import { a as styleInject } from '../chunk-80bd9449.js';
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { a as classnames } from '../chunk-84657507.js';
-import { a as useAutoResize } from '../chunk-45917cce.js';
+import { a as useAutoResize } from '../chunk-d3494329.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
 var css = ".dv-decoration-1 {\n  width: 100%;\n  height: 100%;\n}\n.dv-decoration-1 svg {\n  transform-origin: left top;\n}\n";
@@ -41,34 +41,25 @@ var Decoration = function Decoration(_ref) {
   var className = _ref.className,
       style = _ref.style;
 
-  var _useAutoResize = useAutoResize(calcSVGData, calcSVGData),
+  var _useAutoResize = useAutoResize(),
       width = _useAutoResize.width,
       height = _useAutoResize.height,
       domRef = _useAutoResize.domRef;
 
-  var _useState = useState({
-    svgScale: [1, 1],
-
-    points: [],
-
-    rects: []
-  }),
-      _useState2 = slicedToArray(_useState, 2),
-      _useState2$ = _useState2[0],
-      svgScale = _useState2$.svgScale,
-      points = _useState2$.points,
-      rects = _useState2$.rects,
-      setState = _useState2[1];
-
   function calcSVGData() {
     var points = getPoints();
 
-    setState({
+    return {
       points: points,
       rects: [points[rowPoints * 2 - 1], points[rowPoints * 2 - 3]],
       svgScale: [width / svgWH[0], height / svgWH[1]]
-    });
+    };
   }
+
+  var _useMemo = useMemo(calcSVGData, [width, height]),
+      svgScale = _useMemo.svgScale,
+      points = _useMemo.points,
+      rects = _useMemo.rects;
 
   var classNames = useMemo(function () {
     return classnames('dv-decoration-1', className);

@@ -22,10 +22,9 @@ const Decoration = ({ reverse = false, className, style }) => {
     [reverse, width, height]
   )
 
-  const classNames = useMemo(
-    () => classnames('dv-decoration-8', className),
-    [className]
-  )
+  const classNames = useMemo(() => classnames('dv-decoration-8', className), [
+    className
+  ])
 
   return (
     <div className={classNames} style={style} ref={domRef}>

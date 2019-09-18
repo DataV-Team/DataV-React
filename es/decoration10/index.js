@@ -2,7 +2,7 @@ import { a as styleInject } from '../chunk-80bd9449.js';
 import React, { useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { a as classnames } from '../chunk-84657507.js';
-import { a as useAutoResize } from '../chunk-45917cce.js';
+import { a as useAutoResize } from '../chunk-d3494329.js';
 import '../chunk-0e3b7ae4.js';
 
 var css = ".dv-decoration-10 {\n  width: 100%;\n  height: 100%;\n  display: flex;\n}\n";
@@ -17,7 +17,7 @@ var Decoration = function Decoration(_ref) {
       height = _useAutoResize.height,
       domRef = _useAutoResize.domRef;
 
-  var _useRef = useRef({
+  var _useRef$current = useRef({
     animationId1: 'd10ani1' + Date.now(),
     animationId2: 'd10ani2' + Date.now(),
     animationId3: 'd10ani3' + Date.now(),
@@ -25,8 +25,7 @@ var Decoration = function Decoration(_ref) {
     animationId5: 'd10ani5' + Date.now(),
     animationId6: 'd10ani6' + Date.now(),
     animationId7: 'd10ani7' + Date.now()
-  }),
-      _useRef$current = _useRef.current,
+  }).current,
       animationId1 = _useRef$current.animationId1,
       animationId2 = _useRef$current.animationId2,
       animationId3 = _useRef$current.animationId3,
@@ -34,6 +33,7 @@ var Decoration = function Decoration(_ref) {
       animationId5 = _useRef$current.animationId5,
       animationId6 = _useRef$current.animationId6,
       animationId7 = _useRef$current.animationId7;
+
 
   var classNames = useMemo(function () {
     return classnames('dv-decoration-10', className);

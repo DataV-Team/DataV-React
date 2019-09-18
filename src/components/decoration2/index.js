@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 
 import PropTypes from 'prop-types'
 
@@ -9,19 +9,15 @@ import useAutoResize from '../../use/autoResize'
 import './style.less'
 
 const Decoration = ({ reverse = false, className, style }) => {
-  const { width, height, domRef } = useAutoResize(calcSVGData, calcSVGData)
-
-  const [{ x, y, w, h }, setState] = useState({ x: 0, y: 0, w: 0, h: 0 })
+  const { width, height, domRef } = useAutoResize()
 
   function calcSVGData() {
-    setState(
-      reverse
-        ? { w: 1, h: height, x: width / 2, y: 0 }
-        : { w: width, h: 1, x: 0, y: height / 2 }
-    )
+    return reverse
+      ? { w: 1, h: height, x: width / 2, y: 0 }
+      : { w: width, h: 1, x: 0, y: height / 2 }
   }
 
-  useEffect(calcSVGData, [reverse])
+  const { x, y, w, h } = useMemo(calcSVGData, [reverse, width, height])
 
   const classNames = useMemo(() => classnames('dv-decoration-2', className), [
     className

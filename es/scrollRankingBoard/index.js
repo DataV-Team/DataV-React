@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { a as classnames } from '../chunk-84657507.js';
 import { h as util_2, i as util_1 } from '../chunk-41d81e09.js';
-import { a as useAutoResize } from '../chunk-45917cce.js';
+import { a as useAutoResize, d as co } from '../chunk-d3494329.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
 var css = ".dv-scroll-ranking-board {\n  width: 100%;\n  height: 100%;\n  color: #fff;\n  overflow: hidden;\n}\n.dv-scroll-ranking-board .row-item {\n  transition: all 0.3s;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  overflow: hidden;\n}\n.dv-scroll-ranking-board .ranking-info {\n  display: flex;\n  width: 100%;\n  font-size: 13px;\n}\n.dv-scroll-ranking-board .ranking-info .rank {\n  width: 40px;\n  color: #1370fb;\n}\n.dv-scroll-ranking-board .ranking-info .info-name {\n  flex: 1;\n}\n.dv-scroll-ranking-board .ranking-column {\n  border-bottom: 2px solid rgba(19, 112, 251, 0.5);\n  margin-top: 5px;\n}\n.dv-scroll-ranking-board .ranking-column .inside-column {\n  position: relative;\n  height: 6px;\n  background-color: #1370fb;\n  margin-bottom: 2px;\n  border-radius: 1px;\n  overflow: hidden;\n}\n.dv-scroll-ranking-board .ranking-column .shine {\n  position: absolute;\n  left: 0%;\n  top: 2px;\n  height: 2px;\n  width: 50px;\n  transform: translateX(-100%);\n  background: radial-gradient(#28f8ff 5%, transparent 80%);\n  animation: shine 3s ease-in-out infinite alternate;\n}\n@keyframes shine {\n  80% {\n    left: 0%;\n    transform: translateX(-100%);\n  }\n  100% {\n    left: 100%;\n    transform: translateX(0%);\n  }\n}\n";
@@ -44,7 +44,7 @@ var defaultConfig = {
   unit: ''
 };
 
-function calcRowsData(_ref) {
+function calcRows(_ref) {
   var data = _ref.data,
       rowNum = _ref.rowNum;
 
@@ -85,108 +85,22 @@ function calcRowsData(_ref) {
 }
 
 var ScrollRankingBoard = function ScrollRankingBoard(_ref5) {
-  var animation = function () {
-    var _ref7 = asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-      var start = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
-      var _stateRef$current, avgHeight, animationIndex, mergedConfig, rowsData, animation, waitTime, carousel, rowNum, rowLength, animationNum, rows, back;
-
-      return regeneratorRuntime.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _stateRef$current = stateRef.current, avgHeight = _stateRef$current.avgHeight, animationIndex = _stateRef$current.animationIndex, mergedConfig = _stateRef$current.mergedConfig, rowsData = _stateRef$current.rowsData, animation = _stateRef$current.animation;
-              waitTime = mergedConfig.waitTime, carousel = mergedConfig.carousel, rowNum = mergedConfig.rowNum;
-              rowLength = rowsData.length;
-
-              if (!(rowNum >= rowLength)) {
-                _context.next = 5;
-                break;
-              }
-
-              return _context.abrupt('return');
-
-            case 5:
-              if (!start) {
-                _context.next = 8;
-                break;
-              }
-
-              _context.next = 8;
-              return new Promise(function (resolve) {
-                return setTimeout(resolve, waitTime);
-              });
-
-            case 8:
-              animationNum = carousel === 'single' ? 1 : rowNum;
-              rows = rowsData.slice(animationIndex);
-
-              rows.push.apply(rows, toConsumableArray(rowsData.slice(0, animationIndex)));
-
-              setState(function (state) {
-                return _extends({}, state, {
-                  rows: rows,
-                  heights: new Array(rowLength).fill(avgHeight)
-                });
-              });
-
-              _context.next = 14;
-              return new Promise(function (resolve) {
-                return setTimeout(resolve, 300);
-              });
-
-            case 14:
-
-              animationIndex += animationNum;
-
-              back = animationIndex - rowLength;
-
-              if (back >= 0) animationIndex = back;
-
-              setState(function (state) {
-                var _ref8;
-
-                return _extends({}, state, {
-                  animationIndex: animationIndex,
-                  heights: (_ref8 = [].concat(toConsumableArray(state.heights))).splice.apply(_ref8, [0, animationNum].concat(toConsumableArray(new Array(animationNum).fill(0))))
-                });
-              });
-
-              timerRef.current = setTimeout(animation, waitTime - 300);
-
-            case 19:
-            case 'end':
-              return _context.stop();
-          }
-        }
-      }, _callee, this);
-    }));
-
-    return function animation() {
-      return _ref7.apply(this, arguments);
-    };
-  }();
+  var _marked = /*#__PURE__*/regeneratorRuntime.mark(animation);
 
   var config = _ref5.config,
       className = _ref5.className,
       style = _ref5.style;
 
-  var _useAutoResize = useAutoResize(calcData, onResize),
+  var _useAutoResize = useAutoResize(),
       height = _useAutoResize.height,
       domRef = _useAutoResize.domRef;
 
   var _useState = useState({
     mergedConfig: null,
 
-    rowsData: [],
-
     rows: [],
 
-    avgHeight: 0,
-
-    heights: [],
-
-    animationIndex: 0
+    heights: []
   }),
       _useState2 = slicedToArray(_useState, 2),
       state = _useState2[0],
@@ -197,37 +111,39 @@ var ScrollRankingBoard = function ScrollRankingBoard(_ref5) {
       heights = state.heights;
 
 
-  var timerRef = useRef(null);
-  var stateRef = useRef(state);
+  var stateRef = useRef(_extends({}, state, { avgHeight: 0, animationIndex: 0 }));
+  var heightRef = useRef(height);
 
-  stateRef.current = state;
+  Object.assign(stateRef.current, state);
 
   function onResize() {
+    var onresize = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
     if (!mergedConfig) return;
 
-    calcHeights(mergedConfig, true);
+    var heights = calcHeights(mergedConfig, onresize);
+
+    heights !== undefined && setState(function (state) {
+      return _extends({}, state, { heights: heights });
+    });
   }
 
   function calcData() {
     var mergedConfig = util_2(util_1(defaultConfig, true), config || {});
 
-    var rowsData = calcRowsData(mergedConfig);
+    var rows = calcRows(mergedConfig);
 
-    var heightData = calcHeights(mergedConfig);
+    var heights = calcHeights(mergedConfig);
 
-    var data = _extends({
-      mergedConfig: mergedConfig,
-      rowsData: rowsData,
-      rows: [].concat(toConsumableArray(rowsData))
-    }, heightData);
+    var data = { mergedConfig: mergedConfig, rows: rows };
+
+    heights !== undefined && Object.assign(data, { heights: heights });
 
     Object.assign(stateRef.current, data);
 
     setState(function (state) {
       return _extends({}, state, data);
     });
-
-    animation(true);
   }
 
   function calcHeights(_ref6) {
@@ -237,20 +153,163 @@ var ScrollRankingBoard = function ScrollRankingBoard(_ref5) {
 
     var avgHeight = height / rowNum;
 
-    if (onresize) {
-      return { avgHeight: avgHeight };
-    }
+    Object.assign(stateRef.current, { avgHeight: avgHeight });
 
-    return { avgHeight: avgHeight, heights: new Array(data.length).fill(avgHeight) };
+    if (!onresize) {
+      return new Array(data.length).fill(avgHeight);
+    }
+  }
+
+  function animation() {
+    var start = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+    var _stateRef$current, avgHeight, animationIndex, mergedConfig, rowsData, waitTime, carousel, rowNum, rowLength, animationNum, rows, back;
+
+    return regeneratorRuntime.wrap(function animation$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _stateRef$current = stateRef.current, avgHeight = _stateRef$current.avgHeight, animationIndex = _stateRef$current.animationIndex, mergedConfig = _stateRef$current.mergedConfig, rowsData = _stateRef$current.rows;
+            waitTime = mergedConfig.waitTime, carousel = mergedConfig.carousel, rowNum = mergedConfig.rowNum;
+            rowLength = rowsData.length;
+
+            if (!start) {
+              _context.next = 6;
+              break;
+            }
+
+            _context.next = 6;
+            return new Promise(function (resolve) {
+              return setTimeout(resolve, waitTime);
+            });
+
+          case 6:
+            animationNum = carousel === 'single' ? 1 : rowNum;
+            rows = rowsData.slice(animationIndex);
+
+            rows.push.apply(rows, toConsumableArray(rowsData.slice(0, animationIndex)));
+
+            setState(function (state) {
+              return _extends({}, state, {
+                rows: rows,
+                heights: new Array(rowLength).fill(avgHeight)
+              });
+            });
+
+            _context.next = 12;
+            return new Promise(function (resolve) {
+              return setTimeout(resolve, 300);
+            });
+
+          case 12:
+
+            animationIndex += animationNum;
+
+            back = animationIndex - rowLength;
+
+            if (back >= 0) animationIndex = back;
+
+            Object.assign(stateRef.current, { animationIndex: animationIndex });
+
+            setState(function (state) {
+              var _ref7;
+
+              return _extends({}, state, {
+                heights: (_ref7 = [].concat(toConsumableArray(state.heights))).splice.apply(_ref7, [0, animationNum].concat(toConsumableArray(new Array(animationNum).fill(0))))
+              });
+            });
+
+          case 17:
+          case 'end':
+            return _context.stop();
+        }
+      }
+    }, _marked, this);
   }
 
   useEffect(function () {
+    var _marked2 = /*#__PURE__*/regeneratorRuntime.mark(loop);
+
     calcData();
 
-    return function () {
-      return clearTimeout(timerRef.current);
-    };
+    var start = true;
+
+    function loop() {
+      var _this = this;
+
+      var _loop;
+
+      return regeneratorRuntime.wrap(function loop$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _loop = /*#__PURE__*/regeneratorRuntime.mark(function _loop() {
+                var waitTime;
+                return regeneratorRuntime.wrap(function _loop$(_context2) {
+                  while (1) {
+                    switch (_context2.prev = _context2.next) {
+                      case 0:
+                        return _context2.delegateYield(animation(start), 't0', 1);
+
+                      case 1:
+
+                        start = false;
+
+                        waitTime = stateRef.current.mergedConfig.waitTime;
+                        _context2.next = 5;
+                        return new Promise(function (resolve) {
+                          return setTimeout(resolve, waitTime - 300);
+                        });
+
+                      case 5:
+                      case 'end':
+                        return _context2.stop();
+                    }
+                  }
+                }, _loop, _this);
+              });
+
+            case 1:
+
+              return _context3.delegateYield(_loop(), 't0', 3);
+
+            case 3:
+              _context3.next = 1;
+              break;
+
+            case 5:
+            case 'end':
+              return _context3.stop();
+          }
+        }
+      }, _marked2, this);
+    }
+
+    var _stateRef$current2 = stateRef.current,
+        rowNum = _stateRef$current2.mergedConfig.rowNum,
+        rowsData = _stateRef$current2.rows;
+
+
+    var rowLength = rowsData.length;
+
+    if (rowNum >= rowLength) return;
+
+    var it = loop();
+
+    co(it);
+
+    return it.return;
   }, [config]);
+
+  useEffect(function () {
+    if (heightRef.current === 0 && height !== 0) {
+      onResize();
+
+      heightRef.current = height;
+    } else {
+      onResize(true);
+    }
+  }, [height]);
 
   var classNames = useMemo(function () {
     return classnames('dv-scroll-ranking-board', className);

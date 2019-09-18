@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useMemo } from 'react'
 
 import PropTypes from 'prop-types'
 
@@ -36,25 +36,19 @@ function getPoints() {
 }
 
 const Decoration = ({ className, style }) => {
-  const { width, height, domRef } = useAutoResize(calcSVGData, calcSVGData)
-
-  const [{ svgScale, points, rects }, setState] = useState({
-    svgScale: [1, 1],
-
-    points: [],
-
-    rects: []
-  })
+  const { width, height, domRef } = useAutoResize()
 
   function calcSVGData() {
     const points = getPoints()
 
-    setState({
+    return {
       points,
       rects: [points[rowPoints * 2 - 1], points[rowPoints * 2 - 3]],
       svgScale: [width / svgWH[0], height / svgWH[1]]
-    })
+    }
   }
+
+  const { svgScale, points, rects } = useMemo(calcSVGData, [width, height])
 
   const classNames = useMemo(() => classnames('dv-decoration-1', className), [
     className

@@ -1,10 +1,10 @@
 import { a as styleInject } from '../chunk-80bd9449.js';
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { a as classnames } from '../chunk-84657507.js';
 import { a as util_7 } from '../chunk-41d81e09.js';
-import { a as useAutoResize } from '../chunk-45917cce.js';
-import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
+import { a as useAutoResize } from '../chunk-d3494329.js';
+import '../chunk-0e3b7ae4.js';
 
 var css = ".dv-decoration-5 {\n  width: 100%;\n  height: 100%;\n}\n";
 styleInject(css);
@@ -13,24 +13,10 @@ var Decoration = function Decoration(_ref) {
   var className = _ref.className,
       style = _ref.style;
 
-  var _useAutoResize = useAutoResize(calcSVGData, calcSVGData),
+  var _useAutoResize = useAutoResize(),
       width = _useAutoResize.width,
       height = _useAutoResize.height,
       domRef = _useAutoResize.domRef;
-
-  var _useState = useState({
-    line1Points: '',
-    line2Points: '',
-    line1Length: 0,
-    line2Length: 0
-  }),
-      _useState2 = slicedToArray(_useState, 2),
-      _useState2$ = _useState2[0],
-      line1Points = _useState2$.line1Points,
-      line2Points = _useState2$.line2Points,
-      line1Length = _useState2$.line1Length,
-      line2Length = _useState2$.line2Length,
-      setState = _useState2[1];
 
   function calcSVGData() {
     var line1Points = [[0, height * 0.2], [width * 0.18, height * 0.2], [width * 0.2, height * 0.4], [width * 0.25, height * 0.4], [width * 0.27, height * 0.6], [width * 0.72, height * 0.6], [width * 0.75, height * 0.4], [width * 0.8, height * 0.4], [width * 0.82, height * 0.2], [width, height * 0.2]];
@@ -47,8 +33,14 @@ var Decoration = function Decoration(_ref) {
       return point.join(',');
     }).join(' ');
 
-    setState({ line1Points: line1Points, line2Points: line2Points, line1Length: line1Length, line2Length: line2Length });
+    return { line1Points: line1Points, line2Points: line2Points, line1Length: line1Length, line2Length: line2Length };
   }
+
+  var _useMemo = useMemo(calcSVGData, [width, height]),
+      line1Points = _useMemo.line1Points,
+      line2Points = _useMemo.line2Points,
+      line1Length = _useMemo.line1Length,
+      line2Length = _useMemo.line2Length;
 
   var classNames = useMemo(function () {
     return classnames('dv-decoration-5', className);

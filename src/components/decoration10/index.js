@@ -12,15 +12,13 @@ const Decoration = ({ className, style }) => {
   const { width, height, domRef } = useAutoResize()
 
   const {
-    current: {
-      animationId1,
-      animationId2,
-      animationId3,
-      animationId4,
-      animationId5,
-      animationId6,
-      animationId7
-    }
+    animationId1,
+    animationId2,
+    animationId3,
+    animationId4,
+    animationId5,
+    animationId6,
+    animationId7
   } = useRef({
     animationId1: `d10ani1${Date.now()}`,
     animationId2: `d10ani2${Date.now()}`,
@@ -29,7 +27,7 @@ const Decoration = ({ className, style }) => {
     animationId5: `d10ani5${Date.now()}`,
     animationId6: `d10ani6${Date.now()}`,
     animationId7: `d10ani7${Date.now()}`
-  })
+  }).current
 
   const classNames = useMemo(() => classnames('dv-decoration-10', className), [
     className

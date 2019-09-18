@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useMemo } from 'react'
 
 import PropTypes from 'prop-types'
 
@@ -11,17 +11,7 @@ import useAutoResize from '../../use/autoResize'
 import './style.less'
 
 const Decoration = ({ className, style }) => {
-  const { width, height, domRef } = useAutoResize(calcSVGData, calcSVGData)
-
-  const [
-    { line1Points, line2Points, line1Length, line2Length },
-    setState
-  ] = useState({
-    line1Points: '',
-    line2Points: '',
-    line1Length: 0,
-    line2Length: 0
-  })
+  const { width, height, domRef } = useAutoResize()
 
   function calcSVGData() {
     let line1Points = [
@@ -45,8 +35,13 @@ const Decoration = ({ className, style }) => {
     line1Points = line1Points.map(point => point.join(',')).join(' ')
     line2Points = line2Points.map(point => point.join(',')).join(' ')
 
-    setState({ line1Points, line2Points, line1Length, line2Length })
+    return { line1Points, line2Points, line1Length, line2Length }
   }
+
+  const { line1Points, line2Points, line1Length, line2Length } = useMemo(
+    calcSVGData,
+    [width, height]
+  )
 
   const classNames = useMemo(() => classnames('dv-decoration-5', className), [
     className

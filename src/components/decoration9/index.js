@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo } from 'react'
+import React, { useRef, useMemo } from 'react'
 
 import PropTypes from 'prop-types'
 
@@ -11,17 +11,15 @@ import './style.less'
 const svgWH = [100, 100]
 
 const Decoration = ({ children, className, style }) => {
-  const { width, height, domRef } = useAutoResize(calcScale, calcScale)
-
-  const [svgScale, setSvgScale] = useState([1, 1])
+  const { width, height, domRef } = useAutoResize()
 
   const polygonIdRef = useRef(`decoration-9-polygon-${Date.now()}`)
 
-  function calcScale() {
+  const svgScale = useMemo(() => {
     const [w, h] = svgWH
 
-    setSvgScale([width / w, height / h])
-  }
+    return [width / w, height / h]
+  }, [width, height])
 
   const classNames = useMemo(() => classnames('dv-decoration-9', className), [
     className

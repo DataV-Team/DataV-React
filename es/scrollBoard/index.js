@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { a as classnames } from '../chunk-84657507.js';
 import { h as util_2, i as util_1 } from '../chunk-41d81e09.js';
-import { a as useAutoResize } from '../chunk-45917cce.js';
+import { a as useAutoResize, d as co } from '../chunk-d3494329.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
 var css = ".dv-scroll-board {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  color: #fff;\n}\n.dv-scroll-board .text {\n  padding: 0 10px;\n  box-sizing: border-box;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.dv-scroll-board .header {\n  display: flex;\n  flex-direction: row;\n  font-size: 15px;\n}\n.dv-scroll-board .header .header-item {\n  padding: 0 10px;\n  box-sizing: border-box;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  transition: all 0.3s;\n}\n.dv-scroll-board .rows {\n  overflow: hidden;\n}\n.dv-scroll-board .rows .row-item {\n  display: flex;\n  font-size: 14px;\n  transition: all 0.3s;\n}\n.dv-scroll-board .rows .ceil {\n  padding: 0 10px;\n  box-sizing: border-box;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.dv-scroll-board .rows .index {\n  border-radius: 3px;\n  padding: 0px 3px;\n}\n";
@@ -102,7 +102,7 @@ function calcHeaderData(_ref) {
   return header;
 }
 
-function calcRowsData(_ref2) {
+function calcRows(_ref2) {
   var data = _ref2.data,
       index = _ref2.index,
       headerBGC = _ref2.headerBGC,
@@ -112,7 +112,7 @@ function calcRowsData(_ref2) {
     data = data.map(function (row, i) {
       row = [].concat(toConsumableArray(row));
 
-      var indexTag = '<span className="index" style="background-color: ' + headerBGC + ';">' + (i + 1) + '</spand>';
+      var indexTag = '<span class="index" style="background-color: ' + headerBGC + ';">' + (i + 1) + '</span>';
 
       row.unshift(indexTag);
 
@@ -147,93 +147,14 @@ function calcAligns(mergedConfig, header) {
 }
 
 var ScrollBoard = function ScrollBoard(_ref3) {
-  var animation = function () {
-    var _ref6 = asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-      var start = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
-      var _stateRef$current, avgHeight, animationIndex, _stateRef$current$mer, waitTime, carousel, rowNum, rowsData, rowLength, animationNum, rows, back;
-
-      return regeneratorRuntime.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _stateRef$current = stateRef.current, avgHeight = _stateRef$current.avgHeight, animationIndex = _stateRef$current.animationIndex, _stateRef$current$mer = _stateRef$current.mergedConfig, waitTime = _stateRef$current$mer.waitTime, carousel = _stateRef$current$mer.carousel, rowNum = _stateRef$current$mer.rowNum, rowsData = _stateRef$current.rowsData;
-              rowLength = rowsData.length;
-
-              if (!(rowNum >= rowLength)) {
-                _context.next = 4;
-                break;
-              }
-
-              return _context.abrupt('return');
-
-            case 4:
-              if (!start) {
-                _context.next = 7;
-                break;
-              }
-
-              _context.next = 7;
-              return new Promise(function (resolve) {
-                return setTimeout(resolve, waitTime);
-              });
-
-            case 7:
-              animationNum = carousel === 'single' ? 1 : rowNum;
-              rows = rowsData.slice(animationIndex);
-
-              rows.push.apply(rows, toConsumableArray(rowsData.slice(0, animationIndex)));
-
-              setState(function (state) {
-                return _extends({}, state, {
-                  rows: rows,
-                  heights: new Array(rowLength).fill(avgHeight)
-                });
-              });
-
-              _context.next = 13;
-              return new Promise(function (resolve) {
-                return setTimeout(resolve, 300);
-              });
-
-            case 13:
-
-              animationIndex += animationNum;
-
-              back = animationIndex - rowLength;
-
-              if (back >= 0) animationIndex = back;
-
-              setState(function (state) {
-                var _ref7;
-
-                return _extends({}, state, {
-                  animationIndex: animationIndex,
-                  heights: (_ref7 = [].concat(toConsumableArray(state.heights))).splice.apply(_ref7, [0, animationNum].concat(toConsumableArray(new Array(animationNum).fill(0))))
-                });
-              });
-
-              timerRef.current = setTimeout(animation, waitTime - 300);
-
-            case 18:
-            case 'end':
-              return _context.stop();
-          }
-        }
-      }, _callee, this);
-    }));
-
-    return function animation() {
-      return _ref6.apply(this, arguments);
-    };
-  }();
+  var _marked = /*#__PURE__*/regeneratorRuntime.mark(animation);
 
   var onClick = _ref3.onClick,
       config = _ref3.config,
       className = _ref3.className,
       style = _ref3.style;
 
-  var _useAutoResize = useAutoResize(calcData, onResize),
+  var _useAutoResize = useAutoResize(),
       width = _useAutoResize.width,
       height = _useAutoResize.height,
       domRef = _useAutoResize.domRef;
@@ -243,19 +164,13 @@ var ScrollBoard = function ScrollBoard(_ref3) {
 
     header: [],
 
-    rowsData: [],
-
     rows: [],
 
     widths: [],
 
     heights: [],
 
-    avgHeight: 0,
-
-    aligns: [],
-
-    animationIndex: 0
+    aligns: []
   }),
       _useState2 = slicedToArray(_useState, 2),
       state = _useState2[0],
@@ -263,27 +178,34 @@ var ScrollBoard = function ScrollBoard(_ref3) {
 
   var mergedConfig = state.mergedConfig,
       header = state.header,
-      rowsData = state.rowsData,
       rows = state.rows,
       widths = state.widths,
       heights = state.heights,
       aligns = state.aligns;
 
 
-  var timerRef = useRef(null);
-  var stateRef = useRef(state);
+  var stateRef = useRef(_extends({}, state, {
+    rowsData: [],
+    avgHeight: 0,
+    animationIndex: 0
+  }));
 
-  stateRef.current = state;
+  Object.assign(stateRef.current, state);
 
   function onResize() {
     if (!mergedConfig) return;
 
-    var widths = calcWidths(mergedConfig, rowsData);
+    var widths = calcWidths(mergedConfig, stateRef.current.rowsData);
 
-    var heightData = calcHeights(mergedConfig, header);
+    var heights = calcHeights(mergedConfig, header);
 
+    var data = { widths: widths };
+
+    heights !== undefined && Object.assign(data, { heights: heights });
+
+    Object.assign(stateRef.current, data);
     setState(function (state) {
-      return _extends({}, state, { widths: widths }, heightData);
+      return _extends({}, state, data);
     });
   }
 
@@ -292,31 +214,29 @@ var ScrollBoard = function ScrollBoard(_ref3) {
 
     var header = calcHeaderData(mergedConfig);
 
-    var rowsData = calcRowsData(mergedConfig);
+    var rows = calcRows(mergedConfig);
 
-    var widths = calcWidths(mergedConfig, rowsData);
+    var widths = calcWidths(mergedConfig, stateRef.current.rowsData);
 
-    var heightData = calcHeights(mergedConfig, header);
+    var heights = calcHeights(mergedConfig, header);
 
     var aligns = calcAligns(mergedConfig, header);
 
-    var data = _extends({
+    var data = {
       mergedConfig: mergedConfig,
       header: header,
-      rowsData: rowsData,
-      rows: [].concat(toConsumableArray(rowsData)),
-      widths: widths
-    }, heightData, {
+      rows: rows,
+      widths: widths,
       aligns: aligns
-    });
+    };
 
-    Object.assign(stateRef.current, data);
+    heights !== undefined && Object.assign(data, { heights: heights });
+
+    Object.assign(stateRef.current, data, { rowsData: rows });
 
     setState(function (state) {
       return _extends({}, state, data);
     });
-
-    animation(true);
   }
 
   function calcWidths(_ref4, rowsData) {
@@ -353,7 +273,75 @@ var ScrollBoard = function ScrollBoard(_ref3) {
 
     var avgHeight = allHeight / rowNum;
 
-    return onresize ? { avgHeight: avgHeight } : { avgHeight: avgHeight, heights: new Array(data.length).fill(avgHeight) };
+    Object.assign(stateRef.current, { avgHeight: avgHeight });
+
+    if (!onresize) {
+      return new Array(data.length).fill(avgHeight);
+    }
+  }
+
+  function animation() {
+    var start = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+    var _stateRef$current, avgHeight, animationIndex, _stateRef$current$mer, waitTime, carousel, rowNum, rowsData, rowLength, animationNum, rows, heights, back, newHeights;
+
+    return regeneratorRuntime.wrap(function animation$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _stateRef$current = stateRef.current, avgHeight = _stateRef$current.avgHeight, animationIndex = _stateRef$current.animationIndex, _stateRef$current$mer = _stateRef$current.mergedConfig, waitTime = _stateRef$current$mer.waitTime, carousel = _stateRef$current$mer.carousel, rowNum = _stateRef$current$mer.rowNum, rowsData = _stateRef$current.rowsData;
+            rowLength = rowsData.length;
+
+            if (!start) {
+              _context.next = 5;
+              break;
+            }
+
+            _context.next = 5;
+            return new Promise(function (resolve) {
+              return setTimeout(resolve, waitTime);
+            });
+
+          case 5:
+            animationNum = carousel === 'single' ? 1 : rowNum;
+            rows = rowsData.slice(animationIndex);
+
+            rows.push.apply(rows, toConsumableArray(rowsData.slice(0, animationIndex)));
+
+            heights = new Array(rowLength).fill(avgHeight);
+
+            setState(function (state) {
+              return _extends({}, state, { rows: rows, heights: heights });
+            });
+
+            _context.next = 12;
+            return new Promise(function (resolve) {
+              return setTimeout(resolve, 300);
+            });
+
+          case 12:
+
+            animationIndex += animationNum;
+
+            back = animationIndex - rowLength;
+
+            if (back >= 0) animationIndex = back;
+
+            newHeights = [].concat(toConsumableArray(heights));
+
+            newHeights.splice.apply(newHeights, [0, animationNum].concat(toConsumableArray(new Array(animationNum).fill(0))));
+
+            Object.assign(stateRef.current, { animationIndex: animationIndex });
+            setState(function (state) {
+              return _extends({}, state, { heights: newHeights });
+            });
+
+          case 19:
+          case 'end':
+            return _context.stop();
+        }
+      }
+    }, _marked, this);
   }
 
   function emitEvent(ri, ci, row, ceil) {
@@ -369,12 +357,80 @@ var ScrollBoard = function ScrollBoard(_ref3) {
   };
 
   useEffect(function () {
+    var _marked2 = /*#__PURE__*/regeneratorRuntime.mark(loop);
+
     calcData();
 
-    return function () {
-      return clearTimeout(timerRef.current);
-    };
+    var start = true;
+
+    function loop() {
+      var _this = this;
+
+      var _loop;
+
+      return regeneratorRuntime.wrap(function loop$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _loop = /*#__PURE__*/regeneratorRuntime.mark(function _loop() {
+                var waitTime;
+                return regeneratorRuntime.wrap(function _loop$(_context2) {
+                  while (1) {
+                    switch (_context2.prev = _context2.next) {
+                      case 0:
+                        return _context2.delegateYield(animation(start), 't0', 1);
+
+                      case 1:
+
+                        start = false;
+
+                        waitTime = stateRef.current.mergedConfig.waitTime;
+                        _context2.next = 5;
+                        return new Promise(function (resolve) {
+                          return setTimeout(resolve, waitTime - 300);
+                        });
+
+                      case 5:
+                      case 'end':
+                        return _context2.stop();
+                    }
+                  }
+                }, _loop, _this);
+              });
+
+            case 1:
+
+              return _context3.delegateYield(_loop(), 't0', 3);
+
+            case 3:
+              _context3.next = 1;
+              break;
+
+            case 5:
+            case 'end':
+              return _context3.stop();
+          }
+        }
+      }, _marked2, this);
+    }
+
+    var _stateRef$current2 = stateRef.current,
+        rowNum = _stateRef$current2.mergedConfig.rowNum,
+        rowsData = _stateRef$current2.rows;
+
+
+    var rowLength = rowsData.length;
+
+    if (rowNum >= rowLength) return;
+
+    var it = loop();
+
+    co(it);
+
+    return it.return;
   }, [config]);
+
+  useEffect(onResize, [height]);
 
   var classNames = useMemo(function () {
     return classnames('dv-scroll-board', className);

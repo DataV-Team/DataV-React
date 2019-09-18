@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef, useCallback, useMemo } from 'react'
 import PropTypes from 'prop-types';
 import { a as classnames } from '../chunk-84657507.js';
 import { h as util_2, i as util_1 } from '../chunk-41d81e09.js';
-import { a as useAutoResize, b as randomExtend, c as getPointDistance } from '../chunk-45917cce.js';
+import { a as useAutoResize, b as randomExtend, c as getPointDistance } from '../chunk-d3494329.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
 var css = ".dv-flyline-chart {\n  display: flex;\n  flex-direction: column;\n  background-size: 100% 100%;\n}\n.dv-flyline-chart polyline {\n  transition: all 0.3s;\n}\n.dv-flyline-chart text {\n  text-anchor: middle;\n  dominant-baseline: middle;\n}\n";

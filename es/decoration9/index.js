@@ -1,9 +1,9 @@
 import { a as styleInject } from '../chunk-80bd9449.js';
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { a as classnames } from '../chunk-84657507.js';
-import { a as useAutoResize } from '../chunk-45917cce.js';
-import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
+import { a as useAutoResize } from '../chunk-d3494329.js';
+import '../chunk-0e3b7ae4.js';
 
 var css = ".dv-decoration-9 {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.dv-decoration-9 svg {\n  position: absolute;\n  left: 0px;\n  top: 0px;\n  transform-origin: left top;\n}\n";
 styleInject(css);
@@ -15,25 +15,20 @@ var Decoration = function Decoration(_ref) {
       className = _ref.className,
       style = _ref.style;
 
-  var _useAutoResize = useAutoResize(calcScale, calcScale),
+  var _useAutoResize = useAutoResize(),
       width = _useAutoResize.width,
       height = _useAutoResize.height,
       domRef = _useAutoResize.domRef;
 
-  var _useState = useState([1, 1]),
-      _useState2 = slicedToArray(_useState, 2),
-      svgScale = _useState2[0],
-      setSvgScale = _useState2[1];
-
   var polygonIdRef = useRef('decoration-9-polygon-' + Date.now());
 
-  function calcScale() {
+  var svgScale = useMemo(function () {
     var w = svgWH[0],
         h = svgWH[1];
 
 
-    setSvgScale([width / w, height / h]);
-  }
+    return [width / w, height / h];
+  }, [width, height]);
 
   var classNames = useMemo(function () {
     return classnames('dv-decoration-9', className);
