@@ -9,6 +9,7 @@ import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
 
 import useAutoResize from '../../use/autoResize'
+import { co } from '../../util'
 
 import './style.less'
 
@@ -102,13 +103,13 @@ function calcHeaderData({ header, index }) {
   return header
 }
 
-function calcRowsData({ data, index, headerBGC, rowNum }) {
+function calcRows({ data, index, headerBGC, rowNum }) {
   if (index) {
     data = data.map((row, i) => {
       row = [...row]
 
-      const indexTag = `<span className="index" style="background-color: ${headerBGC};">${i +
-        1}</spand>`
+      const indexTag = `<span class="index" style="background-color: ${headerBGC};">${i +
+        1}</span>`
 
       row.unshift(indexTag)
 
@@ -138,14 +139,12 @@ function calcAligns(mergedConfig, header) {
 }
 
 const ScrollBoard = ({ onClick, config, className, style }) => {
-  const { width, height, domRef } = useAutoResize(calcData, onResize)
+  const { width, height, domRef } = useAutoResize()
 
   const [state, setState] = useState({
     mergedConfig: null,
 
     header: [],
-
-    rowsData: [],
 
     rows: [],
 
@@ -153,36 +152,33 @@ const ScrollBoard = ({ onClick, config, className, style }) => {
 
     heights: [],
 
+    aligns: []
+  })
+
+  const { mergedConfig, header, rows, widths, heights, aligns } = state
+
+  const stateRef = useRef({
+    ...state,
+    rowsData: [],
     avgHeight: 0,
-
-    aligns: [],
-
     animationIndex: 0
   })
 
-  const {
-    mergedConfig,
-    header,
-    rowsData,
-    rows,
-    widths,
-    heights,
-    aligns
-  } = state
-
-  const timerRef = useRef(null)
-  const stateRef = useRef(state)
-
-  stateRef.current = state
+  Object.assign(stateRef.current, state)
 
   function onResize() {
     if (!mergedConfig) return
 
-    const widths = calcWidths(mergedConfig, rowsData)
+    const widths = calcWidths(mergedConfig, stateRef.current.rowsData)
 
-    const heightData = calcHeights(mergedConfig, header)
+    const heights = calcHeights(mergedConfig, header)
 
-    setState(state => ({ ...state, widths, ...heightData }))
+    const data = { widths }
+
+    heights !== undefined && Object.assign(data, { heights })
+
+    Object.assign(stateRef.current, data)
+    setState(state => ({ ...state, ...data }))
   }
 
   function calcData() {
@@ -190,29 +186,27 @@ const ScrollBoard = ({ onClick, config, className, style }) => {
 
     const header = calcHeaderData(mergedConfig)
 
-    const rowsData = calcRowsData(mergedConfig)
+    const rows = calcRows(mergedConfig)
 
-    const widths = calcWidths(mergedConfig, rowsData)
+    const widths = calcWidths(mergedConfig, stateRef.current.rowsData)
 
-    const heightData = calcHeights(mergedConfig, header)
+    const heights = calcHeights(mergedConfig, header)
 
     const aligns = calcAligns(mergedConfig, header)
 
     const data = {
       mergedConfig,
       header,
-      rowsData,
-      rows: [...rowsData],
+      rows,
       widths,
-      ...heightData,
       aligns
     }
 
-    Object.assign(stateRef.current, data)
+    heights !== undefined && Object.assign(data, { heights })
+
+    Object.assign(stateRef.current, data, { rowsData: rows })
 
     setState(state => ({ ...state, ...data }))
-
-    animation(true)
   }
 
   function calcWidths({ columnWidth, header }, rowsData) {
@@ -243,12 +237,14 @@ const ScrollBoard = ({ onClick, config, className, style }) => {
 
     const avgHeight = allHeight / rowNum
 
-    return onresize
-      ? { avgHeight }
-      : { avgHeight, heights: new Array(data.length).fill(avgHeight) }
+    Object.assign(stateRef.current, { avgHeight })
+
+    if (!onresize) {
+      return new Array(data.length).fill(avgHeight)
+    }
   }
 
-  async function animation(start = false) {
+  function * animation(start = false) {
     let {
       avgHeight,
       animationIndex,
@@ -258,39 +254,28 @@ const ScrollBoard = ({ onClick, config, className, style }) => {
 
     const rowLength = rowsData.length
 
-    if (rowNum >= rowLength) return
-
-    if (start) await new Promise(resolve => setTimeout(resolve, waitTime))
+    if (start) yield new Promise(resolve => setTimeout(resolve, waitTime))
 
     const animationNum = carousel === 'single' ? 1 : rowNum
 
     let rows = rowsData.slice(animationIndex)
     rows.push(...rowsData.slice(0, animationIndex))
 
-    setState(state => ({
-      ...state,
-      rows,
-      heights: new Array(rowLength).fill(avgHeight)
-    }))
+    const heights = new Array(rowLength).fill(avgHeight)
+    setState(state => ({ ...state, rows, heights }))
 
-    await new Promise(resolve => setTimeout(resolve, 300))
+    yield new Promise(resolve => setTimeout(resolve, 300))
 
     animationIndex += animationNum
 
     const back = animationIndex - rowLength
     if (back >= 0) animationIndex = back
 
-    setState(state => ({
-      ...state,
-      animationIndex,
-      heights: [...state.heights].splice(
-        0,
-        animationNum,
-        ...new Array(animationNum).fill(0)
-      )
-    }))
+    const newHeights = [...heights]
+    newHeights.splice(0, animationNum, ...new Array(animationNum).fill(0))
 
-    timerRef.current = setTimeout(animation, waitTime - 300)
+    Object.assign(stateRef.current, { animationIndex })
+    setState(state => ({ ...state, heights: newHeights }))
   }
 
   function emitEvent(ri, ci, row, ceil) {
@@ -305,8 +290,37 @@ const ScrollBoard = ({ onClick, config, className, style }) => {
   useEffect(() => {
     calcData()
 
-    return () => clearTimeout(timerRef.current)
+    let start = true
+
+    function * loop() {
+      while (true) {
+        yield * animation(start)
+
+        start = false
+
+        const { waitTime } = stateRef.current.mergedConfig
+
+        yield new Promise(resolve => setTimeout(resolve, waitTime - 300))
+      }
+    }
+
+    const {
+      mergedConfig: { rowNum },
+      rows: rowsData
+    } = stateRef.current
+
+    const rowLength = rowsData.length
+
+    if (rowNum >= rowLength) return
+
+    const it = loop()
+
+    co(it)
+
+    return it.return
   }, [config])
+
+  useEffect(onResize, [height])
 
   const classNames = useMemo(() => classnames('dv-scroll-board', className), [
     className
