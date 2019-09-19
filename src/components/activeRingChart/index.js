@@ -12,6 +12,8 @@ import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
 import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
 
+import { co } from '../../util'
+
 import './style.less'
 
 const defaultConfig = {
@@ -84,7 +86,6 @@ const ActiveRingChart = ({ config = {}, className, style }) => {
 
   const domRef = useRef(null)
   const chartRef = useRef(null)
-  const timerRef = useRef(null)
 
   const digitalFlop = useMemo(() => {
     if (!mergedConfig) return {}
@@ -152,30 +153,33 @@ const ActiveRingChart = ({ config = {}, className, style }) => {
     return [insideRadius, outSideRadius]
   }
 
-  function ringAnimation() {
+  function getOption(mergedConfig, activeIndex) {
     const radius = getRealRadius(mergedConfig)
     const active = getRealRadius(mergedConfig, true)
 
-    const option = getRingOption(mergedConfig)
+    let option = getRingOption(mergedConfig)
 
-    const data = option.series[0].data.map((item, i) => ({
-      ...item,
-      radius: i === activeIndex ? active : radius
-    }))
+    option = {
+      ...option,
+      series: option.series.reduce(
+        (prev, serie, index) =>
+          index !== 0
+            ? [...prev, serie]
+            : [
+              ...prev,
+              {
+                ...serie,
+                data: serie.data.map((item, i) => ({
+                  ...item,
+                  radius: i === activeIndex ? active : radius
+                }))
+              }
+            ],
+        []
+      )
+    }
 
-    chartRef.current.setOption(option)
-
-    const { activeTimeGap } = option.series[0]
-
-    timerRef.current = setTimeout(foo => {
-      let newActiveIndex = activeIndex + 1
-
-      if (newActiveIndex >= data.length) {
-        newActiveIndex = 0
-      }
-
-      setState(state => ({ ...state, activeIndex: newActiveIndex }))
-    }, activeTimeGap)
+    return option
   }
 
   useEffect(() => {
@@ -186,12 +190,36 @@ const ActiveRingChart = ({ config = {}, className, style }) => {
 
     chartRef.current.setOption(getRingOption(mergedConfig))
 
-    setState({ mergedConfig, activeIndex: 0 })
+    let activeIndex = 0
 
-    return () => clearTimeout(timerRef.current)
+    setState({ mergedConfig, activeIndex })
+
+    function * loop() {
+      while (true) {
+        const option = getOption(mergedConfig, activeIndex)
+
+        chartRef.current.setOption(option)
+
+        const { activeTimeGap, data } = option.series[0]
+
+        yield new Promise(resolve => setTimeout(resolve, activeTimeGap))
+
+        activeIndex += 1
+
+        if (activeIndex >= data.length) {
+          activeIndex = 0
+        }
+
+        setState(state => ({ ...state, activeIndex }))
+      }
+    }
+
+    const it = loop()
+
+    co(it)
+
+    return it.return
   }, [config])
-
-  useEffect(ringAnimation, [activeIndex, mergedConfig])
 
   const classNames = useMemo(
     () => classnames('dv-active-ring-chart', className),

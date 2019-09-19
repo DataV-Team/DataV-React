@@ -8,6 +8,8 @@ import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
 import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
 
+import './style.less'
+
 const defaultConfig = {
   /**
    * @description Capsule chart data

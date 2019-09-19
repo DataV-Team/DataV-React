@@ -8,7 +8,7 @@ export { default as Loading } from './components/loading'
 
 // border box
 export { default as BorderBox1 } from './components/borderBox1'
-export { default as borderBox2 } from './components/borderBox2'
+export { default as BorderBox2 } from './components/borderBox2'
 export { default as BorderBox3 } from './components/borderBox3'
 export { default as BorderBox4 } from './components/borderBox4'
 export { default as BorderBox5 } from './components/borderBox5'
