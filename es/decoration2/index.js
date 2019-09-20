@@ -2,7 +2,8 @@ import { a as styleInject } from '../chunk-80bd9449.js';
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { a as classnames } from '../chunk-84657507.js';
-import { a as useAutoResize } from '../chunk-d3494329.js';
+import { a as useAutoResize } from '../chunk-863fd33b.js';
+import '../chunk-f302ca2c.js';
 import '../chunk-0e3b7ae4.js';
 
 var css = ".dv-decoration-2 {\n  display: flex;\n  width: 100%;\n  height: 100%;\n  justify-content: center;\n  align-items: center;\n}\n";

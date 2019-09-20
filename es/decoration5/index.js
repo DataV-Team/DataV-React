@@ -3,7 +3,8 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { a as classnames } from '../chunk-84657507.js';
 import { a as util_7 } from '../chunk-41d81e09.js';
-import { a as useAutoResize } from '../chunk-d3494329.js';
+import { a as useAutoResize } from '../chunk-863fd33b.js';
+import '../chunk-f302ca2c.js';
 import '../chunk-0e3b7ae4.js';
 
 var css = ".dv-decoration-5 {\n  width: 100%;\n  height: 100%;\n}\n";

@@ -1,7 +1,7 @@
 export { default as FullScreenContainer } from '../fullScreenContainer/index.js';
 export { default as Loading } from '../loading/index.js';
 export { default as BorderBox1 } from '../borderBox1/index.js';
-export { default as borderBox2 } from '../borderBox2/index.js';
+export { default as BorderBox2 } from '../borderBox2/index.js';
 export { default as BorderBox3 } from '../borderBox3/index.js';
 export { default as BorderBox4 } from '../borderBox4/index.js';
 export { default as BorderBox5 } from '../borderBox5/index.js';
@@ -33,7 +33,8 @@ export { default as ScrollRankingBoard } from '../scrollRankingBoard/index.js';
 import '../chunk-80bd9449.js';
 import 'react';
 import 'prop-types';
-import '../chunk-d3494329.js';
+import '../chunk-863fd33b.js';
+import '../chunk-f302ca2c.js';
 import '../chunk-0e3b7ae4.js';
 import '../chunk-84657507.js';
 import '../chunk-41d81e09.js';

@@ -173,9 +173,7 @@ const ScrollBoard = ({ onClick, config, className, style }) => {
 
     const heights = calcHeights(mergedConfig, header)
 
-    const data = { widths }
-
-    heights !== undefined && Object.assign(data, { heights })
+    const data = { widths, heights }
 
     Object.assign(stateRef.current, data)
     setState(state => ({ ...state, ...data }))
@@ -199,10 +197,9 @@ const ScrollBoard = ({ onClick, config, className, style }) => {
       header,
       rows,
       widths,
-      aligns
+      aligns,
+      heights
     }
-
-    heights !== undefined && Object.assign(data, { heights })
 
     Object.assign(stateRef.current, data, { rowsData: rows })
 
@@ -226,11 +223,7 @@ const ScrollBoard = ({ onClick, config, className, style }) => {
     return deepMerge(widths, columnWidth)
   }
 
-  function calcHeights(
-    { headerHeight, rowNum, data },
-    header,
-    onresize = false
-  ) {
+  function calcHeights({ headerHeight, rowNum, data }, header) {
     let allHeight = height
 
     if (header.length) allHeight -= headerHeight
@@ -239,9 +232,7 @@ const ScrollBoard = ({ onClick, config, className, style }) => {
 
     Object.assign(stateRef.current, { avgHeight })
 
-    if (!onresize) {
-      return new Array(data.length).fill(avgHeight)
-    }
+    return new Array(data.length).fill(avgHeight)
   }
 
   function * animation(start = false) {
@@ -317,10 +308,10 @@ const ScrollBoard = ({ onClick, config, className, style }) => {
 
     co(it)
 
-    return it.return
-  }, [config])
+    return () => it.return()
+  }, [config, domRef.current])
 
-  useEffect(onResize, [height])
+  useEffect(onResize, [width, height, domRef.current])
 
   const classNames = useMemo(() => classnames('dv-scroll-board', className), [
     className

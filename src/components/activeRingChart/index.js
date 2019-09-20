@@ -218,7 +218,7 @@ const ActiveRingChart = ({ config = {}, className, style }) => {
 
     co(it)
 
-    return it.return
+    return () => it.return()
   }, [config])
 
   const classNames = useMemo(

@@ -5,6 +5,7 @@ import { a as classnames } from '../chunk-84657507.js';
 import { a as Chart } from '../chunk-93c11e7c.js';
 import DvDigitalFlop from '../digitalFlop/index.js';
 import { h as util_2, i as util_1 } from '../chunk-41d81e09.js';
+import { d as co } from '../chunk-f302ca2c.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 import '../chunk-e9d8b894.js';
 import '../chunk-ea5efeaf.js';
@@ -92,7 +93,6 @@ var ActiveRingChart = function ActiveRingChart(_ref) {
 
   var domRef = useRef(null);
   var chartRef = useRef(null);
-  var timerRef = useRef(null);
 
   var digitalFlop = useMemo(function () {
     if (!mergedConfig) return {};
@@ -166,37 +166,30 @@ var ActiveRingChart = function ActiveRingChart(_ref) {
     return [insideRadius, outSideRadius];
   }
 
-  function ringAnimation() {
+  function getOption(mergedConfig, activeIndex) {
     var radius = getRealRadius(mergedConfig);
     var active = getRealRadius(mergedConfig, true);
 
     var option = getRingOption(mergedConfig);
 
-    var data = option.series[0].data.map(function (item, i) {
-      return _extends({}, item, {
-        radius: i === activeIndex ? active : radius
-      });
+    option = _extends({}, option, {
+      series: option.series.reduce(function (prev, serie, index) {
+        return index !== 0 ? [].concat(toConsumableArray(prev), [serie]) : [].concat(toConsumableArray(prev), [_extends({}, serie, {
+          data: serie.data.map(function (item, i) {
+            return _extends({}, item, {
+              radius: i === activeIndex ? active : radius
+            });
+          })
+        })]);
+      }, [])
     });
 
-    chartRef.current.setOption(option);
-
-    var activeTimeGap = option.series[0].activeTimeGap;
-
-
-    timerRef.current = setTimeout(function (foo) {
-      var newActiveIndex = activeIndex + 1;
-
-      if (newActiveIndex >= data.length) {
-        newActiveIndex = 0;
-      }
-
-      setState(function (state) {
-        return _extends({}, state, { activeIndex: newActiveIndex });
-      });
-    }, activeTimeGap);
+    return option;
   }
 
   useEffect(function () {
+    var _marked = /*#__PURE__*/regeneratorRuntime.mark(loop);
+
     // 第一次时初始化
     chartRef.current || (chartRef.current = new Chart(domRef.current));
 
@@ -204,14 +197,79 @@ var ActiveRingChart = function ActiveRingChart(_ref) {
 
     chartRef.current.setOption(getRingOption(mergedConfig));
 
-    setState({ mergedConfig: mergedConfig, activeIndex: 0 });
+    var activeIndex = 0;
 
-    return function () {
-      return clearTimeout(timerRef.current);
-    };
+    setState({ mergedConfig: mergedConfig, activeIndex: activeIndex });
+
+    function loop() {
+      var _this = this;
+
+      var _loop;
+
+      return regeneratorRuntime.wrap(function loop$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _loop = /*#__PURE__*/regeneratorRuntime.mark(function _loop() {
+                var option, _option$series$, activeTimeGap, data;
+
+                return regeneratorRuntime.wrap(function _loop$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+                        option = getOption(mergedConfig, activeIndex);
+
+
+                        chartRef.current.setOption(option);
+
+                        _option$series$ = option.series[0], activeTimeGap = _option$series$.activeTimeGap, data = _option$series$.data;
+                        _context.next = 5;
+                        return new Promise(function (resolve) {
+                          return setTimeout(resolve, activeTimeGap);
+                        });
+
+                      case 5:
+
+                        activeIndex += 1;
+
+                        if (activeIndex >= data.length) {
+                          activeIndex = 0;
+                        }
+
+                        setState(function (state) {
+                          return _extends({}, state, { activeIndex: activeIndex });
+                        });
+
+                      case 8:
+                      case 'end':
+                        return _context.stop();
+                    }
+                  }
+                }, _loop, _this);
+              });
+
+            case 1:
+
+              return _context2.delegateYield(_loop(), 't0', 3);
+
+            case 3:
+              _context2.next = 1;
+              break;
+
+            case 5:
+            case 'end':
+              return _context2.stop();
+          }
+        }
+      }, _marked, this);
+    }
+
+    var it = loop();
+
+    co(it);
+
+    return it.return;
   }, [config]);
-
-  useEffect(ringAnimation, [activeIndex, mergedConfig]);
 
   var classNames = useMemo(function () {
     return classnames('dv-active-ring-chart', className);

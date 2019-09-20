@@ -202,7 +202,7 @@ const ScrollRankingBoard = ({ config, className, style }) => {
 
     co(it)
 
-    return it.return
+    return () => it.return()
   }, [config])
 
   useEffect(() => {

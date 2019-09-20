@@ -11,38 +11,22 @@ import useAutoResize from '../../use/autoResize'
 import './style.less'
 
 const Charts = ({ option = {}, className, style }) => {
-  const { domRef } = useAutoResize(initChart, onResize)
+  const { width, height, domRef } = useAutoResize()
 
   const chartRef = useRef(null)
 
   const chartInstanceofRef = useRef(null)
 
-  function initChart() {
-    chartInstanceofRef.current = new Chart(chartRef.current)
+  useEffect(() => {
+    chartInstanceofRef.current ||
+      (chartInstanceofRef.current = new Chart(chartRef.current))
 
-    if (!option) return
-
-    chartInstanceofRef.current.setOption(option)
-  }
-
-  function onResize() {
-    const chart = chartInstanceofRef.current
-
-    if (!chart) return
-
-    chart.resize()
-  }
+    chartInstanceofRef.current.setOption(option || {})
+  }, [option])
 
   useEffect(() => {
-    let newOption = option
-    const chart = chartInstanceofRef.current
-
-    if (!chart) return
-
-    if (!newOption) newOption = {}
-
-    chart.setOption(newOption)
-  }, [option])
+    chartInstanceofRef.current.resize()
+  }, [width, height])
 
   const classNames = useMemo(
     () => classnames('dv-charts-container', className),

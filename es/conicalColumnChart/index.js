@@ -3,8 +3,9 @@ import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { a as classnames } from '../chunk-84657507.js';
 import { h as util_2, i as util_1 } from '../chunk-41d81e09.js';
-import { a as useAutoResize } from '../chunk-d3494329.js';
+import { a as useAutoResize } from '../chunk-863fd33b.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
+import '../chunk-f302ca2c.js';
 
 var css = ".dv-conical-column-chart {\n  width: 100%;\n  height: 100%;\n}\n.dv-conical-column-chart text {\n  text-anchor: middle;\n}\n";
 styleInject(css);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 
 import PropTypes from 'prop-types'
 
@@ -79,20 +79,16 @@ function getData(mergedConfig) {
 }
 
 const ConicalColumnChart = ({ config = {}, className, style }) => {
-  const { width, height, domRef } = useAutoResize(calcData, calcData)
+  const { width, height, domRef } = useAutoResize()
 
-  const [{ mergedConfig, column }, setState] = useState({
-    mergedConfig: null,
-
-    column: []
-  })
+  const { mergedConfig, column } = useMemo(calcData, [config, width, height])
 
   function calcData() {
     const mergedConfig = deepMerge(deepClone(defaultConfig, true), config || {})
 
     mergedConfig.data = getData(mergedConfig)
 
-    setState({ mergedConfig, column: getColumn(mergedConfig) })
+    return { mergedConfig, column: getColumn(mergedConfig) }
   }
 
   function getColumn(mergedConfig) {
@@ -134,8 +130,6 @@ const ConicalColumnChart = ({ config = {}, className, style }) => {
       }
     })
   }
-
-  useEffect(calcData, [config])
 
   const classNames = useMemo(
     () => classnames('dv-conical-column-chart', className),
