@@ -1,7 +1,6 @@
-import { a as styleInject } from '../chunk-80bd9449.js';
+import { a as styleInject, b as PropTypes } from '../chunk-0e6a3972.js';
 import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { a as classnames } from '../chunk-84657507.js';
+import { a as classnames } from '../chunk-d9c8014f.js';
 
 var css = ".dv-loading {\n  width: 100%;\n  height: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.dv-loading .loading-tip {\n  font-size: 15px;\n}\n";
 styleInject(css);

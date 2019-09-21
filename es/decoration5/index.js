@@ -1,10 +1,9 @@
-import { a as styleInject } from '../chunk-80bd9449.js';
+import { a as styleInject, b as PropTypes } from '../chunk-0e6a3972.js';
 import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { a as classnames } from '../chunk-84657507.js';
-import { a as util_7 } from '../chunk-41d81e09.js';
-import { a as useAutoResize } from '../chunk-863fd33b.js';
-import '../chunk-f302ca2c.js';
+import { a as classnames } from '../chunk-d9c8014f.js';
+import { a as util_7 } from '../chunk-5c43ede6.js';
+import { a as useAutoResize } from '../chunk-5d4646c1.js';
+import '../chunk-b33d3196.js';
 import '../chunk-0e3b7ae4.js';
 
 var css = ".dv-decoration-5 {\n  width: 100%;\n  height: 100%;\n}\n";

@@ -1,10 +1,9 @@
-import { a as styleInject } from '../chunk-80bd9449.js';
+import { a as styleInject, b as PropTypes } from '../chunk-0e6a3972.js';
 import React, { useEffect, useRef, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { a as classnames } from '../chunk-84657507.js';
-import { f as CRender } from '../chunk-ea5efeaf.js';
-import '../chunk-e9d8b894.js';
-import { h as util_2, i as util_1 } from '../chunk-41d81e09.js';
+import { a as classnames } from '../chunk-d9c8014f.js';
+import { f as CRender } from '../chunk-960dcff1.js';
+import '../chunk-a820968d.js';
+import { h as util_2, i as util_1 } from '../chunk-5c43ede6.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
 var css = ".dv-digital-flop canvas {\n  width: 100%;\n  height: 100%;\n}\n";

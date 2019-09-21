@@ -1,9 +1,8 @@
-import { a as styleInject } from '../chunk-80bd9449.js';
+import { a as styleInject, b as PropTypes } from '../chunk-0e6a3972.js';
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { a as useAutoResize } from '../chunk-863fd33b.js';
+import { a as useAutoResize } from '../chunk-5d4646c1.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
-import '../chunk-f302ca2c.js';
+import '../chunk-b33d3196.js';
 
 var css = "#dv-full-screen-container {\n  position: fixed;\n  top: 0px;\n  left: 0px;\n  overflow: hidden;\n  transform-origin: left top;\n  z-index: 999;\n}\n";
 styleInject(css);

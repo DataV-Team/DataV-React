@@ -1,6 +1,6 @@
 {
   "name": "@jiaminghi/data-view-react",
-  "version": "0.0.3-rc.4",
+  "version": "0.0.3-rc.6",
   "description": "React Large screen data display component library",
   "author": "Duan Yu",
   "license": "MIT",
@@ -25,7 +25,6 @@
     "@jiaminghi/charts": "*"
   },
   "peerDependencies": {
-    "prop-types": "^15.7.2",
     "react": "^16.8.3",
     "react-dom": "^16.8.3"
   },
@@ -51,6 +50,7 @@
     "less": "^3.10.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "prop-types": "^15.7.2",
     "react-scripts": "^1.1.4",
     "rollup": "^0.64.1",
     "rollup-plugin-babel": "^3.0.7",
@@ -58,6 +58,7 @@
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-peer-deps-external": "^2.2.0",
     "rollup-plugin-postcss": "^1.6.2",
+    "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-url": "^1.4.0"
   },
   "files": [

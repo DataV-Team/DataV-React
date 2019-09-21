@@ -1,9 +1,8 @@
-import { a as styleInject } from '../chunk-80bd9449.js';
+import { a as styleInject, b as PropTypes } from '../chunk-0e6a3972.js';
 import React, { useEffect, useRef, useState, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { a as classnames } from '../chunk-84657507.js';
-import { h as util_2, i as util_1 } from '../chunk-41d81e09.js';
-import { f as CRender } from '../chunk-ea5efeaf.js';
+import { a as classnames } from '../chunk-d9c8014f.js';
+import { h as util_2, i as util_1 } from '../chunk-5c43ede6.js';
+import { f as CRender } from '../chunk-960dcff1.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
 var css = ".dv-water-pond-level {\n  position: relative;\n}\n.dv-water-pond-level svg {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  top: 0px;\n  left: 0px;\n}\n.dv-water-pond-level text {\n  font-size: 25px;\n  font-weight: bold;\n  text-anchor: middle;\n  dominant-baseline: middle;\n}\n.dv-water-pond-level ellipse,\n.dv-water-pond-level rect {\n  fill: none;\n  stroke-width: 3;\n}\n.dv-water-pond-level canvas {\n  margin-top: 8px;\n  margin-left: 8px;\n  width: calc(100% - 16px);\n  height: calc(100% - 16px);\n  box-sizing: border-box;\n}\n";

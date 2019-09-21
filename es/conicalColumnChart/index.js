@@ -1,11 +1,10 @@
-import { a as styleInject } from '../chunk-80bd9449.js';
-import React, { useState, useEffect, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { a as classnames } from '../chunk-84657507.js';
-import { h as util_2, i as util_1 } from '../chunk-41d81e09.js';
-import { a as useAutoResize } from '../chunk-863fd33b.js';
+import { a as styleInject, b as PropTypes } from '../chunk-0e6a3972.js';
+import React, { useMemo } from 'react';
+import { a as classnames } from '../chunk-d9c8014f.js';
+import { h as util_2, i as util_1 } from '../chunk-5c43ede6.js';
+import { a as useAutoResize } from '../chunk-5d4646c1.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
-import '../chunk-f302ca2c.js';
+import '../chunk-b33d3196.js';
 
 var css = ".dv-conical-column-chart {\n  width: 100%;\n  height: 100%;\n}\n.dv-conical-column-chart text {\n  text-anchor: middle;\n}\n";
 styleInject(css);
@@ -87,28 +86,21 @@ var ConicalColumnChart = function ConicalColumnChart(_ref3) {
       className = _ref3.className,
       style = _ref3.style;
 
-  var _useAutoResize = useAutoResize(calcData, calcData),
+  var _useAutoResize = useAutoResize(),
       width = _useAutoResize.width,
       height = _useAutoResize.height,
       domRef = _useAutoResize.domRef;
 
-  var _useState = useState({
-    mergedConfig: null,
-
-    column: []
-  }),
-      _useState2 = slicedToArray(_useState, 2),
-      _useState2$ = _useState2[0],
-      mergedConfig = _useState2$.mergedConfig,
-      column = _useState2$.column,
-      setState = _useState2[1];
+  var _useMemo = useMemo(calcData, [config, width, height]),
+      mergedConfig = _useMemo.mergedConfig,
+      column = _useMemo.column;
 
   function calcData() {
     var mergedConfig = util_2(util_1(defaultConfig, true), config || {});
 
     mergedConfig.data = getData(mergedConfig);
 
-    setState({ mergedConfig: mergedConfig, column: getColumn(mergedConfig) });
+    return { mergedConfig: mergedConfig, column: getColumn(mergedConfig) };
   }
 
   function getColumn(mergedConfig) {
@@ -146,8 +138,6 @@ var ConicalColumnChart = function ConicalColumnChart(_ref3) {
       });
     });
   }
-
-  useEffect(calcData, [config]);
 
   var classNames = useMemo(function () {
     return classnames('dv-conical-column-chart', className);

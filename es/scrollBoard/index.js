@@ -1,10 +1,9 @@
-import { a as styleInject } from '../chunk-80bd9449.js';
+import { a as styleInject, b as PropTypes } from '../chunk-0e6a3972.js';
 import React, { useEffect, useState, useRef, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { a as classnames } from '../chunk-84657507.js';
-import { h as util_2, i as util_1 } from '../chunk-41d81e09.js';
-import { a as useAutoResize } from '../chunk-863fd33b.js';
-import { d as co } from '../chunk-f302ca2c.js';
+import { a as classnames } from '../chunk-d9c8014f.js';
+import { h as util_2, i as util_1 } from '../chunk-5c43ede6.js';
+import { a as useAutoResize } from '../chunk-5d4646c1.js';
+import { d as co } from '../chunk-b33d3196.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
 
 var css = ".dv-scroll-board {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  color: #fff;\n}\n.dv-scroll-board .text {\n  padding: 0 10px;\n  box-sizing: border-box;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.dv-scroll-board .header {\n  display: flex;\n  flex-direction: row;\n  font-size: 15px;\n}\n.dv-scroll-board .header .header-item {\n  padding: 0 10px;\n  box-sizing: border-box;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  transition: all 0.3s;\n}\n.dv-scroll-board .rows {\n  overflow: hidden;\n}\n.dv-scroll-board .rows .row-item {\n  display: flex;\n  font-size: 14px;\n  transition: all 0.3s;\n}\n.dv-scroll-board .rows .ceil {\n  padding: 0 10px;\n  box-sizing: border-box;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.dv-scroll-board .rows .index {\n  border-radius: 3px;\n  padding: 0px 3px;\n}\n";
@@ -200,9 +199,7 @@ var ScrollBoard = function ScrollBoard(_ref3) {
 
     var heights = calcHeights(mergedConfig, header);
 
-    var data = { widths: widths };
-
-    heights !== undefined && Object.assign(data, { heights: heights });
+    var data = { widths: widths, heights: heights };
 
     Object.assign(stateRef.current, data);
     setState(function (state) {
@@ -228,10 +225,9 @@ var ScrollBoard = function ScrollBoard(_ref3) {
       header: header,
       rows: rows,
       widths: widths,
-      aligns: aligns
+      aligns: aligns,
+      heights: heights
     };
-
-    heights !== undefined && Object.assign(data, { heights: heights });
 
     Object.assign(stateRef.current, data, { rowsData: rows });
 
@@ -266,7 +262,6 @@ var ScrollBoard = function ScrollBoard(_ref3) {
     var headerHeight = _ref5.headerHeight,
         rowNum = _ref5.rowNum,
         data = _ref5.data;
-    var onresize = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
 
     var allHeight = height;
 
@@ -276,9 +271,7 @@ var ScrollBoard = function ScrollBoard(_ref3) {
 
     Object.assign(stateRef.current, { avgHeight: avgHeight });
 
-    if (!onresize) {
-      return new Array(data.length).fill(avgHeight);
-    }
+    return new Array(data.length).fill(avgHeight);
   }
 
   function animation() {
@@ -428,10 +421,12 @@ var ScrollBoard = function ScrollBoard(_ref3) {
 
     co(it);
 
-    return it.return;
-  }, [config]);
+    return function () {
+      return it.return();
+    };
+  }, [config, domRef.current]);
 
-  useEffect(onResize, [height]);
+  useEffect(onResize, [width, height, domRef.current]);
 
   var classNames = useMemo(function () {
     return classnames('dv-scroll-board', className);

@@ -1,14 +1,13 @@
-import { a as styleInject } from '../chunk-80bd9449.js';
+import { a as styleInject, b as PropTypes } from '../chunk-0e6a3972.js';
 import React, { useRef, useState, useEffect, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { a as classnames } from '../chunk-84657507.js';
-import { a as Chart } from '../chunk-93c11e7c.js';
+import { a as classnames } from '../chunk-d9c8014f.js';
+import { a as Chart } from '../chunk-31522730.js';
 import DvDigitalFlop from '../digitalFlop/index.js';
-import { h as util_2, i as util_1 } from '../chunk-41d81e09.js';
-import { d as co } from '../chunk-f302ca2c.js';
+import { h as util_2, i as util_1 } from '../chunk-5c43ede6.js';
+import { d as co } from '../chunk-b33d3196.js';
 import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
-import '../chunk-e9d8b894.js';
-import '../chunk-ea5efeaf.js';
+import '../chunk-a820968d.js';
+import '../chunk-960dcff1.js';
 
 var css = ".dv-active-ring-chart {\n  position: relative;\n}\n.dv-active-ring-chart .active-ring-chart-container {\n  width: 100%;\n  height: 100%;\n}\n.dv-active-ring-chart .active-ring-info {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0px;\n  top: 0px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.dv-active-ring-chart .active-ring-info .dv-digital-flop {\n  width: 100px;\n  height: 30px;\n}\n.dv-active-ring-chart .active-ring-info .active-ring-name {\n  width: 100px;\n  height: 30px;\n  color: #fff;\n  text-align: center;\n  vertical-align: middle;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n";
 styleInject(css);
@@ -268,7 +267,9 @@ var ActiveRingChart = function ActiveRingChart(_ref) {
 
     co(it);
 
-    return it.return;
+    return function () {
+      return it.return();
+    };
   }, [config]);
 
   var classNames = useMemo(function () {

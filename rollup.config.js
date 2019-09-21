@@ -3,6 +3,7 @@ import commonjs from 'rollup-plugin-commonjs'
 import external from 'rollup-plugin-peer-deps-external'
 import postcss from 'rollup-plugin-postcss'
 import resolve from 'rollup-plugin-node-resolve'
+import replace from 'rollup-plugin-replace'
 import url from 'rollup-plugin-url'
 import svgr from '@svgr/rollup'
 
@@ -17,36 +18,50 @@ const cModuleMap = cModuleNames.reduce((prev, name) => {
   return prev
 }, {})
 
-export default {
-  input: {
-    index: 'src/index.js',
-    ...cModuleMap
-  },
-  output: [
-    {
-      dir: 'lib',
-      entryFileNames: '[name]/index.js',
-      format: 'cjs',
-      sourcemap: true
+const plugins = [
+  external(),
+  postcss(),
+  url(),
+  svgr(),
+  babel({
+    exclude: 'node_modules/**',
+    plugins: ['external-helpers']
+  }),
+  resolve(),
+  commonjs(),
+  replace({ 'process.env.NODE_ENV': '"production"' })
+]
+
+export default [
+  {
+    input: {
+      index: 'src/index.js',
+      ...cModuleMap
     },
-    {
-      dir: 'es',
-      entryFileNames: '[name]/index.js',
-      format: 'es',
-      sourcemap: true
-    }
-  ],
-  plugins: [
-    external(),
-    postcss(),
-    url(),
-    svgr(),
-    babel({
-      exclude: 'node_modules/**',
-      plugins: ['external-helpers']
-    }),
-    resolve(),
-    commonjs()
-  ],
-  experimentalCodeSplitting: true
-}
+    output: [
+      {
+        dir: 'lib',
+        entryFileNames: '[name]/index.js',
+        format: 'cjs',
+        sourcemap: true
+      },
+      {
+        dir: 'es',
+        entryFileNames: '[name]/index.js',
+        format: 'es',
+        sourcemap: true
+      }
+    ],
+    plugins,
+    experimentalCodeSplitting: true
+  },
+  {
+    input: 'src/index.js',
+    output: {
+      format: 'umd',
+      file: 'dist/datav.map.react.js',
+      name: 'datav'
+    },
+    plugins
+  }
+]
