@@ -225,7 +225,7 @@ var FlyLineChart = function FlyLineChart(_ref6) {
       className = _ref6.className,
       style = _ref6.style;
 
-  var _useAutoResize = useAutoResize(calcData, calcData),
+  var _useAutoResize = useAutoResize(),
       width = _useAutoResize.width,
       height = _useAutoResize.height,
       domRef = _useAutoResize.domRef;
@@ -239,32 +239,23 @@ var FlyLineChart = function FlyLineChart(_ref6) {
       gradientId = _useRef$current.gradientId,
       gradient2Id = _useRef$current.gradient2Id;
 
-  var _useState = useState({
-    mergedConfig: null,
-    paths: [],
-    lengths: [],
-    times: [],
-    texts: []
-  }),
-      _useState2 = slicedToArray(_useState, 2),
-      _useState2$ = _useState2[0],
-      mergedConfig = _useState2$.mergedConfig,
-      paths = _useState2$.paths,
-      lengths = _useState2$.lengths,
-      times = _useState2$.times,
-      texts = _useState2$.texts,
-      setState = _useState2[1];
+  var _useMemo = useMemo(calcData, [config, width, height]),
+      mergedConfig = _useMemo.mergedConfig,
+      paths = _useMemo.paths,
+      times = _useMemo.times,
+      texts = _useMemo.texts;
 
-  var pathRef = useRef([]);
+  var _useState = useState([]),
+      _useState2 = slicedToArray(_useState, 2),
+      lengths = _useState2[0],
+      setLengths = _useState2[1];
+
+  var pathDomRef = useRef([]);
 
   function calcData() {
     var mergedConfig = getMergedConfig();
 
     var paths = createFlylinePaths(mergedConfig);
-
-    var lengths = paths.map(function (foo, i) {
-      return pathRef.current[i][0].getTotalLength();
-    });
 
     var duration = mergedConfig.duration,
         points = mergedConfig.points;
@@ -279,7 +270,7 @@ var FlyLineChart = function FlyLineChart(_ref6) {
       return text;
     });
 
-    setState({ mergedConfig: mergedConfig, paths: paths, lengths: lengths, times: times, texts: texts });
+    return { mergedConfig: mergedConfig, paths: paths, times: times, texts: texts };
   }
 
   function getMergedConfig() {
@@ -335,7 +326,13 @@ var FlyLineChart = function FlyLineChart(_ref6) {
     console.warn('dv-flyline-chart DEV: \n Click Position is [' + offsetX + ', ' + offsetY + '] \n Relative Position is [' + relativeX + ', ' + relativeY + ']');
   }, [width, height, dev]);
 
-  useEffect(calcData, [config]);
+  useEffect(function () {
+    var lengths = paths.map(function (foo, i) {
+      return pathDomRef.current[i].getTotalLength();
+    });
+
+    setLengths(lengths);
+  }, [paths]);
 
   var classNames = useMemo(function () {
     return classnames('dv-flyline-chart', className);
@@ -420,7 +417,7 @@ var FlyLineChart = function FlyLineChart(_ref6) {
             React.createElement('path', {
               id: 'path' + path.toString(),
               ref: function ref(e) {
-                return pathRef.current[i] = e;
+                return pathDomRef.current[i] = e;
               },
               d: 'M' + path[0].toString() + ' Q' + path[1].toString() + ' ' + path[2].toString(),
               fill: 'transparent'

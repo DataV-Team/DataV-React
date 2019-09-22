@@ -92,6 +92,7 @@ var ScrollRankingBoard = function ScrollRankingBoard(_ref5) {
       style = _ref5.style;
 
   var _useAutoResize = useAutoResize(),
+      width = _useAutoResize.width,
       height = _useAutoResize.height,
       domRef = _useAutoResize.domRef;
 
@@ -111,7 +112,12 @@ var ScrollRankingBoard = function ScrollRankingBoard(_ref5) {
       heights = state.heights;
 
 
-  var stateRef = useRef(_extends({}, state, { avgHeight: 0, animationIndex: 0 }));
+  var stateRef = useRef(_extends({}, state, {
+    rowsData: [],
+    avgHeight: 0,
+    animationIndex: 0
+  }));
+
   var heightRef = useRef(height);
 
   Object.assign(stateRef.current, state);
@@ -123,9 +129,12 @@ var ScrollRankingBoard = function ScrollRankingBoard(_ref5) {
 
     var heights = calcHeights(mergedConfig, onresize);
 
-    heights !== undefined && setState(function (state) {
-      return _extends({}, state, { heights: heights });
-    });
+    if (heights !== undefined) {
+      Object.assign(stateRef.current, { heights: heights });
+      setState(function (state) {
+        return _extends({}, state, { heights: heights });
+      });
+    }
   }
 
   function calcData() {
@@ -139,7 +148,7 @@ var ScrollRankingBoard = function ScrollRankingBoard(_ref5) {
 
     heights !== undefined && Object.assign(data, { heights: heights });
 
-    Object.assign(stateRef.current, data);
+    Object.assign(stateRef.current, data, { rowsData: rows });
 
     setState(function (state) {
       return _extends({}, state, data);
@@ -163,37 +172,35 @@ var ScrollRankingBoard = function ScrollRankingBoard(_ref5) {
   function animation() {
     var start = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
-    var _stateRef$current, avgHeight, animationIndex, mergedConfig, rowsData, waitTime, carousel, rowNum, rowLength, animationNum, rows, back;
+    var _stateRef$current, avgHeight, animationIndex, _stateRef$current$mer, waitTime, carousel, rowNum, rowsData, rowLength, animationNum, rows, heights, back, newHeights;
 
     return regeneratorRuntime.wrap(function animation$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _stateRef$current = stateRef.current, avgHeight = _stateRef$current.avgHeight, animationIndex = _stateRef$current.animationIndex, mergedConfig = _stateRef$current.mergedConfig, rowsData = _stateRef$current.rows;
-            waitTime = mergedConfig.waitTime, carousel = mergedConfig.carousel, rowNum = mergedConfig.rowNum;
+            _stateRef$current = stateRef.current, avgHeight = _stateRef$current.avgHeight, animationIndex = _stateRef$current.animationIndex, _stateRef$current$mer = _stateRef$current.mergedConfig, waitTime = _stateRef$current$mer.waitTime, carousel = _stateRef$current$mer.carousel, rowNum = _stateRef$current$mer.rowNum, rowsData = _stateRef$current.rowsData;
             rowLength = rowsData.length;
 
             if (!start) {
-              _context.next = 6;
+              _context.next = 5;
               break;
             }
 
-            _context.next = 6;
+            _context.next = 5;
             return new Promise(function (resolve) {
               return setTimeout(resolve, waitTime);
             });
 
-          case 6:
+          case 5:
             animationNum = carousel === 'single' ? 1 : rowNum;
             rows = rowsData.slice(animationIndex);
 
             rows.push.apply(rows, toConsumableArray(rowsData.slice(0, animationIndex)));
 
+            heights = new Array(rowLength).fill(avgHeight);
+
             setState(function (state) {
-              return _extends({}, state, {
-                rows: rows,
-                heights: new Array(rowLength).fill(avgHeight)
-              });
+              return _extends({}, state, { rows: rows, heights: heights });
             });
 
             _context.next = 12;
@@ -209,17 +216,16 @@ var ScrollRankingBoard = function ScrollRankingBoard(_ref5) {
 
             if (back >= 0) animationIndex = back;
 
+            newHeights = [].concat(toConsumableArray(heights));
+
+            newHeights.splice.apply(newHeights, [0, animationNum].concat(toConsumableArray(new Array(animationNum).fill(0))));
+
             Object.assign(stateRef.current, { animationIndex: animationIndex });
-
             setState(function (state) {
-              var _ref7;
-
-              return _extends({}, state, {
-                heights: (_ref7 = [].concat(toConsumableArray(state.heights))).splice.apply(_ref7, [0, animationNum].concat(toConsumableArray(new Array(animationNum).fill(0))))
-              });
+              return _extends({}, state, { heights: newHeights });
             });
 
-          case 17:
+          case 19:
           case 'end':
             return _context.stop();
         }
@@ -301,7 +307,7 @@ var ScrollRankingBoard = function ScrollRankingBoard(_ref5) {
     return function () {
       return it.return();
     };
-  }, [config]);
+  }, [config, domRef.current]);
 
   useEffect(function () {
     if (heightRef.current === 0 && height !== 0) {
@@ -311,7 +317,7 @@ var ScrollRankingBoard = function ScrollRankingBoard(_ref5) {
     } else {
       onResize(true);
     }
-  }, [height]);
+  }, [width, height, domRef.current]);
 
   var classNames = useMemo(function () {
     return classnames('dv-scroll-ranking-board', className);

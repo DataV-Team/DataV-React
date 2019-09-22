@@ -77,7 +77,7 @@ function calcRows({ data, rowNum }) {
 }
 
 const ScrollRankingBoard = ({ config, className, style }) => {
-  const { height, domRef } = useAutoResize()
+  const { width, height, domRef } = useAutoResize()
 
   const [state, setState] = useState({
     mergedConfig: null,
@@ -89,7 +89,13 @@ const ScrollRankingBoard = ({ config, className, style }) => {
 
   const { mergedConfig, rows, heights } = state
 
-  const stateRef = useRef({ ...state, avgHeight: 0, animationIndex: 0 })
+  const stateRef = useRef({
+    ...state,
+    rowsData: [],
+    avgHeight: 0,
+    animationIndex: 0
+  })
+
   const heightRef = useRef(height)
 
   Object.assign(stateRef.current, state)
@@ -99,7 +105,10 @@ const ScrollRankingBoard = ({ config, className, style }) => {
 
     const heights = calcHeights(mergedConfig, onresize)
 
-    heights !== undefined && setState(state => ({ ...state, heights }))
+    if (heights !== undefined) {
+      Object.assign(stateRef.current, { heights })
+      setState(state => ({ ...state, heights }))
+    }
   }
 
   function calcData() {
@@ -113,7 +122,7 @@ const ScrollRankingBoard = ({ config, className, style }) => {
 
     heights !== undefined && Object.assign(data, { heights })
 
-    Object.assign(stateRef.current, data)
+    Object.assign(stateRef.current, data, { rowsData: rows })
 
     setState(state => ({ ...state, ...data }))
   }
@@ -132,11 +141,9 @@ const ScrollRankingBoard = ({ config, className, style }) => {
     let {
       avgHeight,
       animationIndex,
-      mergedConfig,
-      rows: rowsData
+      mergedConfig: { waitTime, carousel, rowNum },
+      rowsData
     } = stateRef.current
-
-    const { waitTime, carousel, rowNum } = mergedConfig
 
     const rowLength = rowsData.length
 
@@ -147,11 +154,8 @@ const ScrollRankingBoard = ({ config, className, style }) => {
     let rows = rowsData.slice(animationIndex)
     rows.push(...rowsData.slice(0, animationIndex))
 
-    setState(state => ({
-      ...state,
-      rows,
-      heights: new Array(rowLength).fill(avgHeight)
-    }))
+    const heights = new Array(rowLength).fill(avgHeight)
+    setState(state => ({ ...state, rows, heights }))
 
     yield new Promise(resolve => setTimeout(resolve, 300))
 
@@ -160,16 +164,11 @@ const ScrollRankingBoard = ({ config, className, style }) => {
     const back = animationIndex - rowLength
     if (back >= 0) animationIndex = back
 
-    Object.assign(stateRef.current, { animationIndex })
+    const newHeights = [...heights]
+    newHeights.splice(0, animationNum, ...new Array(animationNum).fill(0))
 
-    setState(state => ({
-      ...state,
-      heights: [...state.heights].splice(
-        0,
-        animationNum,
-        ...new Array(animationNum).fill(0)
-      )
-    }))
+    Object.assign(stateRef.current, { animationIndex })
+    setState(state => ({ ...state, heights: newHeights }))
   }
 
   useEffect(() => {
@@ -203,7 +202,7 @@ const ScrollRankingBoard = ({ config, className, style }) => {
     co(it)
 
     return () => it.return()
-  }, [config])
+  }, [config, domRef.current])
 
   useEffect(() => {
     if (heightRef.current === 0 && height !== 0) {
@@ -213,7 +212,7 @@ const ScrollRankingBoard = ({ config, className, style }) => {
     } else {
       onResize(true)
     }
-  }, [height])
+  }, [width, height, domRef.current])
 
   const classNames = useMemo(
     () => classnames('dv-scroll-ranking-board', className),

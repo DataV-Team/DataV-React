@@ -16758,7 +16758,7 @@
 	      className = _ref6.className,
 	      style = _ref6.style;
 
-	  var _useAutoResize = useAutoResize(calcData, calcData),
+	  var _useAutoResize = useAutoResize(),
 	      width = _useAutoResize.width,
 	      height = _useAutoResize.height,
 	      domRef = _useAutoResize.domRef;
@@ -16772,32 +16772,23 @@
 	      gradientId = _useRef$current.gradientId,
 	      gradient2Id = _useRef$current.gradient2Id;
 
-	  var _useState = React.useState({
-	    mergedConfig: null,
-	    paths: [],
-	    lengths: [],
-	    times: [],
-	    texts: []
-	  }),
-	      _useState2 = slicedToArray(_useState, 2),
-	      _useState2$ = _useState2[0],
-	      mergedConfig = _useState2$.mergedConfig,
-	      paths = _useState2$.paths,
-	      lengths = _useState2$.lengths,
-	      times = _useState2$.times,
-	      texts = _useState2$.texts,
-	      setState = _useState2[1];
+	  var _useMemo = React.useMemo(calcData, [config, width, height]),
+	      mergedConfig = _useMemo.mergedConfig,
+	      paths = _useMemo.paths,
+	      times = _useMemo.times,
+	      texts = _useMemo.texts;
 
-	  var pathRef = React.useRef([]);
+	  var _useState = React.useState([]),
+	      _useState2 = slicedToArray(_useState, 2),
+	      lengths = _useState2[0],
+	      setLengths = _useState2[1];
+
+	  var pathDomRef = React.useRef([]);
 
 	  function calcData() {
 	    var mergedConfig = getMergedConfig();
 
 	    var paths = createFlylinePaths(mergedConfig);
-
-	    var lengths = paths.map(function (foo, i) {
-	      return pathRef.current[i][0].getTotalLength();
-	    });
 
 	    var duration = mergedConfig.duration,
 	        points = mergedConfig.points;
@@ -16812,7 +16803,7 @@
 	      return text;
 	    });
 
-	    setState({ mergedConfig: mergedConfig, paths: paths, lengths: lengths, times: times, texts: texts });
+	    return { mergedConfig: mergedConfig, paths: paths, times: times, texts: texts };
 	  }
 
 	  function getMergedConfig() {
@@ -16868,7 +16859,13 @@
 	    console.warn('dv-flyline-chart DEV: \n Click Position is [' + offsetX + ', ' + offsetY + '] \n Relative Position is [' + relativeX + ', ' + relativeY + ']');
 	  }, [width, height, dev]);
 
-	  React.useEffect(calcData, [config]);
+	  React.useEffect(function () {
+	    var lengths = paths.map(function (foo, i) {
+	      return pathDomRef.current[i].getTotalLength();
+	    });
+
+	    setLengths(lengths);
+	  }, [paths]);
 
 	  var classNames = React.useMemo(function () {
 	    return classnames('dv-flyline-chart', className);
@@ -16953,7 +16950,7 @@
 	            React__default.createElement('path', {
 	              id: 'path' + path.toString(),
 	              ref: function ref(e) {
-	                return pathRef.current[i] = e;
+	                return pathDomRef.current[i] = e;
 	              },
 	              d: 'M' + path[0].toString() + ' Q' + path[1].toString() + ' ' + path[2].toString(),
 	              fill: 'transparent'
@@ -17809,6 +17806,7 @@
 	      style = _ref5.style;
 
 	  var _useAutoResize = useAutoResize(),
+	      width = _useAutoResize.width,
 	      height = _useAutoResize.height,
 	      domRef = _useAutoResize.domRef;
 
@@ -17828,7 +17826,12 @@
 	      heights = state.heights;
 
 
-	  var stateRef = React.useRef(_extends({}, state, { avgHeight: 0, animationIndex: 0 }));
+	  var stateRef = React.useRef(_extends({}, state, {
+	    rowsData: [],
+	    avgHeight: 0,
+	    animationIndex: 0
+	  }));
+
 	  var heightRef = React.useRef(height);
 
 	  Object.assign(stateRef.current, state);
@@ -17840,9 +17843,12 @@
 
 	    var heights = calcHeights(mergedConfig, onresize);
 
-	    heights !== undefined && setState(function (state) {
-	      return _extends({}, state, { heights: heights });
-	    });
+	    if (heights !== undefined) {
+	      Object.assign(stateRef.current, { heights: heights });
+	      setState(function (state) {
+	        return _extends({}, state, { heights: heights });
+	      });
+	    }
 	  }
 
 	  function calcData() {
@@ -17856,7 +17862,7 @@
 
 	    heights !== undefined && Object.assign(data, { heights: heights });
 
-	    Object.assign(stateRef.current, data);
+	    Object.assign(stateRef.current, data, { rowsData: rows });
 
 	    setState(function (state) {
 	      return _extends({}, state, data);
@@ -17880,37 +17886,35 @@
 	  function animation() {
 	    var start = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
-	    var _stateRef$current, avgHeight, animationIndex, mergedConfig, rowsData, waitTime, carousel, rowNum, rowLength, animationNum, rows, back;
+	    var _stateRef$current, avgHeight, animationIndex, _stateRef$current$mer, waitTime, carousel, rowNum, rowsData, rowLength, animationNum, rows, heights, back, newHeights;
 
 	    return regeneratorRuntime.wrap(function animation$(_context) {
 	      while (1) {
 	        switch (_context.prev = _context.next) {
 	          case 0:
-	            _stateRef$current = stateRef.current, avgHeight = _stateRef$current.avgHeight, animationIndex = _stateRef$current.animationIndex, mergedConfig = _stateRef$current.mergedConfig, rowsData = _stateRef$current.rows;
-	            waitTime = mergedConfig.waitTime, carousel = mergedConfig.carousel, rowNum = mergedConfig.rowNum;
+	            _stateRef$current = stateRef.current, avgHeight = _stateRef$current.avgHeight, animationIndex = _stateRef$current.animationIndex, _stateRef$current$mer = _stateRef$current.mergedConfig, waitTime = _stateRef$current$mer.waitTime, carousel = _stateRef$current$mer.carousel, rowNum = _stateRef$current$mer.rowNum, rowsData = _stateRef$current.rowsData;
 	            rowLength = rowsData.length;
 
 	            if (!start) {
-	              _context.next = 6;
+	              _context.next = 5;
 	              break;
 	            }
 
-	            _context.next = 6;
+	            _context.next = 5;
 	            return new Promise(function (resolve) {
 	              return setTimeout(resolve, waitTime);
 	            });
 
-	          case 6:
+	          case 5:
 	            animationNum = carousel === 'single' ? 1 : rowNum;
 	            rows = rowsData.slice(animationIndex);
 
 	            rows.push.apply(rows, toConsumableArray(rowsData.slice(0, animationIndex)));
 
+	            heights = new Array(rowLength).fill(avgHeight);
+
 	            setState(function (state) {
-	              return _extends({}, state, {
-	                rows: rows,
-	                heights: new Array(rowLength).fill(avgHeight)
-	              });
+	              return _extends({}, state, { rows: rows, heights: heights });
 	            });
 
 	            _context.next = 12;
@@ -17926,17 +17930,16 @@
 
 	            if (back >= 0) animationIndex = back;
 
+	            newHeights = [].concat(toConsumableArray(heights));
+
+	            newHeights.splice.apply(newHeights, [0, animationNum].concat(toConsumableArray(new Array(animationNum).fill(0))));
+
 	            Object.assign(stateRef.current, { animationIndex: animationIndex });
-
 	            setState(function (state) {
-	              var _ref7;
-
-	              return _extends({}, state, {
-	                heights: (_ref7 = [].concat(toConsumableArray(state.heights))).splice.apply(_ref7, [0, animationNum].concat(toConsumableArray(new Array(animationNum).fill(0))))
-	              });
+	              return _extends({}, state, { heights: newHeights });
 	            });
 
-	          case 17:
+	          case 19:
 	          case 'end':
 	            return _context.stop();
 	        }
@@ -18018,7 +18021,7 @@
 	    return function () {
 	      return it.return();
 	    };
-	  }, [config]);
+	  }, [config, domRef.current]);
 
 	  React.useEffect(function () {
 	    if (heightRef.current === 0 && height !== 0) {
@@ -18028,7 +18031,7 @@
 	    } else {
 	      onResize(true);
 	    }
-	  }, [height]);
+	  }, [width, height, domRef.current]);
 
 	  var classNames = React.useMemo(function () {
 	    return classnames('dv-scroll-ranking-board', className);

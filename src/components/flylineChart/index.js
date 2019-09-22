@@ -209,7 +209,7 @@ function getControlPoint([sx, sy], [ex, ey], { curvature, k }) {
 }
 
 const FlyLineChart = ({ config = {}, dev = false, className, style }) => {
-  const { width, height, domRef } = useAutoResize(calcData, calcData)
+  const { width, height, domRef } = useAutoResize()
 
   const { unique, gradientId, gradient2Id } = useRef({
     unique: Math.random(),
@@ -217,24 +217,20 @@ const FlyLineChart = ({ config = {}, dev = false, className, style }) => {
     gradient2Id: `gradient2-id-${Date.now()}`
   }).current
 
-  const [{ mergedConfig, paths, lengths, times, texts }, setState] = useState({
-    mergedConfig: null,
-    paths: [],
-    lengths: [],
-    times: [],
-    texts: []
-  })
+  const { mergedConfig, paths, times, texts } = useMemo(calcData, [
+    config,
+    width,
+    height
+  ])
 
-  const pathRef = useRef([])
+  const [lengths, setLengths] = useState([])
+
+  const pathDomRef = useRef([])
 
   function calcData() {
     const mergedConfig = getMergedConfig()
 
     const paths = createFlylinePaths(mergedConfig)
-
-    const lengths = paths.map((foo, i) =>
-      pathRef.current[i][0].getTotalLength()
-    )
 
     const { duration, points } = mergedConfig
 
@@ -242,7 +238,7 @@ const FlyLineChart = ({ config = {}, dev = false, className, style }) => {
 
     const texts = points.map(({ text }) => text)
 
-    setState({ mergedConfig, paths, lengths, times, texts })
+    return { mergedConfig, paths, times, texts }
   }
 
   function getMergedConfig() {
@@ -289,7 +285,13 @@ const FlyLineChart = ({ config = {}, dev = false, className, style }) => {
     [width, height, dev]
   )
 
-  useEffect(calcData, [config])
+  useEffect(() => {
+    const lengths = paths.map((foo, i) =>
+      pathDomRef.current[i].getTotalLength()
+    )
+
+    setLengths(lengths)
+  }, [paths])
 
   const classNames = useMemo(() => classnames('dv-flyline-chart', className), [
     className
@@ -372,7 +374,7 @@ const FlyLineChart = ({ config = {}, dev = false, className, style }) => {
               <defs>
                 <path
                   id={`path${path.toString()}`}
-                  ref={e => (pathRef.current[i] = e)}
+                  ref={e => (pathDomRef.current[i] = e)}
                   d={`M${path[0].toString()} Q${path[1].toString()} ${path[2].toString()}`}
                   fill='transparent'
                 />
