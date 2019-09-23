@@ -1,10 +1,10 @@
-import { a as styleInject, b as PropTypes } from '../chunk-0e6a3972.js';
-import React, { useEffect, useState, useRef, useMemo } from 'react';
-import { a as classnames } from '../chunk-d9c8014f.js';
-import { h as util_2, i as util_1 } from '../chunk-5c43ede6.js';
-import { a as useAutoResize } from '../chunk-5d4646c1.js';
-import { d as co } from '../chunk-b33d3196.js';
-import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
+import { s as styleInject, P as PropTypes } from '../style-inject.es-4766d9ed.js';
+import { c as co } from '../index-edb6df58.js';
+import { s as slicedToArray, _ as _extends, t as toConsumableArray } from '../_babelHelpers-8fa0f879.js';
+import { u as useAutoResize } from '../autoResize-4f5dcf40.js';
+import { c as classnames } from '../index-183d4825.js';
+import { e as util_2, f as util_1 } from '../index-23816ac9.js';
 
 var css = ".dv-scroll-board {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  color: #fff;\n}\n.dv-scroll-board .text {\n  padding: 0 10px;\n  box-sizing: border-box;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.dv-scroll-board .header {\n  display: flex;\n  flex-direction: row;\n  font-size: 15px;\n}\n.dv-scroll-board .header .header-item {\n  padding: 0 10px;\n  box-sizing: border-box;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  transition: all 0.3s;\n}\n.dv-scroll-board .rows {\n  overflow: hidden;\n}\n.dv-scroll-board .rows .row-item {\n  display: flex;\n  font-size: 14px;\n  transition: all 0.3s;\n}\n.dv-scroll-board .rows .ceil {\n  padding: 0 10px;\n  box-sizing: border-box;\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n}\n.dv-scroll-board .rows .index {\n  border-radius: 3px;\n  padding: 0px 3px;\n}\n";
 styleInject(css);

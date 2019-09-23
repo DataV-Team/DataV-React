@@ -1,13 +1,13 @@
-import { a as styleInject, b as PropTypes } from '../chunk-0e6a3972.js';
-import React, { useRef, useState, useEffect, useMemo } from 'react';
-import { a as classnames } from '../chunk-d9c8014f.js';
-import { a as Chart } from '../chunk-31522730.js';
+import React, { useState, useRef, useMemo, useEffect } from 'react';
+import { s as styleInject, P as PropTypes } from '../style-inject.es-4766d9ed.js';
+import { c as co } from '../index-edb6df58.js';
+import { s as slicedToArray, _ as _extends, t as toConsumableArray } from '../_babelHelpers-8fa0f879.js';
+import { c as classnames } from '../index-183d4825.js';
+import { e as util_2, f as util_1 } from '../index-23816ac9.js';
+import '../index-8b5c3ecc.js';
+import '../index-207528fb.js';
+import { C as Charts } from '../index-9fee2098.js';
 import DvDigitalFlop from '../digitalFlop/index.js';
-import { h as util_2, i as util_1 } from '../chunk-5c43ede6.js';
-import { d as co } from '../chunk-b33d3196.js';
-import { a as asyncToGenerator, b as slicedToArray, c as toConsumableArray, d as _extends } from '../chunk-0e3b7ae4.js';
-import '../chunk-a820968d.js';
-import '../chunk-960dcff1.js';
 
 var css = ".dv-active-ring-chart {\n  position: relative;\n}\n.dv-active-ring-chart .active-ring-chart-container {\n  width: 100%;\n  height: 100%;\n}\n.dv-active-ring-chart .active-ring-info {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  left: 0px;\n  top: 0px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: center;\n}\n.dv-active-ring-chart .active-ring-info .dv-digital-flop {\n  width: 100px;\n  height: 30px;\n}\n.dv-active-ring-chart .active-ring-info .active-ring-name {\n  width: 100px;\n  height: 30px;\n  color: #fff;\n  text-align: center;\n  vertical-align: middle;\n  text-overflow: ellipsis;\n  overflow: hidden;\n  white-space: nowrap;\n}\n";
 styleInject(css);
@@ -190,7 +190,7 @@ var ActiveRingChart = function ActiveRingChart(_ref) {
     var _marked = /*#__PURE__*/regeneratorRuntime.mark(loop);
 
     // 第一次时初始化
-    chartRef.current || (chartRef.current = new Chart(domRef.current));
+    chartRef.current || (chartRef.current = new Charts(domRef.current));
 
     var mergedConfig = util_2(util_1(defaultConfig, true), config || {});
 

@@ -1,6 +1,6 @@
-import { a as styleInject, b as PropTypes } from '../chunk-0e6a3972.js';
 import React, { useMemo } from 'react';
-import { a as classnames } from '../chunk-d9c8014f.js';
+import { s as styleInject, P as PropTypes } from '../style-inject.es-4766d9ed.js';
+import { c as classnames } from '../index-183d4825.js';
 
 var css = ".dv-border-box-1 {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.dv-border-box-1 .border {\n  position: absolute;\n  display: block;\n}\n.dv-border-box-1 .right-top {\n  right: 0px;\n  transform: rotateY(180deg);\n}\n.dv-border-box-1 .left-bottom {\n  bottom: 0px;\n  transform: rotateX(180deg);\n}\n.dv-border-box-1 .right-bottom {\n  right: 0px;\n  bottom: 0px;\n  transform: rotateX(180deg) rotateY(180deg);\n}\n.dv-border-box-1 .border-box-content {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n";
 styleInject(css);

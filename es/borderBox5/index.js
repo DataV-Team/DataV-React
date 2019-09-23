@@ -1,9 +1,9 @@
-import { a as styleInject, b as PropTypes } from '../chunk-0e6a3972.js';
 import React, { useMemo } from 'react';
-import { a as classnames } from '../chunk-d9c8014f.js';
-import { a as useAutoResize } from '../chunk-5d4646c1.js';
-import '../chunk-b33d3196.js';
-import '../chunk-0e3b7ae4.js';
+import { s as styleInject, P as PropTypes } from '../style-inject.es-4766d9ed.js';
+import '../index-edb6df58.js';
+import '../_babelHelpers-8fa0f879.js';
+import { u as useAutoResize } from '../autoResize-4f5dcf40.js';
+import { c as classnames } from '../index-183d4825.js';
 
 var css = ".dv-border-box-5 {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.dv-border-box-5 .dv-reverse {\n  transform: rotate(180deg);\n}\n.dv-border-box-5 .dv-svg-container {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%;\n}\n.dv-border-box-5 .dv-svg-container polyline {\n  fill: none;\n}\n.dv-border-box-5 .dv-bb5-line-1 {\n  stroke-width: 1;\n  stroke: rgba(255, 255, 255, 0.35);\n}\n.dv-border-box-5 .dv-bb5-line-2 {\n  stroke: rgba(255, 255, 255, 0.2);\n}\n.dv-border-box-5 .dv-bb5-line-3,\n.dv-border-box-5 .dv-bb5-line-6 {\n  stroke-width: 5;\n  stroke: rgba(255, 255, 255, 0.15);\n}\n.dv-border-box-5 .dv-bb5-line-4,\n.dv-border-box-5 .dv-bb5-line-5 {\n  stroke-width: 2;\n  stroke: rgba(255, 255, 255, 0.15);\n}\n.dv-border-box-5 .border-box-content {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n";
 styleInject(css);

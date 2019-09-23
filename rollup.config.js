@@ -4,6 +4,7 @@ import external from 'rollup-plugin-peer-deps-external'
 import postcss from 'rollup-plugin-postcss'
 import resolve from 'rollup-plugin-node-resolve'
 import replace from 'rollup-plugin-replace'
+import { uglify } from 'rollup-plugin-uglify'
 import url from 'rollup-plugin-url'
 import svgr from '@svgr/rollup'
 
@@ -28,8 +29,7 @@ const plugins = [
     plugins: ['external-helpers']
   }),
   resolve(),
-  commonjs(),
-  replace({ 'process.env.NODE_ENV': '"production"' })
+  commonjs()
 ]
 
 export default [
@@ -59,9 +59,22 @@ export default [
     input: 'src/index.js',
     output: {
       format: 'umd',
-      file: 'dist/datav.map.react.js',
+      file: 'umd/datav.js',
       name: 'datav'
     },
-    plugins
+    plugins: [...plugins, replace({ 'process.env.NODE_ENV': '"development"' })]
+  },
+  {
+    input: 'src/index.js',
+    output: {
+      format: 'umd',
+      file: 'umd/datav.min.js',
+      name: 'datav'
+    },
+    plugins: [
+      ...plugins,
+      replace({ 'process.env.NODE_ENV': '"production"' }),
+      uglify()
+    ]
   }
 ]

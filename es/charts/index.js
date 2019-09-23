@@ -1,13 +1,13 @@
-import { a as styleInject, b as PropTypes } from '../chunk-0e6a3972.js';
 import React, { useRef, useEffect, useMemo } from 'react';
-import { a as classnames } from '../chunk-d9c8014f.js';
-import { a as Chart } from '../chunk-31522730.js';
-import { a as useAutoResize } from '../chunk-5d4646c1.js';
-import '../chunk-5c43ede6.js';
-import '../chunk-a820968d.js';
-import '../chunk-960dcff1.js';
-import '../chunk-b33d3196.js';
-import '../chunk-0e3b7ae4.js';
+import { s as styleInject, P as PropTypes } from '../style-inject.es-4766d9ed.js';
+import '../index-edb6df58.js';
+import '../_babelHelpers-8fa0f879.js';
+import { u as useAutoResize } from '../autoResize-4f5dcf40.js';
+import { c as classnames } from '../index-183d4825.js';
+import '../index-23816ac9.js';
+import '../index-8b5c3ecc.js';
+import '../index-207528fb.js';
+import { C as Charts$1 } from '../index-9fee2098.js';
 
 var css = ".dv-charts-container {\n  position: relative;\n  width: 100%;\n  height: 100%;\n}\n.dv-charts-container .charts-canvas-container {\n  width: 100%;\n  height: 100%;\n}\n";
 styleInject(css);
@@ -28,7 +28,7 @@ var Charts = function Charts(_ref) {
   var chartInstanceofRef = useRef(null);
 
   useEffect(function () {
-    chartInstanceofRef.current || (chartInstanceofRef.current = new Chart(chartRef.current));
+    chartInstanceofRef.current || (chartInstanceofRef.current = new Charts$1(chartRef.current));
 
     chartInstanceofRef.current.setOption(option || {});
   }, [option]);

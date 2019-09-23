@@ -8,6 +8,9 @@ node_modules
 build
 .rpt2_cache
 /deploy/config.js
+lib
+es
+umd
 
 # misc
 .DS_Store
