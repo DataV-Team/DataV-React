@@ -96,7 +96,7 @@ const ActiveRingChart = ({ config = {}, className, style }) => {
 
     const sum = value.reduce((all, v) => all + v, 0)
 
-    const percent = parseInt((value[activeIndex] / sum) * 100)
+    const percent = parseInt((value[activeIndex] / sum) * 100) || 0
 
     return { content: '{nt}%', number: [percent], style: digitalFlopStyle }
   }, [mergedConfig, activeIndex])

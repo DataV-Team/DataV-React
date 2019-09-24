@@ -109,7 +109,7 @@ var ActiveRingChart = function ActiveRingChart(_ref) {
       return all + v;
     }, 0);
 
-    var percent = parseInt(value[activeIndex] / sum * 100);
+    var percent = parseInt(value[activeIndex] / sum * 100) || 0;
 
     return { content: '{nt}%', number: [percent], style: digitalFlopStyle };
   }, [mergedConfig, activeIndex]);
