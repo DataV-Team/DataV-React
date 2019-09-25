@@ -27,14 +27,12 @@ $ npm install @jiaminghi/data-view
 ### use
 
 ```js
-import Vue from 'vue'
-import DataV from '@jiaminghi/data-view'
+import datav from "@jiaminghi/data-view-react"
 
-Vue.use(DataV)
+datav.BorderBox1
 
 // Introduced on demand
-import { borderBox1 } from '@jiaminghi/data-view'
-Vue.use(borderBox1)
+import { BorderBox1 } from "@jiaminghi/data-view-react"
 ```
 
 Detailed documents and examples can be viewed on the [HomePage](http://datav.jiaminghi.com).
@@ -72,14 +70,14 @@ The development of the component library is based on personal learning and inter
 
 The Demo page uses the full-screen component, please view it after F11 full screen.
 
-* [Construction Data](http://datav.jiaminghi.com/demo/construction-data/index.html)
+* [Construction Data](http://datav.react.jiaminghi.com/demo/construction-data/index.html)
 
 ![construction-data](./demoImg/construction-data.jpg)
 
-* [Manage-Desk](http://datav.jiaminghi.com/demo/manage-desk/index.html)
+* [Manage-Desk](http://datav.react.jiaminghi.com/demo/manage-desk/index.html)
 
 ![manage-desk](./demoImg/manage-desk.jpg)
 
-* [Electronic-File](http://datav.jiaminghi.com/demo/electronic-file/index.html)
+* [Electronic-File](http://datav.react.jiaminghi.com/demo/electronic-file/index.html)
 
 ![electronic-file](./demoImg/electronic-file.jpg)

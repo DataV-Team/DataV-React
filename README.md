@@ -26,12 +26,12 @@ $ npm install @jiaminghi/data-view-react
 ### 使用
 
 ```js
-import datav from "@jiaminghi/data-view-react";
+import datav from "@jiaminghi/data-view-react"
 
-datav.BorderBox1;
+datav.BorderBox1
 
 // 按需引入
-import { BorderBox1 } from "@jiaminghi/data-view-react";
+import { BorderBox1 } from "@jiaminghi/data-view-react"
 ```
 
 详细文档及示例请移步[HomePage](http://datav.react.jiaminghi.com).
