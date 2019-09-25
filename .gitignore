@@ -7,10 +7,10 @@ node_modules
 # builds
 build
 .rpt2_cache
-/deploy/config.js
-/lib
-/es
-/umd
+deploy/config.js
+lib
+es
+umd
 
 # misc
 .DS_Store
@@ -24,3 +24,4 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 yarn.lock
+
