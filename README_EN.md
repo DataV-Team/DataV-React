@@ -31,8 +31,11 @@ import datav from "@jiaminghi/data-view-react"
 
 datav.BorderBox1
 
-// Introduced on demand
+// or
 import { BorderBox1 } from "@jiaminghi/data-view-react"
+
+// Introduced on demand
+import BorderBox1 from "@jiaminghi/data-view-react/es/borderBox1"
 ```
 
 Detailed documents and examples can be viewed on the [HomePage](http://datav.jiaminghi.com).

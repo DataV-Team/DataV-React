@@ -30,8 +30,11 @@ import datav from "@jiaminghi/data-view-react"
 
 datav.BorderBox1
 
-// 按需引入
+// 或者
 import { BorderBox1 } from "@jiaminghi/data-view-react"
+
+// 按需引入
+import BorderBox1 from "@jiaminghi/data-view-react/es/borderBox1"
 ```
 
 详细文档及示例请移步[HomePage](http://datav.react.jiaminghi.com).
