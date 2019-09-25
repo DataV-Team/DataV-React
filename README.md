@@ -10,9 +10,9 @@
     </a>
 </p>
 
-## DataV 是干什么的?
+## DataV-React 是干什么的?
 
-- DataV 是一个基于**React**的数据可视化组件库[Vue 版本](http://datav.jiaminghi.com)
+- DataV-React 是一个基于**React**的数据可视化组件库(当然也有[Vue 版本](http://datav.jiaminghi.com))
 - 提供用于提升页面视觉效果的**SVG**边框和装饰
 - 提供常用的**图表**如折线图等
 - 飞线图/轮播表等其他组件
