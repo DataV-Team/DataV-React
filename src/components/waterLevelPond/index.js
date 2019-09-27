@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo } from 'react'
+import React, { useEffect, useRef, useMemo, useState } from 'react'
 
 import PropTypes from 'prop-types'
 
@@ -9,6 +9,8 @@ import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
 
 import CRender from '@jiaminghi/c-render'
+
+import { co } from '../../util'
 
 import './style.less'
 
@@ -78,25 +80,106 @@ function mergeOffset([x, y], [ox, oy]) {
   return [x + ox, y + oy]
 }
 
-const WaterLevelPond = ({ config, className, style }) => {
-  const [{ mergedConfig, svgBorderGradient, details }, setState] = useState({
-    mergedConfig: {},
+function calcSvgBorderGradient({ colors }) {
+  const colorNum = colors.length
 
-    svgBorderGradient: [],
+  const colorOffsetGap = 100 / (colorNum - 1)
 
-    details: ''
+  return colors.map((c, i) => [colorOffsetGap * i, c])
+}
+
+function calcDetails({ data, formatter }) {
+  if (!data.length) {
+    return ''
+  }
+
+  const maxValue = Math.max(...data)
+
+  return formatter.replace('{value}', maxValue)
+}
+
+function getWaveShapes({ waveNum, waveHeight, data }, [w, h]) {
+  const pointsNum = waveNum * 4 + 4
+
+  const pointXGap = w / waveNum / 2
+
+  return data.map(v => {
+    let points = new Array(pointsNum).fill(0).map((foo, j) => {
+      const x = w - pointXGap * j
+
+      const startY = (1 - v / 100) * h
+
+      const y = j % 2 === 0 ? startY : startY - waveHeight
+
+      return [x, y]
+    })
+
+    points = points.map(p => mergeOffset(p, [pointXGap * 2, 0]))
+
+    return { points }
   })
+}
+
+function getWaveStyle({ colors, waveOpacity }, area) {
+  return {
+    gradientColor: colors,
+    gradientType: 'linear',
+    gradientParams: [0, 0, 0, area[1]],
+    gradientWith: 'fill',
+    opacity: waveOpacity,
+    translate: [0, 0]
+  }
+}
+
+function getWave(mergedConfig, renderer) {
+  const area = renderer.area
+  const shapes = getWaveShapes(mergedConfig, area)
+  const style = getWaveStyle(mergedConfig, area)
+
+  return shapes.map(shape =>
+    renderer.add({
+      name: 'smoothline',
+      animationFrame: 300,
+      shape,
+      style,
+      drawed
+    })
+  )
+}
+
+function * animationWave(waves, renderer) {
+  waves.forEach(graph => {
+    graph.attr('style', { translate: [0, 0] })
+
+    graph.animation(
+      'style',
+      {
+        translate: [renderer.area[0], 0]
+      },
+      true
+    )
+  })
+
+  yield renderer.launchAnimation()
+}
+
+const WaterLevelPond = ({ config, className, style }) => {
+  const [renderer, setRenderer] = useState(null)
 
   const gradientId = useRef(`water-level-pond-${Date.now()}`).current
 
-  const wavesRef = useRef([])
-
-  const rendererRef = useRef(null)
-  const renderer = rendererRef.current
-
-  const animationRef = useRef(false)
-
   const domRef = useRef(null)
+
+  const mergedConfig = useMemo(
+    () => deepMerge(deepClone(defaultConfig, true), config),
+    [config]
+  )
+
+  const svgBorderGradient = useMemo(() => calcSvgBorderGradient(mergedConfig), [
+    mergedConfig
+  ])
+
+  const details = useMemo(() => calcDetails(mergedConfig), [mergedConfig])
 
   const radius = useMemo(() => {
     const { shape } = mergedConfig
@@ -108,155 +191,43 @@ const WaterLevelPond = ({ config, className, style }) => {
     if (shape === 'roundRect') return '10px'
 
     return '0'
-  }, [mergedConfig.shape])
+  }, [mergedConfig])
 
   const shape = useMemo(() => {
     const { shape } = mergedConfig
 
-    return !shape ? 'rect' : shape
-  }, [mergedConfig.shape])
-
-  function init() {
-    rendererRef.current = new CRender(domRef.current)
-
-    if (!config) return
-
-    calcData()
-  }
-
-  function calcData() {
-    const mergedConfig = deepMerge(deepClone(defaultConfig, true), config)
-
-    const svgBorderGradient = calcSvgBorderGradient(mergedConfig)
-
-    const details = calcDetails(mergedConfig)
-
-    setState({ mergedConfig, svgBorderGradient, details })
-
-    addWave(mergedConfig)
-
-    animationWave()
-  }
-
-  function calcSvgBorderGradient({ colors }) {
-    const colorNum = colors.length
-
-    const colorOffsetGap = 100 / (colorNum - 1)
-
-    return colors.map((c, i) => [colorOffsetGap * i, c])
-  }
-
-  function calcDetails({ data, formatter }) {
-    if (!data.length) {
-      return ''
-    }
-
-    const maxValue = Math.max(...data)
-
-    return formatter.replace('{value}', maxValue)
-  }
-
-  function addWave(mergedConfig) {
-    const shapes = getWaveShapes(mergedConfig)
-    const style = getWaveStyle(mergedConfig)
-
-    wavesRef.current = shapes.map(shape =>
-      rendererRef.current.add({
-        name: 'smoothline',
-        animationFrame: 300,
-        shape,
-        style,
-        drawed
-      })
-    )
-  }
-
-  function getWaveShapes({ waveNum, waveHeight, data }) {
-    const [w, h] = rendererRef.current.area
-
-    const pointsNum = waveNum * 4 + 4
-
-    const pointXGap = w / waveNum / 2
-
-    return data.map(v => {
-      let points = new Array(pointsNum).fill(0).map((foo, j) => {
-        const x = w - pointXGap * j
-
-        const startY = (1 - v / 100) * h
-
-        const y = j % 2 === 0 ? startY : startY - waveHeight
-
-        return [x, y]
-      })
-
-      points = points.map(p => mergeOffset(p, [pointXGap * 2, 0]))
-
-      return { points }
-    })
-  }
-
-  function getWaveStyle({ colors, waveOpacity }) {
-    const h = rendererRef.current.area[1]
-
-    return {
-      gradientColor: colors,
-      gradientType: 'linear',
-      gradientParams: [0, 0, 0, h],
-      gradientWith: 'fill',
-      opacity: waveOpacity,
-      translate: [0, 0]
-    }
-  }
-
-  async function animationWave(repeat = 1) {
-    const waves = wavesRef.current
-    const renderer = rendererRef.current
-    const animation = animationRef.current
-
-    if (animation) return
-
-    animationRef.current = true
-
-    const w = renderer.area[0]
-
-    waves.forEach(graph => {
-      graph.attr('style', { translate: [0, 0] })
-
-      graph.animation(
-        'style',
-        {
-          translate: [w, 0]
-        },
-        true
-      )
-    })
-
-    await renderer.launchAnimation()
-
-    animationRef.current = false
-
-    if (!renderer.graphs.length) return
-
-    animationWave(repeat + 1)
-  }
+    return shape || 'rect'
+  }, [mergedConfig])
 
   useEffect(() => {
-    init()
+    let innerRenderer = renderer
+
+    if (!renderer) {
+      innerRenderer = new CRender(domRef.current)
+
+      setRenderer(innerRenderer)
+    }
+
+    function * loop() {
+      yield new Promise(resolve => setTimeout(resolve, 30))
+
+      const wave = getWave(mergedConfig, innerRenderer)
+
+      while (true) {
+        yield * animationWave(wave, innerRenderer)
+
+        if (!innerRenderer.graphs.length) return
+      }
+    }
+
+    const undescribe = co(loop)
 
     return () => {
-      rendererRef.current.delAllGraph()
+      innerRenderer.delAllGraph()
 
-      wavesRef.current = []
+      undescribe()
     }
-  }, [])
-
-  useEffect(() => {
-    rendererRef.current.delAllGraph()
-
-    wavesRef.current = []
-
-    setTimeout(calcData, 0)
-  }, [config])
+  }, [mergedConfig])
 
   const classNames = useMemo(
     () => classnames('dv-water-pond-level', className),

@@ -69,35 +69,19 @@ const DigitalFlop = ({ config = {}, className, style }) => {
   const rendererRef = useRef(null)
   const graphRef = useRef(null)
 
-  const mergedConfigRef = useRef(null)
-
-  const mountedRef = useRef(true)
-
-  function init() {
-    rendererRef.current = new CRender(domRef.current)
-
-    mergedConfigRef.current = getMergedConfig()
-
-    graphRef.current = getGraph()
-  }
-
-  const getMergedConfig = () =>
-    deepMerge(deepClone(defaultConfig, true), config || {})
-
-  function getGraph() {
-    const { animationCurve, animationFrame } = mergedConfigRef.current
+  function getGraph(mergedConfig) {
+    const { animationCurve, animationFrame } = mergedConfig
 
     return rendererRef.current.add({
       name: 'numberText',
       animationCurve,
       animationFrame,
-      shape: getShape(),
-      style: getStyle()
+      shape: getShape(mergedConfig),
+      style: getStyle(mergedConfig)
     })
   }
 
-  function getShape() {
-    const { number, content, toFixed, textAlign } = mergedConfigRef.current
+  function getShape({ number, content, toFixed, textAlign }) {
     const [w, h] = rendererRef.current.area
 
     const position = [w / 2, h / 2]
@@ -108,22 +92,25 @@ const DigitalFlop = ({ config = {}, className, style }) => {
     return { number, content, toFixed, position }
   }
 
-  function getStyle() {
-    const { style, textAlign } = mergedConfigRef.current
-
+  function getStyle({ style, textAlign }) {
     return deepMerge(style, {
       textAlign,
       textBaseline: 'middle'
     })
   }
 
-  useEffect(init, [])
+  useEffect(() => {
+    const mergedConfig = deepMerge(deepClone(defaultConfig, true), config || {})
 
-  function update() {
-    const mergedConfig = (mergedConfigRef.current = getMergedConfig())
+    if (!rendererRef.current) {
+      rendererRef.current = new CRender(domRef.current)
+
+      graphRef.current = getGraph(mergedConfig)
+    }
+
     const graph = graphRef.current
 
-    const shape = getShape()
+    const shape = getShape(mergedConfig)
 
     const cacheNum = graph.shape.number.length
     const shapeNum = shape.number.length
@@ -134,16 +121,8 @@ const DigitalFlop = ({ config = {}, className, style }) => {
 
     Object.assign(graph, { animationCurve, animationFrame })
 
-    graph.animation('style', getStyle(), true)
+    graph.animation('style', getStyle(mergedConfig), true)
     graph.animation('shape', shape)
-  }
-
-  useEffect(() => {
-    !mountedRef.current && update()
-
-    return () => {
-      mountedRef.current = false
-    }
   }, [config])
 
   const classNames = useMemo(() => classnames('dv-digital-flop', className), [

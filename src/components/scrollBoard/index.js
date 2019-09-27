@@ -201,7 +201,7 @@ const ScrollBoard = ({ onClick, config, className, style }) => {
       heights
     }
 
-    Object.assign(stateRef.current, data, { rowsData: rows })
+    Object.assign(stateRef.current, data, { rowsData: rows, animationIndex: 0 })
 
     setState(state => ({ ...state, ...data }))
   }
@@ -304,11 +304,7 @@ const ScrollBoard = ({ onClick, config, className, style }) => {
 
     if (rowNum >= rowLength) return
 
-    const it = loop()
-
-    co(it)
-
-    return () => it.return()
+    return co(loop)
   }, [config, domRef.current])
 
   useEffect(onResize, [width, height, domRef.current])

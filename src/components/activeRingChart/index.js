@@ -6,11 +6,11 @@ import classnames from 'classnames'
 
 import Charts from '@jiaminghi/charts'
 
-import DvDigitalFlop from '../digitalFlop'
-
 import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
 import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
+
+import DigitalFlop from '../digitalFlop'
 
 import { co } from '../../util'
 
@@ -159,7 +159,7 @@ const ActiveRingChart = ({ config = {}, className, style }) => {
 
     let option = getRingOption(mergedConfig)
 
-    option = {
+    return {
       ...option,
       series: option.series.reduce(
         (prev, serie, index) =>
@@ -178,8 +178,6 @@ const ActiveRingChart = ({ config = {}, className, style }) => {
         []
       )
     }
-
-    return option
   }
 
   useEffect(() => {
@@ -192,10 +190,10 @@ const ActiveRingChart = ({ config = {}, className, style }) => {
 
     let activeIndex = 0
 
-    setState({ mergedConfig, activeIndex })
-
     function * loop() {
       while (true) {
+        setState({ mergedConfig, activeIndex })
+
         const option = getOption(mergedConfig, activeIndex)
 
         chartRef.current.setOption(option)
@@ -209,16 +207,10 @@ const ActiveRingChart = ({ config = {}, className, style }) => {
         if (activeIndex >= data.length) {
           activeIndex = 0
         }
-
-        setState(state => ({ ...state, activeIndex }))
       }
     }
 
-    const it = loop()
-
-    co(it)
-
-    return () => it.return()
+    return co(loop)
   }, [config])
 
   const classNames = useMemo(
@@ -230,7 +222,7 @@ const ActiveRingChart = ({ config = {}, className, style }) => {
     <div className={classNames} style={style}>
       <div className='active-ring-chart-container' ref={domRef} />
       <div className='active-ring-info'>
-        <DvDigitalFlop config={digitalFlop} />
+        <DigitalFlop config={digitalFlop} />
         <div className='active-ring-name' style={fontSize}>
           {ringName}
         </div>

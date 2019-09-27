@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useLayoutEffect } from 'react'
 
 import PropTypes from 'prop-types'
 
@@ -7,16 +7,9 @@ import useAutoResize from '../../use/autoResize'
 import './style.less'
 
 const FullScreenContainer = ({ children, className, style }) => {
-  const { domRef } = useAutoResize(afterAutoResizeMixinInit, () =>
-    setAppScale(allWidth)
-  )
+  const { domRef } = useAutoResize()
 
-  const [{ allWidth, ready }, setState] = useState({
-    allWidth: 0,
-    ready: false
-  })
-
-  function afterAutoResizeMixinInit() {
+  useLayoutEffect(() => {
     const { width, height } = window.screen
 
     Object.assign(domRef.current.style, {
@@ -24,14 +17,9 @@ const FullScreenContainer = ({ children, className, style }) => {
       height: `${height}px`
     })
 
-    setAppScale(width)
-
-    setState({ allWidth: width, ready: true })
-  }
-
-  const setAppScale = allWidth =>
-    (domRef.current.style.transform = `scale(${document.body.clientWidth /
-      allWidth})`)
+    domRef.current.style.transform = `scale(${document.body.clientWidth /
+      width})`
+  })
 
   return (
     <div
@@ -40,7 +28,7 @@ const FullScreenContainer = ({ children, className, style }) => {
       style={style}
       ref={domRef}
     >
-      {ready && children}
+      {children}
     </div>
   )
 }

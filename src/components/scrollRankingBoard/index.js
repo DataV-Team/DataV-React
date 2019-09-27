@@ -122,7 +122,7 @@ const ScrollRankingBoard = ({ config, className, style }) => {
 
     heights !== undefined && Object.assign(data, { heights })
 
-    Object.assign(stateRef.current, data, { rowsData: rows })
+    Object.assign(stateRef.current, data, { rowsData: rows, animationIndex: 0 })
 
     setState(state => ({ ...state, ...data }))
   }
@@ -197,11 +197,7 @@ const ScrollRankingBoard = ({ config, className, style }) => {
 
     if (rowNum >= rowLength) return
 
-    const it = loop()
-
-    co(it)
-
-    return () => it.return()
+    return co(loop)
   }, [config, domRef.current])
 
   useEffect(() => {

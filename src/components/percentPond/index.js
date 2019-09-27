@@ -160,23 +160,15 @@ const PercentPond = ({ config = {}, className, style }) => {
     return formatter.replace('{value}', value)
   }, [mergedConfig])
 
-  function update() {
+  useEffect(() => {
     const { clientWidth: width, clientHeight: height } = domRef.current
-
-    if (!config) {
-      setState(state => ({ ...state, width, height }))
-
-      return
-    }
 
     setState({
       width,
       height,
       mergedConfig: deepMerge(deepClone(defaultConfig, true), config || {})
     })
-  }
-
-  useEffect(update, [config])
+  }, [config])
 
   const classNames = useMemo(() => classnames('dv-percent-pond', className), [
     className

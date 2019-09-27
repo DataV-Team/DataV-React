@@ -56,21 +56,27 @@ export function getPointDistance(pointOne, pointTwo) {
 }
 
 export function co(gen) {
-  if (!gen || typeof gen.next !== 'function') return
+  let destroyed = false
 
-  next(gen.next())
+  if (typeof gen === 'function') gen = gen()
+
+  if (!gen || typeof gen.next !== 'function') return () => ({})
+
+  Promise.resolve().then(() => {
+    destroyed || next(gen.next())
+  })
+
+  return () => {
+    destroyed = true
+
+    gen.return()
+  }
 
   function next(ret) {
     if (ret.done) return ret.value
 
-    const value = ret.value
-
-    if (value && !isPromise(value)) return next(gen.next())
-
-    if (value && isPromise(value)) return value.then(() => next(gen.next()))
-  }
-
-  function isPromise(obj) {
-    return typeof obj.then === 'function'
+    return Promise.resolve(ret.value).then(() => {
+      destroyed || next(gen.next())
+    })
   }
 }

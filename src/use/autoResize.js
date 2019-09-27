@@ -1,24 +1,17 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
 import { debounce, observerDomResize } from '../util/index'
 
-export default function useAutoResize(afterAutoResizeMixinInit, onResize) {
+export default function useAutoResize() {
   const [state, setState] = useState({ width: 0, height: 0 })
 
   const domRef = useRef(null)
   const domObserverRef = useRef(null)
   const debounceSetWHFunRef = useRef(null)
-  const onResizeRef = useRef(onResize)
 
-  onResizeRef.current = onResize
-
-  const setWH = useCallback((resize = true) => {
+  const setWH = useCallback(() => {
     const { clientWidth, clientHeight } = domRef.current
 
     setState({ width: clientWidth, height: clientHeight })
-
-    if (typeof onResizeRef.current === 'function' && resize) {
-      onResizeRef.current()
-    }
   }, [])
 
   const bindDomResizeCallback = useCallback(() => {
@@ -43,11 +36,9 @@ export default function useAutoResize(afterAutoResizeMixinInit, onResize) {
   useEffect(() => {
     debounceSetWHFunRef.current = debounce(setWH, 100)
 
-    debounceSetWHFunRef.current(false)
+    debounceSetWHFunRef.current()
 
     bindDomResizeCallback()
-
-    typeof afterAutoResizeMixinInit === 'function' && afterAutoResizeMixinInit()
 
     // 组件销毁时，清除事件
     return unbindDomResizeCallback
