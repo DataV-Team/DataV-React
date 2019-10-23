@@ -1,18 +1,18 @@
 [ENGLISH](./README_EN.md)
 
-<h1 align="center">DataV</h1>
+<h1 align="center">DataV-React</h1>
 <p align="center">
     <a href="https://github.com/jiaming743/datav/blob/master/LICENSE">
       <img src="https://img.shields.io/github/license/DataV-Team/datav-react.svg" alt="LICENSE" />
     </a>
-    <a href="https://www.npmjs.com/package/@jiaminghi/data-view">
+    <a href="https://www.npmjs.com/package/@jiaminghi/data-view-react">
       <img src="https://img.shields.io/npm/v/@jiaminghi/data-view-react.svg" alt="LICENSE" />
     </a>
 </p>
 
 ## DataV-React 是干什么的?
 
-- DataV-React 是一个基于**React**的数据可视化组件库(当然也有[Vue 版本](http://datav.jiaminghi.com))
+- DataV-React 是一个基于**React**的数据可视化组件库(当然也有[Vue 版本](https://github.com/DataV-Team/DataV))
 - 提供用于提升页面视觉效果的**SVG**边框和装饰
 - 提供常用的**图表**如折线图等
 - 飞线图/轮播表等其他组件
@@ -26,15 +26,15 @@ $ npm install @jiaminghi/data-view-react
 ### 使用
 
 ```js
-import datav from "@jiaminghi/data-view-react"
+import datav from "@jiaminghi/data-view-react";
 
-datav.BorderBox1
+datav.BorderBox1;
 
 // 或者
-import { BorderBox1 } from "@jiaminghi/data-view-react"
+import { BorderBox1 } from "@jiaminghi/data-view-react";
 
 // 按需引入
-import BorderBox1 from "@jiaminghi/data-view-react/es/borderBox1"
+import BorderBox1 from "@jiaminghi/data-view-react/es/borderBox1";
 ```
 
 详细文档及示例请移步[HomePage](http://datav.react.jiaminghi.com).
