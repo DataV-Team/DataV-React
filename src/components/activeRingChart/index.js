@@ -186,7 +186,7 @@ const ActiveRingChart = ({ config = {}, className, style }) => {
 
     const mergedConfig = deepMerge(deepClone(defaultConfig, true), config || {})
 
-    chartRef.current.setOption(getRingOption(mergedConfig))
+    chartRef.current.setOption(getRingOption(mergedConfig), true)
 
     let activeIndex = 0
 
@@ -196,7 +196,7 @@ const ActiveRingChart = ({ config = {}, className, style }) => {
 
         const option = getOption(mergedConfig, activeIndex)
 
-        chartRef.current.setOption(option)
+        chartRef.current.setOption(option, true)
 
         const { activeTimeGap, data } = option.series[0]
 

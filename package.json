@@ -1,6 +1,6 @@
 {
   "name": "@jiaminghi/data-view-react",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "React Large screen data display component library",
   "author": "Duan Yu <949267840@qq.com>",
   "license": "MIT",
@@ -17,9 +17,7 @@
     "test:watch": "react-scripts test --env=jsdom",
     "build": "rollup -c",
     "start": "rollup -c -w",
-    "prepare": "yarn run build",
-    "predeploy": "cd example && yarn install && yarn run build",
-    "deploy": "gh-pages -d example/build"
+    "prepare": "yarn run build"
   },
   "dependencies": {
     "@jiaminghi/charts": "*"
@@ -46,7 +44,6 @@
     "eslint-plugin-promise": "^4.0.0",
     "eslint-plugin-react": "^7.10.0",
     "eslint-plugin-standard": "^3.1.0",
-    "gh-pages": "^1.2.0",
     "less": "^3.10.3",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
