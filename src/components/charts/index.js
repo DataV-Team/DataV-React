@@ -21,7 +21,7 @@ const Charts = ({ option = {}, className, style }) => {
     chartInstanceofRef.current ||
       (chartInstanceofRef.current = new Chart(chartRef.current))
 
-    chartInstanceofRef.current.setOption(option || {})
+    chartInstanceofRef.current.setOption(option || {}, true)
   }, [option])
 
   useEffect(() => {

@@ -121,6 +121,8 @@ const DigitalFlop = ({ config = {}, className, style }) => {
 
     Object.assign(graph, { animationCurve, animationFrame })
 
+    graph.animationEnd()
+
     graph.animation('style', getStyle(mergedConfig), true)
     graph.animation('shape', shape)
   }, [config])
