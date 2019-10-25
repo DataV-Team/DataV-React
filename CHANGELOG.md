@@ -1,11 +1,16 @@
+# 1.0.7-alpha (2019-10-25)
+
+### Perfect
+
+- **co:** 优化 Generator 异常.
+- **export:** 导出 co, useAutoResize.
+
 # 1.0.5-alpha (2019-10-24)
 
 ### Perfect
 
 - **Charts:** 优化内存泄漏.
 - **DigitalFlop:** 优化内存泄漏.
-
-# 1.0.2-alpha (2019-09-27)
 
 # 1.0.4-alpha (2019-10-24)
 

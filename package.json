@@ -1,6 +1,6 @@
 {
   "name": "@jiaminghi/data-view-react",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "React Large screen data display component library",
   "author": "Duan Yu <949267840@qq.com>",
   "license": "MIT",
@@ -20,7 +20,7 @@
     "prepare": "yarn run build"
   },
   "dependencies": {
-    "@jiaminghi/charts": "*"
+    "@jiaminghi/charts": "^0.2.8"
   },
   "peerDependencies": {
     "react": "^16.8.0",

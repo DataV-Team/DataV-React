@@ -69,7 +69,11 @@ export function co(gen) {
   return () => {
     destroyed = true
 
-    gen.return()
+    Promise.resolve().then(() => {
+      gen.return()
+
+      gen = null
+    })
   }
 
   function next(ret) {

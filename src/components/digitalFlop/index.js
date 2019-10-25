@@ -109,6 +109,7 @@ const DigitalFlop = ({ config = {}, className, style }) => {
     }
 
     const graph = graphRef.current
+    graph.animationEnd()
 
     const shape = getShape(mergedConfig)
 
@@ -120,8 +121,6 @@ const DigitalFlop = ({ config = {}, className, style }) => {
     const { animationCurve, animationFrame } = mergedConfig
 
     Object.assign(graph, { animationCurve, animationFrame })
-
-    graph.animationEnd()
 
     graph.animation('style', getStyle(mergedConfig), true)
     graph.animation('shape', shape)

@@ -42,3 +42,7 @@ export { default as ConicalColumnChart } from './components/conicalColumnChart'
 export { default as DigitalFlop } from './components/digitalFlop'
 export { default as ScrollBoard } from './components/scrollBoard'
 export { default as ScrollRankingBoard } from './components/scrollRankingBoard'
+
+export { default as useAutoResize } from './use/autoResize'
+
+export { co } from './util'
