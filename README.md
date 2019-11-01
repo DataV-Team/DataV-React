@@ -41,7 +41,7 @@ import { BorderBox1 } from "@jiaminghi/data-view-react";
 import BorderBox1 from "@jiaminghi/data-view-react/es/borderBox1";
 ```
 
-详细文档及示例请移步[HomePage](http://datav.react.jiaminghi.com).
+详细文档及示例请移步[HomePage](http://datav-react.jiaminghi.com).
 
 ### UMD 版
 
@@ -66,14 +66,14 @@ import BorderBox1 from "@jiaminghi/data-view-react/es/borderBox1";
 
 Demo 页面使用了全屏组件，请 F11 全屏后查看。
 
-- [施工养护综合数据](http://datav.react.jiaminghi.com/demo/construction-data/index.html)
+- [施工养护综合数据](http://datav-react.jiaminghi.com/demo/construction-data/index.html)
 
 ![construction-data](./demoImg/construction-data.jpg)
 
-- [机电运维管理台](http://datav.react.jiaminghi.com/demo/manage-desk/index.html)
+- [机电运维管理台](http://datav-react.jiaminghi.com/demo/manage-desk/index.html)
 
 ![manage-desk](./demoImg/manage-desk.jpg)
 
-- [机电设备电子档案](http://datav.react.jiaminghi.com/demo/electronic-file/index.html)
+- [机电设备电子档案](http://datav-react.jiaminghi.com/demo/electronic-file/index.html)
 
 ![electronic-file](./demoImg/electronic-file.jpg)
