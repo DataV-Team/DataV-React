@@ -2,7 +2,7 @@
 
 <h1 align="center">DataV-React</h1>
 <p align="center">
-    <a href="https://github.com/jiaming743/datav/blob/master/LICENSE">
+    <a href="https://github.com/DataV-Team/Datav-React/blob/master/LICENSE">
       <img src="https://img.shields.io/github/license/DataV-Team/datav-react.svg" alt="LICENSE" />
     </a>
     <a href="https://www.npmjs.com/package/@jiaminghi/data-view-react">
