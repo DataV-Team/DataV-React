@@ -1,5 +1,8 @@
 [ENGLISH](./README_EN.md)
 
+<h1 align="center">
+  <img src="./icon.png">
+</h1>
 <h1 align="center">DataV-React</h1>
 <p align="center">
     <a href="https://github.com/DataV-Team/Datav-React/blob/master/LICENSE">
