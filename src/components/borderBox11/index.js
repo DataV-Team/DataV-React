@@ -205,7 +205,7 @@ const BorderBox = ({ children, className, style, color = [], titleWidth = 250, t
           textAnchor='middle'
           dominantBaseline='middle'
         >
-          {{ title }}
+          {title}
         </text>
 
         <polygon
