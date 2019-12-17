@@ -83,6 +83,12 @@ const defaultConfig = {
    */
   index: false,
   /**
+   * @description index Header
+   * @type {String}
+   * @default indexHeader = '#'
+   */
+  indexHeader: '#',
+  /**
    * @description Carousel type
    * @type {String}
    * @default carousel = 'single'
@@ -91,14 +97,14 @@ const defaultConfig = {
   carousel: 'single'
 }
 
-function calcHeaderData({ header, index }) {
+function calcHeaderData({ header, index, indexHeader }) {
   if (!header.length) {
     return []
   }
 
   header = [...header]
 
-  if (index) header.unshift('#')
+  if (index) header.unshift(indexHeader)
 
   return header
 }
@@ -180,7 +186,10 @@ const ScrollBoard = ({ onClick, config, className, style }) => {
   }
 
   function calcData() {
-    const mergedConfig = deepMerge(deepClone(defaultConfig, true), config || {})
+    const mergedConfig = deepMerge(
+      deepClone(defaultConfig, true),
+      config || {}
+    )
 
     const header = calcHeaderData(mergedConfig)
 
@@ -201,7 +210,10 @@ const ScrollBoard = ({ onClick, config, className, style }) => {
       heights
     }
 
-    Object.assign(stateRef.current, data, { rowsData: rows, animationIndex: 0 })
+    Object.assign(stateRef.current, data, {
+      rowsData: rows,
+      animationIndex: 0
+    })
 
     setState(state => ({ ...state, ...data }))
   }
@@ -235,7 +247,7 @@ const ScrollBoard = ({ onClick, config, className, style }) => {
     return new Array(data.length).fill(avgHeight)
   }
 
-  function * animation(start = false) {
+  function* animation(start = false) {
     let {
       avgHeight,
       animationIndex,
@@ -283,9 +295,9 @@ const ScrollBoard = ({ onClick, config, className, style }) => {
 
     let start = true
 
-    function * loop() {
+    function* loop() {
       while (true) {
-        yield * animation(start)
+        yield* animation(start)
 
         start = false
 

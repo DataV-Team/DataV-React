@@ -19,5 +19,8 @@
   "eslint.run": "onSave",
   "editor.formatOnSave": true,
   "eslint.autoFixOnSave": true,
-  "prettier.eslintIntegration": true
+  "prettier.eslintIntegration": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }

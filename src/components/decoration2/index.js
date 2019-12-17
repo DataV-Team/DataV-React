@@ -4,11 +4,16 @@ import PropTypes from 'prop-types'
 
 import classnames from 'classnames'
 
+import { deepMerge } from '@jiaminghi/charts/lib/util/index'
+import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
+
 import useAutoResize from '../../use/autoResize'
 
 import './style.less'
 
-const Decoration = ({ reverse = false, className, style }) => {
+const defaultColor = ['#3faacb', '#fff']
+
+const Decoration = ({ reverse = false, className, style, color = [] }) => {
   const { width, height, domRef } = useAutoResize()
 
   function calcSVGData() {
@@ -16,6 +21,8 @@ const Decoration = ({ reverse = false, className, style }) => {
       ? { w: 1, h: height, x: width / 2, y: 0 }
       : { w: width, h: 1, x: 0, y: height / 2 }
   }
+
+  const mergedColor = useMemo(() => deepMerge(deepClone(defaultColor, true), color || []), [color])
 
   const { x, y, w, h } = useMemo(calcSVGData, [reverse, width, height])
 
@@ -26,7 +33,7 @@ const Decoration = ({ reverse = false, className, style }) => {
   return (
     <div className={classNames} style={style} ref={domRef}>
       <svg width={`${width}px`} height={`${height}px`}>
-        <rect x={x} y={y} width={w} height={h} fill='#3faacb'>
+        <rect x={x} y={y} width={w} height={h} fill={mergedColor[0]}>
           <animate
             attributeName={reverse ? 'height' : 'width'}
             from='0'
@@ -39,7 +46,7 @@ const Decoration = ({ reverse = false, className, style }) => {
           />
         </rect>
 
-        <rect x={x} y={y} width='1' height='1' fill='#fff'>
+        <rect x={x} y={y} width='1' height='1' fill={mergedColor[1]}>
           <animate
             attributeName={reverse ? 'y' : 'x'}
             from='0'
@@ -59,7 +66,8 @@ const Decoration = ({ reverse = false, className, style }) => {
 Decoration.propTypes = {
   reverse: PropTypes.bool,
   className: PropTypes.string,
-  style: PropTypes.object
+  style: PropTypes.object,
+  color: PropTypes.array
 }
 
 // 指定 props 的默认值：

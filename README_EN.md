@@ -54,8 +54,9 @@ The `UMD` version can be directly imported using the `script` tag. After the int
 
 ### TODO
 
-- **flylineChart**Add multi-center point and reverse fly line function.
-- Add color and other necessary configuration to the **borderBox** and **decoration** to enhance configurability and flexibility.
+* **flylineChart**Add multi-center point and reverse fly line function.
+* **Map Component**
+* Refactor underlying dependencies using **TS**.
 
 ### Acknowledgement
 

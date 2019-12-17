@@ -4,14 +4,22 @@ import PropTypes from 'prop-types'
 
 import classnames from 'classnames'
 
+import { deepMerge } from '@jiaminghi/charts/lib/util'
+
+import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
+
 import useAutoResize from '../../use/autoResize'
 
 import './style.less'
 
-const Decoration = ({ reverse = false, className, style }) => {
+const defaultColor = ['#3f96a5', '#3f96a5']
+
+const Decoration = ({ reverse = false, className, style, color = [] }) => {
   const { width, height, domRef } = useAutoResize()
 
   const xPos = pos => (!reverse ? pos : width - pos)
+
+  const mergedColor = useMemo(() => deepMerge(deepClone(defaultColor, true), color || []), [color])
 
   const [pointsOne, pointsTwo, pointsThree] = useMemo(
     () => [
@@ -30,21 +38,21 @@ const Decoration = ({ reverse = false, className, style }) => {
     <div className={classNames} style={style} ref={domRef}>
       <svg width={width} height={height}>
         <polyline
-          stroke='#3f96a5'
+          stroke={mergedColor[0]}
           strokeWidth='2'
           fill='transparent'
           points={pointsOne}
         />
 
         <polyline
-          stroke='#3f96a5'
+          stroke={mergedColor[0]}
           strokeWidth='2'
           fill='transparent'
           points={pointsTwo}
         />
 
         <polyline
-          stroke='#3f96a5'
+          stroke={mergedColor[1]}
           fill='transparent'
           strokeWidth='3'
           points={pointsThree}
@@ -57,7 +65,8 @@ const Decoration = ({ reverse = false, className, style }) => {
 Decoration.propTypes = {
   reverse: PropTypes.bool,
   className: PropTypes.string,
-  style: PropTypes.object
+  style: PropTypes.object,
+  color: PropTypes.array
 }
 
 // 指定 props 的默认值：

@@ -1,9 +1,7 @@
 /**
  * IMPORT COMPONENTS
  */
-export {
-  default as FullScreenContainer
-} from './components/fullScreenContainer'
+export { default as FullScreenContainer } from './components/fullScreenContainer'
 export { default as Loading } from './components/loading'
 
 // border box
@@ -17,6 +15,9 @@ export { default as BorderBox7 } from './components/borderBox7'
 export { default as BorderBox8 } from './components/borderBox8'
 export { default as BorderBox9 } from './components/borderBox9'
 export { default as BorderBox10 } from './components/borderBox10'
+export { default as BorderBox11 } from './components/borderBox11'
+export { default as BorderBox12 } from './components/borderBox12'
+export { default as BorderBox13 } from './components/borderBox13'
 
 // decoration
 export { default as Decoration1 } from './components/decoration1'
@@ -29,6 +30,7 @@ export { default as Decoration7 } from './components/decoration7'
 export { default as Decoration8 } from './components/decoration8'
 export { default as Decoration9 } from './components/decoration9'
 export { default as Decoration10 } from './components/decoration10'
+export { default as Decoration11 } from './components/Decoration11'
 
 // charts
 export { default as Charts } from './components/charts'

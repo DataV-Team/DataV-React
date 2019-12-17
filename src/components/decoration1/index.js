@@ -4,9 +4,14 @@ import PropTypes from 'prop-types'
 
 import classnames from 'classnames'
 
+import { deepMerge } from '@jiaminghi/charts/lib/util/index'
+import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
+
 import useAutoResize from '../../use/autoResize'
 
 import './style.less'
+
+const defaultColor = ['#fff', '#0de7c2']
 
 const pointSideLength = 2.5
 
@@ -35,7 +40,7 @@ function getPoints() {
   return points.reduce((all, item) => [...all, ...item], [])
 }
 
-const Decoration = ({ className, style }) => {
+const Decoration = ({ className, style, color = [] }) => {
   const { width, height, domRef } = useAutoResize()
 
   function calcSVGData() {
@@ -47,6 +52,8 @@ const Decoration = ({ className, style }) => {
       svgScale: [width / svgWH[0], height / svgWH[1]]
     }
   }
+
+  const mergedColor = useMemo(() => deepMerge(deepClone(defaultColor, true), color || []), [color])
 
   const { svgScale, points, rects } = useMemo(calcSVGData, [width, height])
 
@@ -67,7 +74,7 @@ const Decoration = ({ className, style }) => {
               ...prev,
               <rect
                 key={i}
-                fill='#fff'
+                fill={mergedColor[0]}
                 x={point[0] - halfPointSideLength}
                 y={point[1] - halfPointSideLength}
                 width={pointSideLength}
@@ -76,7 +83,7 @@ const Decoration = ({ className, style }) => {
                 {Math.random() > 0.6 && (
                   <animate
                     attributeName='fill'
-                    values='#fff;transparent'
+                    values={`${mergedColor[0]};transparent`}
                     dur='1s'
                     begin={Math.random() * 2}
                     repeatCount='indefinite'
@@ -88,7 +95,7 @@ const Decoration = ({ className, style }) => {
         }, [])}
         {!!rects[0] && (
           <rect
-            fill='#0de7c2'
+            fill={mergedColor[1]}
             x={rects[0][0] - pointSideLength}
             y={rects[0][1] - pointSideLength}
             width={pointSideLength * 2}
@@ -122,7 +129,7 @@ const Decoration = ({ className, style }) => {
         )}
         {!!rects[1] && (
           <rect
-            fill='#0de7c2'
+            fill={mergedColor[1]}
             x={rects[1][0] - 40}
             y={rects[1][1] - pointSideLength}
             width='40'
@@ -149,7 +156,8 @@ const Decoration = ({ className, style }) => {
 
 Decoration.propTypes = {
   className: PropTypes.string,
-  style: PropTypes.object
+  style: PropTypes.object,
+  color: PropTypes.array
 }
 
 export default Decoration

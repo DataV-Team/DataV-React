@@ -4,11 +4,16 @@ import PropTypes from 'prop-types'
 
 import classnames from 'classnames'
 
+import { deepMerge } from '@jiaminghi/charts/lib/util/index'
+import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
+
 import useAutoResize from '../../use/autoResize'
 
 import './style.less'
 
-const BorderBox = ({ children, className, style }) => {
+const defaultColor = ['#11eefd', '#0078d2']
+
+const BorderBox = ({ children, className, style, color = [] }) => {
   const { width, height, domRef } = useAutoResize()
 
   const [{ gradientId, maskId }] = useState(() => {
@@ -20,6 +25,8 @@ const BorderBox = ({ children, className, style }) => {
     }
   })
 
+  const mergedColor = useMemo(() => deepMerge(deepClone(defaultColor, true), color || []), [color])
+
   const classNames = useMemo(() => classnames('dv-border-box-9', className), [
     className
   ])
@@ -29,8 +36,38 @@ const BorderBox = ({ children, className, style }) => {
       <svg className='dv-svg-container' width={width} height={height}>
         <defs>
           <linearGradient id={gradientId} x1='0%' y1='0%' x2='100%' y2='100%'>
-            <stop offset='0%' stopColor='#11eefd' />
-            <stop offset='100%' stopColor='#0078d2' />
+            <animate
+              attributeName='x1'
+              values='0%;100%;0%'
+              dur='10s'
+              begin='0s'
+              repeatCount='indefinite'
+            />
+            <animate
+              attributeName='x2'
+              values='100%;0%;100%'
+              dur='10s'
+              begin='0s'
+              repeatCount='indefinite'
+            />
+            <stop offset='0%' stopColor={mergedColor[0]}>
+              <animate
+                attributeName='stop-color'
+                values={`${mergedColor[0]};${mergedColor[1]};${mergedColor[0]}`}
+                dur='10s'
+                begin='0s'
+                repeatCount='indefinite'
+              />
+            </stop>
+            <stop offset='100%' stopColor={mergedColor[1]}>
+              <animate
+                attributeName='stop-color'
+                values={`${mergedColor[1]};${mergedColor[0]};${mergedColor[1]}`}
+                dur='10s'
+                begin='0s'
+                repeatCount='indefinite'
+              />
+            </stop>
           </linearGradient>
 
           <mask id={maskId}>
@@ -123,7 +160,8 @@ const BorderBox = ({ children, className, style }) => {
 BorderBox.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
-  style: PropTypes.object
+  style: PropTypes.object,
+  color: PropTypes.array
 }
 
 export default BorderBox

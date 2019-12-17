@@ -1,3 +1,22 @@
+# 1.0.8-alpha (2019-12-17)
+
+### Feature
+
+- **BorderBox & Decoration:** **Configurable** color.
+  ```html
+  <!-- Example -->
+  <BorderBox1 color={['red', 'green']} />
+  <Decoration1 color={['red', 'green']} />
+  ```
+- **ScrollBoard:** 配置 header index. 
+
+### New
+
+- **borderBox11**
+- **borderBox12**
+- **borderBox13**
+- **decoration11**
+
 # 1.0.7-alpha (2019-10-25)
 
 ### Perfect

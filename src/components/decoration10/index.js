@@ -4,11 +4,16 @@ import PropTypes from 'prop-types'
 
 import classnames from 'classnames'
 
+import { deepMerge } from '@jiaminghi/charts/lib/util/index'
+import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
+
 import useAutoResize from '../../use/autoResize'
 
 import './style.less'
 
-const Decoration = ({ className, style }) => {
+const defaultColor = ['#00c2ff', 'rgba(0, 194, 255, 0.3)']
+
+const Decoration = ({ className, style, color = [] }) => {
   const { width, height, domRef } = useAutoResize()
 
   const {
@@ -29,6 +34,8 @@ const Decoration = ({ className, style }) => {
     animationId7: `d10ani7${Date.now()}`
   }).current
 
+  const mergedColor = useMemo(() => deepMerge(deepClone(defaultColor, true), color || []), [color])
+
   const classNames = useMemo(() => classnames('dv-decoration-10', className), [
     className
   ])
@@ -37,13 +44,13 @@ const Decoration = ({ className, style }) => {
     <div className={classNames} style={style} ref={domRef}>
       <svg width={width} height={height}>
         <polyline
-          stroke='rgba(0, 194, 255, 0.3)'
+          stroke={mergedColor[1]}
           strokeWidth='2'
           points={`0, ${height / 2} ${width}, ${height / 2}`}
         />
 
         <polyline
-          stroke='rgba(0, 194, 255, 1)'
+          stroke={mergedColor[0]}
           strokeWidth='2'
           points={`5, ${height / 2} ${width * 0.2 - 3}, ${height / 2}`}
           strokeDasharray={`0, ${width * 0.2}`}
@@ -67,7 +74,7 @@ const Decoration = ({ className, style }) => {
         </polyline>
 
         <polyline
-          stroke='rgba(0, 194, 255, 1)'
+          stroke={mergedColor[0]}
           strokeWidth='2'
           points={`${width * 0.2 + 3}, ${height / 2} ${width * 0.8 -
             3}, ${height / 2}`}
@@ -91,7 +98,7 @@ const Decoration = ({ className, style }) => {
         </polyline>
 
         <polyline
-          stroke='rgba(0, 194, 255, 1)'
+          stroke={mergedColor[0]}
           strokeWidth='2'
           points={`${width * 0.8 + 3}, ${height / 2} ${width - 5}, ${height /
             2}`}
@@ -114,65 +121,65 @@ const Decoration = ({ className, style }) => {
           />
         </polyline>
 
-        <circle cx='2' cy={height / 2} r='2' fill='#03709f'>
+        <circle cx='2' cy={height / 2} r='2' fill={mergedColor[1]}>
           <animate
             id={animationId1}
             attributeName='fill'
-            values='#03709f;#00c2ff'
+            values={`${mergedColor[1]};${mergedColor[0]}`}
             begin={`0s;${animationId7}.end`}
             dur='0.3s'
             fill='freeze'
           />
         </circle>
 
-        <circle cx={width * 0.2} cy={height / 2} r='2' fill='#03709f'>
+        <circle cx={width * 0.2} cy={height / 2} r='2' fill={mergedColor[1]}>
           <animate
             id={animationId3}
             attributeName='fill'
-            values='#03709f;#00c2ff'
+            values={`${mergedColor[1]};${mergedColor[0]}`}
             begin={`${animationId2}.end`}
             dur='0.3s'
             fill='freeze'
           />
           <animate
             attributeName='fill'
-            values='#03709f;#03709f'
+            values={`${mergedColor[1]};${mergedColor[1]}`}
             dur='0.01s'
             begin={`${animationId7}.end`}
             fill='freeze'
           />
         </circle>
 
-        <circle cx={width * 0.8} cy={height / 2} r='2' fill='#03709f'>
+        <circle cx={width * 0.8} cy={height / 2} r='2' fill={mergedColor[1]}>
           <animate
             id={animationId5}
             attributeName='fill'
-            values='#03709f;#00c2ff'
+            values={`${mergedColor[1]};${mergedColor[0]}`}
             begin={`${animationId4}.end`}
             dur='0.3s'
             fill='freeze'
           />
           <animate
             attributeName='fill'
-            values='#03709f;#03709f'
+            values={`${mergedColor[1]};${mergedColor[1]}`}
             dur='0.01s'
             begin={`${animationId7}.end`}
             fill='freeze'
           />
         </circle>
 
-        <circle cx={width - 2} cy={height / 2} r='2' fill='#03709f'>
+        <circle cx={width - 2} cy={height / 2} r='2' fill={mergedColor[1]}>
           <animate
             id={animationId7}
             attributeName='fill'
-            values='#03709f;#00c2ff'
+            values={`${mergedColor[1]};${mergedColor[0]}`}
             begin={`${animationId6}.end`}
             dur='0.3s'
             fill='freeze'
           />
           <animate
             attributeName='fill'
-            values='#03709f;#03709f'
+            values={`${mergedColor[1]};${mergedColor[1]}`}
             dur='0.01s'
             begin={`${animationId7}.end`}
             fill='freeze'
@@ -185,7 +192,8 @@ const Decoration = ({ className, style }) => {
 
 Decoration.propTypes = {
   className: PropTypes.string,
-  style: PropTypes.object
+  style: PropTypes.object,
+  color: PropTypes.array
 }
 
 export default Decoration

@@ -4,9 +4,14 @@ import PropTypes from 'prop-types'
 
 import classnames from 'classnames'
 
+import { deepMerge } from '@jiaminghi/charts/lib/util/index'
+import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
+
 import useAutoResize from '../../use/autoResize'
 
 import './style.less'
+
+const defaultColor = ['#7acaec', 'transparent']
 
 const pointSideLength = 7
 
@@ -35,7 +40,7 @@ function getPoints() {
   return points.reduce((all, item) => [...all, ...item], [])
 }
 
-const Decoration = ({ className, style }) => {
+const Decoration = ({ className, style, color = [] }) => {
   const { width, height, domRef } = useAutoResize()
 
   function calcSVGData() {
@@ -44,6 +49,8 @@ const Decoration = ({ className, style }) => {
       svgScale: [width / svgWH[0], height / svgWH[1]]
     }
   }
+
+  const mergedColor = useMemo(() => deepMerge(deepClone(defaultColor, true), color || []), [color])
 
   const { svgScale, points } = useMemo(calcSVGData, [width, height])
 
@@ -61,7 +68,7 @@ const Decoration = ({ className, style }) => {
         {points.map((point, i) => (
           <rect
             key={i}
-            fill='#7acaec'
+            fill={mergedColor[0]}
             x={point[0] - halfPointSideLength}
             y={point[1] - halfPointSideLength}
             width={pointSideLength}
@@ -70,7 +77,7 @@ const Decoration = ({ className, style }) => {
             {Math.random() > 0.6 && (
               <animate
                 attributeName='fill'
-                values='#7acaec;transparent'
+                values={`${mergedColor.join(';')}`}
                 dur={Math.random() + 1 + 's'}
                 begin={Math.random() * 2}
                 repeatCount='indefinite'
@@ -85,7 +92,8 @@ const Decoration = ({ className, style }) => {
 
 Decoration.propTypes = {
   className: PropTypes.string,
-  style: PropTypes.object
+  style: PropTypes.object,
+  color: PropTypes.array
 }
 
 export default Decoration

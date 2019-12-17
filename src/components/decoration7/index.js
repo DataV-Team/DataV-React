@@ -4,9 +4,17 @@ import PropTypes from 'prop-types'
 
 import classnames from 'classnames'
 
+import { deepMerge } from '@jiaminghi/charts/lib/util'
+
+import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
+
 import './style.less'
 
-const Decoration = ({ children, className, style }) => {
+const defaultColor = ['#1dc1f5', '#1dc1f5']
+
+const Decoration = ({ children, className, style, color = [] }) => {
+  const mergedColor = useMemo(() => deepMerge(deepClone(defaultColor, true), color || []), [color])
+
   const classNames = useMemo(() => classnames('dv-decoration-7', className), [
     className
   ])
@@ -17,13 +25,13 @@ const Decoration = ({ children, className, style }) => {
         <polyline
           strokeWidth='4'
           fill='transparent'
-          stroke='#1dc1f5'
+          stroke={mergedColor[0]}
           points='10, 0 19, 10 10, 20'
         />
         <polyline
           strokeWidth='2'
           fill='transparent'
-          stroke='#1dc1f5'
+          stroke={mergedColor[1]}
           points='2, 0 11, 10 2, 20'
         />
       </svg>
@@ -32,13 +40,13 @@ const Decoration = ({ children, className, style }) => {
         <polyline
           strokeWidth='4'
           fill='transparent'
-          stroke='#1dc1f5'
+          stroke={mergedColor[0]}
           points='11, 0 2, 10 11, 20'
         />
         <polyline
           strokeWidth='2'
           fill='transparent'
-          stroke='#1dc1f5'
+          stroke={mergedColor[1]}
           points='19, 0 10, 10 19, 20'
         />
       </svg>
@@ -49,7 +57,8 @@ const Decoration = ({ children, className, style }) => {
 Decoration.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
-  style: PropTypes.object
+  style: PropTypes.object,
+  color: PropTypes.array
 }
 
 export default Decoration

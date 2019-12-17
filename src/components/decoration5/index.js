@@ -4,13 +4,17 @@ import PropTypes from 'prop-types'
 
 import classnames from 'classnames'
 
-import { getPolylineLength } from '@jiaminghi/charts/lib/util'
+import { getPolylineLength, deepMerge } from '@jiaminghi/charts/lib/util'
+
+import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
 
 import useAutoResize from '../../use/autoResize'
 
 import './style.less'
 
-const Decoration = ({ className, style }) => {
+const defaultColor = ['#3f96a5', '#3f96a5']
+
+const Decoration = ({ className, style, color = [] }) => {
   const { width, height, domRef } = useAutoResize()
 
   function calcSVGData() {
@@ -38,6 +42,8 @@ const Decoration = ({ className, style }) => {
     return { line1Points, line2Points, line1Length, line2Length }
   }
 
+  const mergedColor = useMemo(() => deepMerge(deepClone(defaultColor, true), color || []), [color])
+
   const { line1Points, line2Points, line1Length, line2Length } = useMemo(
     calcSVGData,
     [width, height]
@@ -52,7 +58,7 @@ const Decoration = ({ className, style }) => {
       <svg width={width} height={height}>
         <polyline
           fill='transparent'
-          stroke='#3f96a5'
+          stroke={mergedColor[0]}
           strokeWidth='3'
           points={line1Points}
         >
@@ -71,7 +77,7 @@ const Decoration = ({ className, style }) => {
         </polyline>
         <polyline
           fill='transparent'
-          stroke='#3f96a5'
+          stroke={mergedColor[1]}
           strokeWidth='2'
           points={line2Points}
         >
@@ -95,7 +101,8 @@ const Decoration = ({ className, style }) => {
 
 Decoration.propTypes = {
   className: PropTypes.string,
-  style: PropTypes.object
+  style: PropTypes.object,
+  color: PropTypes.array
 }
 
 export default Decoration

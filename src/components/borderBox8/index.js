@@ -4,11 +4,16 @@ import PropTypes from 'prop-types'
 
 import classnames from 'classnames'
 
+import { deepMerge } from '@jiaminghi/charts/lib/util/index'
+import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
+
 import useAutoResize from '../../use/autoResize'
 
 import './style.less'
 
-const BorderBox = ({ children, className, style }) => {
+const defaultColor = ['#235fa7', '#4fd2dd']
+
+const BorderBox = ({ children, className, style, color = [], dur = 3 }) => {
   const { width, height, domRef } = useAutoResize()
 
   const [{ path, gradient, mask }] = useState(() => {
@@ -20,6 +25,8 @@ const BorderBox = ({ children, className, style }) => {
       mask: `border-box-8-mask-${timestamp}`
     }
   })
+
+  const mergedColor = useMemo(() => deepMerge(deepClone(defaultColor, true), color || []), [color])
 
   const length = useMemo(() => (width + height - 5) * 2, [width, height])
 
@@ -45,7 +52,7 @@ const BorderBox = ({ children, className, style }) => {
           <mask id={mask}>
             <circle cx='0' cy='0' r='150' fill={`url(#${gradient})`}>
               <animateMotion
-                dur='3s'
+                dur={`${dur}s`}
                 path={`M2.5, 2.5 L${width - 2.5}, 2.5 L${width -
                   2.5}, ${height - 2.5} L2.5, ${height - 2.5} L2.5, 2.5`}
                 rotate='auto'
@@ -55,10 +62,10 @@ const BorderBox = ({ children, className, style }) => {
           </mask>
         </defs>
 
-        <use stroke='#235fa7' strokeWidth='1' href={`#${path}`} />
+        <use stroke={mergedColor[0]} strokeWidth='1' href={`#${path}`} />
 
         <use
-          stroke='#4fd2dd'
+          stroke={mergedColor[1]}
           strokeWidth='3'
           href={`#${path}`}
           mask={`url(#${mask})`}
@@ -67,7 +74,7 @@ const BorderBox = ({ children, className, style }) => {
             attributeName='stroke-dasharray'
             from={`0, ${length}`}
             to={`${length}, 0`}
-            dur='3s'
+            dur={`${dur}s`}
             repeatCount='indefinite'
           />
         </use>
@@ -81,7 +88,9 @@ const BorderBox = ({ children, className, style }) => {
 BorderBox.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
-  style: PropTypes.object
+  style: PropTypes.object,
+  color: PropTypes.array,
+  dur: PropTypes.number
 }
 
 export default BorderBox
