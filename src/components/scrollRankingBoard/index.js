@@ -45,11 +45,17 @@ const defaultConfig = {
    * @default unit = ''
    * @example unit = 'ton'
    */
-  unit: ''
+  unit: '',
+  /**
+   * @description Auto sort by value
+   * @type {Boolean}
+   * @default sort = true
+   */
+  sort: true
 }
 
-function calcRows({ data, rowNum }) {
-  data.sort(({ value: a }, { value: b }) => {
+function calcRows({ data, rowNum, sort }) {
+  sort && data.sort(({ value: a }, { value: b }) => {
     if (a > b) return -1
     if (a < b) return 1
     if (a === b) return 0
@@ -137,7 +143,7 @@ const ScrollRankingBoard = ({ config, className, style }) => {
     }
   }
 
-  function * animation(start = false) {
+  function* animation(start = false) {
     let {
       avgHeight,
       animationIndex,
@@ -176,9 +182,9 @@ const ScrollRankingBoard = ({ config, className, style }) => {
 
     let start = true
 
-    function * loop() {
+    function* loop() {
       while (true) {
-        yield * animation(start)
+        yield* animation(start)
 
         start = false
 
@@ -225,7 +231,7 @@ const ScrollRankingBoard = ({ config, className, style }) => {
         >
           <div className='ranking-info'>
             <div className='rank'>No.{item.ranking}</div>
-            <div className='info-name'>{item.name}</div>
+            <div className='info-name' dangerouslySetInnerHTML={{ __html: item.name }} />
             <div className='ranking-value'>
               {item.value + mergedConfig.unit}
             </div>

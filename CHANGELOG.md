@@ -1,3 +1,10 @@
+# 1.0.10-alpha (2019-12-27)
+
+### Perfect
+
+- **ScrollRankingBoard:** 配置项 sort 控制是否自动排序.
+- **ScrollRankingBoard:** 通过 dangerouslySetInnerHTML 渲染 name 数据.
+
 # 1.0.8-alpha (2019-12-17)
 
 ### Feature
