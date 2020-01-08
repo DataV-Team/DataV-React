@@ -1,3 +1,9 @@
+# 1.1.1-alpha (2020-01-08)
+
+### New
+
+- **FlylineChartEnhanced:** Enhanced flylineChart .
+
 # 1.0.10-alpha (2019-12-27)
 
 ### Perfect

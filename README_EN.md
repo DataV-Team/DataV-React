@@ -54,7 +54,6 @@ The `UMD` version can be directly imported using the `script` tag. After the int
 
 ### TODO
 
-* **flylineChart**Add multi-center point and reverse fly line function.
 * **Map Component**
 * Refactor underlying dependencies using **TS**.
 

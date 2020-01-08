@@ -54,7 +54,6 @@ import BorderBox1 from "@jiaminghi/data-view-react/es/borderBox1";
 
 ### TODO
 
-* **飞线图**添加多中心点及反向飞线功能
 * **地图组件**
 * **TS**重构组件库底层依赖
 
