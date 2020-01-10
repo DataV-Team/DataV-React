@@ -1,3 +1,9 @@
+# 1.1.2-alpha (2020-01-10)
+
+### Perfect
+
+- **AtiveRingChart:** 添加 digitalFlopToFixed 配置项.
+
 # 1.1.1-alpha (2020-01-08)
 
 ### New

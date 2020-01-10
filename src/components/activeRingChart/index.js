@@ -65,6 +65,11 @@ const defaultConfig = {
     fill: '#fff'
   },
   /**
+   * @description Digital flop toFixed
+   * @type {Number}
+   */
+  digitalFlopToFixed: 0,
+  /**
    * @description CRender animationCurve
    * @type {String}
    * @default animationCurve = 'easeOutCubic'
@@ -90,7 +95,7 @@ const ActiveRingChart = ({ config = {}, className, style }) => {
   const digitalFlop = useMemo(() => {
     if (!mergedConfig) return {}
 
-    const { digitalFlopStyle, data } = mergedConfig
+    const { digitalFlopStyle, digitalFlopToFixed, data } = mergedConfig
 
     const value = data.map(({ value }) => value)
 
@@ -98,7 +103,12 @@ const ActiveRingChart = ({ config = {}, className, style }) => {
 
     const percent = parseInt((value[activeIndex] / sum) * 100) || 0
 
-    return { content: '{nt}%', number: [percent], style: digitalFlopStyle }
+    return {
+      content: '{nt}%',
+      number: [percent],
+      style: digitalFlopStyle,
+      toFixed: digitalFlopToFixed
+    }
   }, [mergedConfig, activeIndex])
 
   const ringName = useMemo(

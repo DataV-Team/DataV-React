@@ -1,25 +1,5 @@
 {
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "vue-html",
-    {
-      "language": "typescript",
-      "autoFix": true
-    },
-    {
-      "language": "typescriptreact",
-      "autoFix": true
-    },
-    {
-      "language": "vue",
-      "autoFix": true
-    }
-  ],
   "eslint.run": "onSave",
-  "editor.formatOnSave": true,
-  "eslint.autoFixOnSave": true,
-  "prettier.eslintIntegration": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   }
