@@ -4,7 +4,7 @@
   "description": "React Large screen data display component library",
   "author": "Duan Yu <949267840@qq.com>",
   "license": "MIT",
-  "repository": "DataV-Team/data-view-react",
+  "repository": "DataV-Team/DataV-React",
   "main": "lib/index/index.js",
   "module": "es/index/index.js",
   "unpkg": "umd/datav.js",
