@@ -15,7 +15,7 @@ import './style.less'
 const defaultColor = ['#2e6099', '#7ce7fd']
 
 const BorderBox = ({ children, className, style, color = [] }) => {
-  const filterId = useRef(`borderr-box-12-filterId-${Date.now()}`).current
+  const filterId = useRef(`border-box-12-filterId-${Date.now()}`).current
 
   const { width, height, domRef } = useAutoResize()
 
