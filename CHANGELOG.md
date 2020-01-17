@@ -1,3 +1,9 @@
+# 1.1.3-alpha (2020-01-17)
+
+### BUG 修复
+
+- **ActiveRingChart:** `parseInt` 精度损失.
+
 # 1.1.2-alpha (2020-01-10)
 
 ### Perfect
