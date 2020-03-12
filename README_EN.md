@@ -33,7 +33,7 @@ $ npm install @jiaminghi/data-view-react
 ### use
 
 ```js
-import datav from "@jiaminghi/data-view-react";
+import * as datav from "@jiaminghi/data-view-react";
 
 datav.BorderBox1;
 
