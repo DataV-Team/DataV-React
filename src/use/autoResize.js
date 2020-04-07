@@ -12,7 +12,7 @@ export default function useAutoResize(ref) {
     setState({ width: clientWidth, height: clientHeight })
   }, [])
 
-  useImperativeHandle(ref, () => ({ initWH: setWH }), [])
+  useImperativeHandle(ref, () => ({ setWH }), [])
 
   useEffect(() => {
     const debounceSetWHFun = debounce(setWH, 100)
@@ -31,5 +31,5 @@ export default function useAutoResize(ref) {
     }
   }, [])
 
-  return { ...state, domRef }
+  return { ...state, domRef, setWH }
 }
