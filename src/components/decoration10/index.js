@@ -13,8 +13,8 @@ import './style.less'
 
 const defaultColor = ['#00c2ff', 'rgba(0, 194, 255, 0.3)']
 
-const Decoration = ({ className, style, color = [] }) => {
-  const { width, height, domRef } = useAutoResize()
+const Decoration = ({ className, style, color = [] }, ref) => {
+  const { width, height, domRef } = useAutoResize(ref)
 
   const {
     animationId1,

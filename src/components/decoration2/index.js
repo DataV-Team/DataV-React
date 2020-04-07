@@ -13,8 +13,8 @@ import './style.less'
 
 const defaultColor = ['#3faacb', '#fff']
 
-const Decoration = ({ reverse = false, className, style, color = [] }) => {
-  const { width, height, domRef } = useAutoResize()
+const Decoration = ({ reverse = false, className, style, color = [] }, ref) => {
+  const { width, height, domRef } = useAutoResize(ref)
 
   function calcSVGData() {
     return reverse

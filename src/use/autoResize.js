@@ -1,17 +1,21 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import { debounce, observerDomResize } from '../util/index'
 
-export default function useAutoResize() {
+export default function useAutoResize(ref) {
   const [state, setState] = useState({ width: 0, height: 0 })
 
   const domRef = useRef(null)
 
-  useEffect(() => {
-    const debounceSetWHFun = debounce(() => {
-      const { clientWidth, clientHeight } = domRef.current
+  const setWH = useCallback(() => {
+    const { clientWidth, clientHeight } = domRef.current
 
-      setState({ width: clientWidth, height: clientHeight })
-    }, 100)
+    setState({ width: clientWidth, height: clientHeight })
+  }, [])
+
+  useImperativeHandle(ref, () => ({ initWH: setWH }), [])
+
+  useEffect(() => {
+    const debounceSetWHFun = debounce(setWH, 100)
 
     debounceSetWHFun()
 

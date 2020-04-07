@@ -236,8 +236,8 @@ function getKLinePointByx(k, [lx, ly], x) {
   return [x, y]
 }
 
-const FlyLineChartEnhanced = ({ config = {}, dev = false, className, style }) => {
-  const { width, height, domRef } = useAutoResize()
+const FlyLineChartEnhanced = ({ config = {}, dev = false, className, style }, ref) => {
+  const { width, height, domRef } = useAutoResize(ref)
 
   const { unique, flylineGradientId, haloGradientId } = useRef({
     unique: Math.random(),

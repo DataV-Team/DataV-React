@@ -63,8 +63,8 @@ function getData() {
   return { heights, minHeights, randoms }
 }
 
-const Decoration = ({ className, style, color = [] }) => {
-  const { width, height, domRef } = useAutoResize()
+const Decoration = ({ className, style, color = [] }, ref) => {
+  const { width, height, domRef } = useAutoResize(ref)
 
   function calcSVGData() {
     return {

@@ -6,8 +6,8 @@ import useAutoResize from '../../use/autoResize'
 
 import './style.less'
 
-const FullScreenContainer = ({ children, className, style }) => {
-  const { domRef } = useAutoResize()
+const FullScreenContainer = ({ children, className, style }, ref) => {
+  const { domRef } = useAutoResize(ref)
 
   useLayoutEffect(() => {
     const { width, height } = window.screen

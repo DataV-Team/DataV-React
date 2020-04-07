@@ -208,8 +208,8 @@ function getControlPoint([sx, sy], [ex, ey], { curvature, k }) {
   return [dx, dy]
 }
 
-const FlyLineChart = ({ config = {}, dev = false, className, style }) => {
-  const { width, height, domRef } = useAutoResize()
+const FlyLineChart = ({ config = {}, dev = false, className, style }, ref) => {
+  const { width, height, domRef } = useAutoResize(ref)
 
   const { unique, gradientId, gradient2Id } = useRef({
     unique: Math.random(),

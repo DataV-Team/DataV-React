@@ -144,8 +144,8 @@ function calcAligns(mergedConfig, header) {
   return deepMerge(aligns, align)
 }
 
-const ScrollBoard = ({ onClick, config, className, style }) => {
-  const { width, height, domRef } = useAutoResize()
+const ScrollBoard = ({ onClick, config, className, style }, ref) => {
+  const { width, height, domRef } = useAutoResize(ref)
 
   const [state, setState] = useState({
     mergedConfig: null,

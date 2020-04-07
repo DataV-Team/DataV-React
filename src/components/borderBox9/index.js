@@ -13,8 +13,8 @@ import './style.less'
 
 const defaultColor = ['#11eefd', '#0078d2']
 
-const BorderBox = ({ children, className, style, color = [] }) => {
-  const { width, height, domRef } = useAutoResize()
+const BorderBox = ({ children, className, style, color = [] }, ref) => {
+  const { width, height, domRef } = useAutoResize(ref)
 
   const [{ gradientId, maskId }] = useState(() => {
     const timestamp = Date.now()

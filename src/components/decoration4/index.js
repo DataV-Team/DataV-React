@@ -13,8 +13,8 @@ import './style.less'
 
 const defaultColor = ['rgba(255, 255, 255, 0.3)', 'rgba(255, 255, 255, 0.3)']
 
-const Decoration = ({ reverse = false, className, style, color = [] }) => {
-  const { width, height, domRef } = useAutoResize()
+const Decoration = ({ reverse = false, className, style, color = [] }, ref) => {
+  const { width, height, domRef } = useAutoResize(ref)
 
   const mergedColor = useMemo(() => deepMerge(deepClone(defaultColor, true), color || []), [color])
 

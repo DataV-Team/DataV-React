@@ -82,8 +82,8 @@ function calcRows({ data, rowNum, sort }) {
   return data
 }
 
-const ScrollRankingBoard = ({ config, className, style }) => {
-  const { width, height, domRef } = useAutoResize()
+const ScrollRankingBoard = ({ config, className, style }, ref) => {
+  const { width, height, domRef } = useAutoResize(ref)
 
   const [state, setState] = useState({
     mergedConfig: null,

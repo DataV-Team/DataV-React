@@ -10,8 +10,8 @@ import useAutoResize from '../../use/autoResize'
 
 import './style.less'
 
-const Charts = ({ option = {}, className, style }) => {
-  const { width, height, domRef } = useAutoResize()
+const Charts = ({ option = {}, className, style }, ref) => {
+  const { width, height, domRef } = useAutoResize(ref)
 
   const chartRef = useRef(null)
 

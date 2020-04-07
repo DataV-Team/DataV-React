@@ -14,8 +14,8 @@ import './style.less'
 
 const defaultColor = ['#3f96a5', '#3f96a5']
 
-const Decoration = ({ reverse = false, className, style, color = [] }) => {
-  const { width, height, domRef } = useAutoResize()
+const Decoration = ({ reverse = false, className, style, color = [] }, ref) => {
+  const { width, height, domRef } = useAutoResize(ref)
 
   const xPos = pos => (!reverse ? pos : width - pos)
 

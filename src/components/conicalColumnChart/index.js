@@ -78,8 +78,8 @@ function getData(mergedConfig) {
   return data
 }
 
-const ConicalColumnChart = ({ config = {}, className, style }) => {
-  const { width, height, domRef } = useAutoResize()
+const ConicalColumnChart = ({ config = {}, className, style }, ref) => {
+  const { width, height, domRef } = useAutoResize(ref)
 
   const { mergedConfig, column } = useMemo(calcData, [config, width, height])
 

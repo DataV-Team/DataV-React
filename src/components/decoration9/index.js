@@ -18,8 +18,8 @@ const defaultColor = ['rgba(3, 166, 224, 0.8)', 'rgba(3, 166, 224, 0.5)']
 
 const svgWH = [100, 100]
 
-const Decoration = ({ children, className, style, color = [], dur = 3 }) => {
-  const { width, height, domRef } = useAutoResize()
+const Decoration = ({ children, className, style, color = [], dur = 3 }, ref) => {
+  const { width, height, domRef } = useAutoResize(ref)
 
   const polygonIdRef = useRef(`decoration-9-polygon-${Date.now()}`)
 

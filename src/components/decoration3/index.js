@@ -40,8 +40,8 @@ function getPoints() {
   return points.reduce((all, item) => [...all, ...item], [])
 }
 
-const Decoration = ({ className, style, color = [] }) => {
-  const { width, height, domRef } = useAutoResize()
+const Decoration = ({ className, style, color = [] }, ref) => {
+  const { width, height, domRef } = useAutoResize(ref)
 
   function calcSVGData() {
     return {

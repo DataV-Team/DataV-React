@@ -14,8 +14,8 @@ import './style.less'
 
 const defaultColor = ['#1a98fc', '#2cf7fe']
 
-const BorderBox = ({ children, className, style, color = [] }) => {
-  const { width, height, domRef } = useAutoResize()
+const BorderBox = ({ children, className, style, color = [] }, ref) => {
+  const { width, height, domRef } = useAutoResize(ref)
 
   const mergedColor = useMemo(() => deepMerge(deepClone(defaultColor, true), color || []), [color])
 

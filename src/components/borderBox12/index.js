@@ -14,10 +14,10 @@ import './style.less'
 
 const defaultColor = ['#2e6099', '#7ce7fd']
 
-const BorderBox = ({ children, className, style, color = [] }) => {
+const BorderBox = ({ children, className, style, color = [] }, ref) => {
   const filterId = useRef(`border-box-12-filterId-${Date.now()}`).current
 
-  const { width, height, domRef } = useAutoResize()
+  const { width, height, domRef } = useAutoResize(ref)
 
   const mergedColor = useMemo(() => deepMerge(deepClone(defaultColor, true), color || []), [color])
 
