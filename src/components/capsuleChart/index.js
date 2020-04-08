@@ -64,7 +64,7 @@ const CapsuleChart = ({ config = {}, className, style }) => {
     setState({
       mergedConfig,
       capsuleLength: capsuleValue.map(v => (maxValue ? v / maxValue : 0)),
-      labelData: new Array(6).fill(0).map((v, i) => Math.ceil(i * oneFifth))
+      labelData: [...new Set(new Array(6).fill(0).map((v, i) => Math.ceil(i * oneFifth)))]
     })
   }, [config])
 
