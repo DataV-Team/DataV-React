@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from 'react'
+import { useState, useCallback, useEffect, useRef, useImperativeHandle } from 'react'
 import { debounce, observerDomResize } from '../util/index'
 
 export default function useAutoResize(ref) {
@@ -26,7 +26,7 @@ export default function useAutoResize(ref) {
     return () => {
       domObserver.disconnect()
       domObserver.takeRecords()
-  
+
       window.removeEventListener('resize', debounceSetWHFun)
     }
   }, [])
