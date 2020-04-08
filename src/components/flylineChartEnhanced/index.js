@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback, useMemo } from 'react'
+import React, { useEffect, useState, useRef, useCallback, useMemo, forwardRef } from 'react'
 
 import PropTypes from 'prop-types'
 
@@ -236,7 +236,7 @@ function getKLinePointByx(k, [lx, ly], x) {
   return [x, y]
 }
 
-const FlyLineChartEnhanced = ({ config = {}, dev = false, className, style }, ref) => {
+const FlyLineChartEnhanced = forwardRef(({ config = {}, dev = false, className, style }, ref) => {
   const { width, height, domRef } = useAutoResize(ref)
 
   const { unique, flylineGradientId, haloGradientId } = useRef({
@@ -533,7 +533,7 @@ const FlyLineChartEnhanced = ({ config = {}, dev = false, className, style }, re
       }
     </div>
   )
-}
+})
 
 FlyLineChartEnhanced.propTypes = {
   config: PropTypes.object,

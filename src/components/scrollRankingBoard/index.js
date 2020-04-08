@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo } from 'react'
+import React, { useEffect, useRef, useState, useMemo, forwardRef } from 'react'
 
 import PropTypes from 'prop-types'
 
@@ -82,7 +82,7 @@ function calcRows({ data, rowNum, sort }) {
   return data
 }
 
-const ScrollRankingBoard = ({ config, className, style }, ref) => {
+const ScrollRankingBoard = forwardRef(({ config, className, style }, ref) => {
   const { width, height, domRef } = useAutoResize(ref)
 
   const [state, setState] = useState({
@@ -143,7 +143,7 @@ const ScrollRankingBoard = ({ config, className, style }, ref) => {
     }
   }
 
-  function* animation(start = false) {
+  function * animation(start = false) {
     let {
       avgHeight,
       animationIndex,
@@ -182,9 +182,9 @@ const ScrollRankingBoard = ({ config, className, style }, ref) => {
 
     let start = true
 
-    function* loop() {
+    function * loop() {
       while (true) {
-        yield* animation(start)
+        yield * animation(start)
 
         start = false
 
@@ -249,7 +249,7 @@ const ScrollRankingBoard = ({ config, className, style }, ref) => {
       ))}
     </div>
   )
-}
+})
 
 ScrollRankingBoard.propTypes = {
   config: PropTypes.object,

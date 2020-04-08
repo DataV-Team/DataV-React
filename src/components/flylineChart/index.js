@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback, useMemo } from 'react'
+import React, { useEffect, useState, useRef, useCallback, useMemo, forwardRef } from 'react'
 
 import PropTypes from 'prop-types'
 
@@ -208,7 +208,7 @@ function getControlPoint([sx, sy], [ex, ey], { curvature, k }) {
   return [dx, dy]
 }
 
-const FlyLineChart = ({ config = {}, dev = false, className, style }, ref) => {
+const FlyLineChart = forwardRef(({ config = {}, dev = false, className, style }, ref) => {
   const { width, height, domRef } = useAutoResize(ref)
 
   const { unique, gradientId, gradient2Id } = useRef({
@@ -441,7 +441,7 @@ const FlyLineChart = ({ config = {}, dev = false, className, style }, ref) => {
       )}
     </div>
   )
-}
+})
 
 FlyLineChart.propTypes = {
   config: PropTypes.object,

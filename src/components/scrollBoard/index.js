@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useMemo } from 'react'
+import React, { useEffect, useState, useRef, useMemo, forwardRef } from 'react'
 
 import PropTypes from 'prop-types'
 
@@ -144,7 +144,7 @@ function calcAligns(mergedConfig, header) {
   return deepMerge(aligns, align)
 }
 
-const ScrollBoard = ({ onClick, config, className, style }, ref) => {
+const ScrollBoard = forwardRef(({ onClick, config, className, style }, ref) => {
   const { width, height, domRef } = useAutoResize(ref)
 
   const [state, setState] = useState({
@@ -247,7 +247,7 @@ const ScrollBoard = ({ onClick, config, className, style }, ref) => {
     return new Array(data.length).fill(avgHeight)
   }
 
-  function* animation(start = false) {
+  function * animation(start = false) {
     let {
       avgHeight,
       animationIndex,
@@ -295,9 +295,9 @@ const ScrollBoard = ({ onClick, config, className, style }, ref) => {
 
     let start = true
 
-    function* loop() {
+    function * loop() {
       while (true) {
-        yield* animation(start)
+        yield * animation(start)
 
         start = false
 
@@ -382,7 +382,7 @@ const ScrollBoard = ({ onClick, config, className, style }, ref) => {
       )}
     </div>
   )
-}
+})
 
 ScrollBoard.propTypes = {
   config: PropTypes.object,

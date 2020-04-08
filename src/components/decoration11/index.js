@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, forwardRef } from 'react'
 
 import PropTypes from 'prop-types'
 
@@ -14,7 +14,7 @@ import './style.less'
 
 const defaultColor = ['#1a98fc', '#2cf7fe']
 
-const BorderBox = ({ children, className, style, color = [] }, ref) => {
+const BorderBox = forwardRef(({ children, className, style, color = [] }, ref) => {
   const { width, height, domRef } = useAutoResize(ref)
 
   const mergedColor = useMemo(() => deepMerge(deepClone(defaultColor, true), color || []), [color])
@@ -77,7 +77,7 @@ const BorderBox = ({ children, className, style, color = [] }, ref) => {
       </div>
     </div>
   )
-}
+})
 
 BorderBox.propTypes = {
   children: PropTypes.node,

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, forwardRef } from 'react'
 
 import PropTypes from 'prop-types'
 
@@ -13,7 +13,7 @@ import './style.less'
 
 const defaultColor = ['rgba(255, 255, 255, 0.3)', 'rgba(255, 255, 255, 0.3)']
 
-const Decoration = ({ reverse = false, className, style, color = [] }, ref) => {
+const Decoration = forwardRef(({ reverse = false, className, style, color = [] }, ref) => {
   const { width, height, domRef } = useAutoResize(ref)
 
   const mergedColor = useMemo(() => deepMerge(deepClone(defaultColor, true), color || []), [color])
@@ -49,7 +49,7 @@ const Decoration = ({ reverse = false, className, style, color = [] }, ref) => {
       </div>
     </div>
   )
-}
+})
 
 Decoration.propTypes = {
   reverse: PropTypes.bool,

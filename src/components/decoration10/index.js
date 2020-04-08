@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from 'react'
+import React, { useRef, useMemo, forwardRef } from 'react'
 
 import PropTypes from 'prop-types'
 
@@ -13,7 +13,7 @@ import './style.less'
 
 const defaultColor = ['#00c2ff', 'rgba(0, 194, 255, 0.3)']
 
-const Decoration = ({ className, style, color = [] }, ref) => {
+const Decoration = forwardRef(({ className, style, color = [] }, ref) => {
   const { width, height, domRef } = useAutoResize(ref)
 
   const {
@@ -188,7 +188,7 @@ const Decoration = ({ className, style, color = [] }, ref) => {
       </svg>
     </div>
   )
-}
+})
 
 Decoration.propTypes = {
   className: PropTypes.string,

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, forwardRef } from 'react'
 
 import PropTypes from 'prop-types'
 
@@ -13,7 +13,7 @@ import './style.less'
 
 const defaultColor = ['#3faacb', '#fff']
 
-const Decoration = ({ reverse = false, className, style, color = [] }, ref) => {
+const Decoration = forwardRef(({ reverse = false, className, style, color = [] }, ref) => {
   const { width, height, domRef } = useAutoResize(ref)
 
   function calcSVGData() {
@@ -61,7 +61,7 @@ const Decoration = ({ reverse = false, className, style, color = [] }, ref) => {
       </svg>
     </div>
   )
-}
+})
 
 Decoration.propTypes = {
   reverse: PropTypes.bool,

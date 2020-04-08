@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useMemo } from 'react'
+import React, { useRef, useEffect, useMemo, forwardRef } from 'react'
 
 import PropTypes from 'prop-types'
 
@@ -10,7 +10,7 @@ import useAutoResize from '../../use/autoResize'
 
 import './style.less'
 
-const Charts = ({ option = {}, className, style }, ref) => {
+const Charts = forwardRef(({ option = {}, className, style }, ref) => {
   const { width, height, domRef } = useAutoResize(ref)
 
   const chartRef = useRef(null)
@@ -38,7 +38,7 @@ const Charts = ({ option = {}, className, style }, ref) => {
       <div className='charts-canvas-container' ref={chartRef} />
     </div>
   )
-}
+})
 
 Charts.propTypes = {
   option: PropTypes.object,

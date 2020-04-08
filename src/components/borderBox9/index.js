@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, forwardRef } from 'react'
 
 import PropTypes from 'prop-types'
 
@@ -13,7 +13,7 @@ import './style.less'
 
 const defaultColor = ['#11eefd', '#0078d2']
 
-const BorderBox = ({ children, className, style, color = [] }, ref) => {
+const BorderBox = forwardRef(({ children, className, style, color = [] }, ref) => {
   const { width, height, domRef } = useAutoResize(ref)
 
   const [{ gradientId, maskId }] = useState(() => {
@@ -155,7 +155,7 @@ const BorderBox = ({ children, className, style, color = [] }, ref) => {
       <div className='border-box-content'>{children}</div>
     </div>
   )
-}
+})
 
 BorderBox.propTypes = {
   children: PropTypes.node,

@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react'
+import React, { useMemo, useRef, forwardRef } from 'react'
 
 import PropTypes from 'prop-types'
 
@@ -14,7 +14,7 @@ import './style.less'
 
 const defaultColor = ['#2e6099', '#7ce7fd']
 
-const BorderBox = ({ children, className, style, color = [] }, ref) => {
+const BorderBox = forwardRef(({ children, className, style, color = [] }, ref) => {
   const filterId = useRef(`border-box-12-filterId-${Date.now()}`).current
 
   const { width, height, domRef } = useAutoResize(ref)
@@ -117,7 +117,7 @@ const BorderBox = ({ children, className, style, color = [] }, ref) => {
       </div>
     </div>
   )
-}
+})
 
 BorderBox.propTypes = {
   children: PropTypes.node,

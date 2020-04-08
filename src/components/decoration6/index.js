@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, forwardRef } from 'react'
 
 import PropTypes from 'prop-types'
 
@@ -63,7 +63,7 @@ function getData() {
   return { heights, minHeights, randoms }
 }
 
-const Decoration = ({ className, style, color = [] }, ref) => {
+const Decoration = forwardRef(({ className, style, color = [] }, ref) => {
   const { width, height, domRef } = useAutoResize(ref)
 
   function calcSVGData() {
@@ -127,7 +127,7 @@ const Decoration = ({ className, style, color = [] }, ref) => {
       </svg>
     </div>
   )
-}
+})
 
 Decoration.propTypes = {
   className: PropTypes.string,

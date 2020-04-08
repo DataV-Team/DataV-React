@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, forwardRef } from 'react'
 
 import PropTypes from 'prop-types'
 
@@ -78,7 +78,7 @@ function getData(mergedConfig) {
   return data
 }
 
-const ConicalColumnChart = ({ config = {}, className, style }, ref) => {
+const ConicalColumnChart = forwardRef(({ config = {}, className, style }, ref) => {
   const { width, height, domRef } = useAutoResize(ref)
 
   const { mergedConfig, column } = useMemo(calcData, [config, width, height])
@@ -174,7 +174,7 @@ const ConicalColumnChart = ({ config = {}, className, style }, ref) => {
       </svg>
     </div>
   )
-}
+})
 
 ConicalColumnChart.propTypes = {
   config: PropTypes.object,

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react'
+import React, { useLayoutEffect, forwardRef } from 'react'
 
 import PropTypes from 'prop-types'
 
@@ -6,7 +6,7 @@ import useAutoResize from '../../use/autoResize'
 
 import './style.less'
 
-const FullScreenContainer = ({ children, className, style }, ref) => {
+const FullScreenContainer = forwardRef(({ children, className, style }, ref) => {
   const { domRef } = useAutoResize(ref)
 
   useLayoutEffect(() => {
@@ -31,7 +31,7 @@ const FullScreenContainer = ({ children, className, style }, ref) => {
       {children}
     </div>
   )
-}
+})
 
 FullScreenContainer.propTypes = {
   children: PropTypes.node,
