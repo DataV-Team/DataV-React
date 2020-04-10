@@ -225,6 +225,10 @@ const WaterLevelPond = ({ config, className, style }) => {
     return () => {
       innerRenderer.delAllGraph()
 
+      // 处理 renderer.launchAnimation 返回 undefined，导致长时间占用主线程（待 cender 下版本，处理后删除下面代码）
+      innerRenderer.graphs.forEach(_ => _.pauseAnimation())
+      innerRenderer.animationStatus = false
+
       undescribe()
     }
   }, [mergedConfig])
