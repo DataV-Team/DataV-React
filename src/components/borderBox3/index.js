@@ -13,7 +13,7 @@ import './style.less'
 
 const defaultColor = ['#2862b7', '#2862b7']
 
-const BorderBox = forwardRef(({ children, className, style, color = [] }, ref) => {
+const BorderBox = forwardRef(({ children, className, style, color = [], backgroundColor = 'transparent' }, ref) => {
   const { width, height, domRef } = useAutoResize(ref)
 
   const mergedColor = useMemo(() => deepMerge(deepClone(defaultColor, true), color || []), [color])
@@ -25,6 +25,9 @@ const BorderBox = forwardRef(({ children, className, style, color = [] }, ref) =
   return (
     <div className={classNames} style={style} ref={domRef}>
       <svg className='dv-border-svg-container' width={width} height={height}>
+        <polygon fill={backgroundColor} points={`
+          23, 23 ${width - 24}, 23 ${width - 24}, ${height - 24} 23, ${height - 24}
+        `} />
         <polyline
           className='dv-bb3-line1'
           stroke={mergedColor[0]}
@@ -60,7 +63,8 @@ BorderBox.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   style: PropTypes.object,
-  color: PropTypes.array
+  color: PropTypes.array,
+  backgroundColor: PropTypes.string
 }
 
 export default BorderBox

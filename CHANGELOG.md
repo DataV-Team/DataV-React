@@ -1,3 +1,20 @@
+# 1.2.0-alpha (2020-6-14)
+
+### Perfect
+
+- **BorderBox:** 添加 backgroundColor 配置项.
+
+# 1.1.7-alpha (2020-04-10)
+
+### BUG 修复
+
+- **WaterLevelPond:** 组件切换到后台陷入死循环.
+- **CapsuleChart:** 胶囊图数值错误.
+
+### Perfect
+
+- **Component:** 内部使用 useImperativeHandle 的组件默认经过 forwardRef 返回.
+
 # 1.1.3-alpha (2020-01-17)
 
 ### BUG 修复

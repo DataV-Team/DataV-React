@@ -13,7 +13,7 @@ import './style.less'
 
 const defaultColor = ['#11eefd', '#0078d2']
 
-const BorderBox = forwardRef(({ children, className, style, color = [] }, ref) => {
+const BorderBox = forwardRef(({ children, className, style, color = [], backgroundColor = 'transparent' }, ref) => {
   const { width, height, domRef } = useAutoResize(ref)
 
   const [{ gradientId, maskId }] = useState(() => {
@@ -142,6 +142,15 @@ const BorderBox = forwardRef(({ children, className, style, color = [] }, ref) =
           </mask>
         </defs>
 
+        <polygon fill={backgroundColor} points={`
+          15, 9 ${width * 0.1 + 1}, 9 ${width * 0.1 + 4}, 6 ${width * 0.52 + 2}, 6
+          ${width * 0.52 + 6}, 10 ${width * 0.58 - 7}, 10 ${width * 0.58 - 2}, 6
+          ${width * 0.9 + 2}, 6 ${width * 0.9 + 6}, 10 ${width - 10}, 10 ${width - 10}, ${height * 0.1 - 6}
+          ${width - 6}, ${height * 0.1 - 1} ${width - 6}, ${height * 0.8 + 1} ${width - 10}, ${height * 0.8 + 6}
+          ${width - 10}, ${height - 10} ${width * 0.92 + 7}, ${height - 10}  ${width * 0.92 + 2}, ${height - 6}
+          11, ${height - 6} 11, ${height * 0.15 - 2} 15, ${height * 0.15 - 7}
+        `} />
+
         <rect
           x='0'
           y='0'
@@ -161,7 +170,8 @@ BorderBox.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   style: PropTypes.object,
-  color: PropTypes.array
+  color: PropTypes.array,
+  backgroundColor: PropTypes.string
 }
 
 export default BorderBox

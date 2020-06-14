@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, forwardRef } from 'react'
 
 import PropTypes from 'prop-types'
 
@@ -7,12 +7,16 @@ import classnames from 'classnames'
 import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
 
+import useAutoResize from '../../use/autoResize'
+
 import './style.less'
 
 const border = ['left-top', 'right-top', 'left-bottom', 'right-bottom']
 const defaultColor = ['#1d48c4', '#d3e1f8']
 
-const BorderBox = ({ children, className, style, color = [] }) => {
+const BorderBox = forwardRef(({ children, className, style, color = [], backgroundColor = 'transparent' }, ref) => {
+  const { width, height, domRef } = useAutoResize(ref)
+
   const mergedColor = useMemo(() => deepMerge(deepClone(defaultColor, true), color || []), [color])
 
   const classNames = useMemo(() => classnames('dv-border-box-10', className), [
@@ -25,7 +29,14 @@ const BorderBox = ({ children, className, style, color = [] }) => {
   }), [style, mergedColor])
 
   return (
-    <div className={classNames} style={styles}>
+    <div className={classNames} style={styles} ref={domRef}>
+      <svg className='border' width={width} height={height}>
+        <polygon fill={backgroundColor} points={`
+          4, 0 ${width - 4}, 0 ${width}, 4 ${width}, ${height - 4} ${width - 4}, ${height}
+          4, ${height} 0, ${height - 4} 0, 4
+        `} />
+      </svg>
+
       {border.map(borderName => (
         <svg
           width='150px'
@@ -42,13 +53,14 @@ const BorderBox = ({ children, className, style, color = [] }) => {
       <div className='border-box-content'>{children}</div>
     </div>
   )
-}
+})
 
 BorderBox.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   style: PropTypes.object,
-  color: PropTypes.array
+  color: PropTypes.array,
+  backgroundColor: PropTypes.string
 }
 
 export default BorderBox

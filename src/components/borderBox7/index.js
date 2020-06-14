@@ -13,7 +13,7 @@ import './style.less'
 
 const defaultColor = ['rgba(128,128,128,0.3)', 'rgba(128,128,128,0.5)']
 
-const BorderBox = forwardRef(({ children, className, style, color = [] }, ref) => {
+const BorderBox = forwardRef(({ children, className, style, color = [], backgroundColor = 'transparent' }, ref) => {
   const { width, height, domRef } = useAutoResize(ref)
 
   const mergedColor = useMemo(() => deepMerge(deepClone(defaultColor, true), color || []), [color])
@@ -25,8 +25,9 @@ const BorderBox = forwardRef(({ children, className, style, color = [] }, ref) =
   const styles = useMemo(() => ({
     boxShadow: `inset 0 0 40px ${mergedColor[0]}`,
     border: `1px solid ${mergedColor[0]}`,
+    backgroundColor,
     ...style
-  }), [style, mergedColor])
+  }), [style, mergedColor, backgroundColor])
 
   return (
     <div className={classNames} style={styles} ref={domRef}>
@@ -76,7 +77,8 @@ BorderBox.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   style: PropTypes.object,
-  color: PropTypes.array
+  color: PropTypes.array,
+  backgroundColor: PropTypes.string
 }
 
 export default BorderBox

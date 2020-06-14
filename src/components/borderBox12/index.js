@@ -14,7 +14,7 @@ import './style.less'
 
 const defaultColor = ['#2e6099', '#7ce7fd']
 
-const BorderBox = forwardRef(({ children, className, style, color = [] }, ref) => {
+const BorderBox = forwardRef(({ children, className, style, color = [], backgroundColor = 'transparent' }, ref) => {
   const filterId = useRef(`border-box-12-filterId-${Date.now()}`).current
 
   const { width, height, domRef } = useAutoResize(ref)
@@ -56,7 +56,7 @@ const BorderBox = forwardRef(({ children, className, style, color = [] }, ref) =
         {
           width && height &&
           <path
-            fill='transparent'
+            fill={backgroundColor}
             strokeWidth='2'
             stroke={mergedColor[0]}
             d={`
@@ -123,7 +123,8 @@ BorderBox.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   style: PropTypes.object,
-  color: PropTypes.array
+  color: PropTypes.array,
+  backgroundColor: PropTypes.string
 }
 
 export default BorderBox

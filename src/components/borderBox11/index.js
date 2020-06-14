@@ -14,7 +14,7 @@ import './style.less'
 
 const defaultColor = ['#8aaafb', '#1f33a2']
 
-const BorderBox = forwardRef(({ children, className, style, color = [], titleWidth = 250, title = '' }, ref) => {
+const BorderBox = forwardRef(({ children, className, style, color = [], titleWidth = 250, title = '', backgroundColor = 'transparent' }, ref) => {
   const filterId = useRef(`border-box-11-filterId-${Date.now()}`).current
 
   const { width, height, domRef } = useAutoResize(ref)
@@ -40,6 +40,13 @@ const BorderBox = forwardRef(({ children, className, style, color = [], titleWid
             </feMerge>
           </filter>
         </defs>
+
+        <polygon fill={backgroundColor} points={`
+          20, 32 ${width * 0.5 - titleWidth / 2}, 32 ${width * 0.5 - titleWidth / 2 + 20}, 53
+          ${width * 0.5 + titleWidth / 2 - 20}, 53 ${width * 0.5 + titleWidth / 2}, 32
+          ${width - 20}, 32 ${width - 8}, 48 ${width - 8}, ${height - 25} ${width - 20}, ${height - 8}
+          20, ${height - 8} 8, ${height - 25} 8, 50
+        `} />
 
         <polyline
           stroke={mergedColor[0]}
@@ -240,7 +247,8 @@ BorderBox.propTypes = {
   style: PropTypes.object,
   color: PropTypes.array,
   titleWidth: PropTypes.number,
-  title: PropTypes.string
+  title: PropTypes.string,
+  backgroundColor: PropTypes.string
 }
 
 export default BorderBox

@@ -13,7 +13,7 @@ import './style.less'
 
 const defaultColor = ['#235fa7', '#4fd2dd']
 
-const BorderBox = forwardRef(({ children, className, style, color = [], dur = 3 }, ref) => {
+const BorderBox = forwardRef(({ children, className, style, color = [], dur = 3, backgroundColor = 'transparent' }, ref) => {
   const { width, height, domRef } = useAutoResize(ref)
 
   const [{ path, gradient, mask }] = useState(() => {
@@ -62,6 +62,8 @@ const BorderBox = forwardRef(({ children, className, style, color = [], dur = 3 
           </mask>
         </defs>
 
+        <polygon fill={backgroundColor} points={`5, 5 ${width - 5}, 5 ${width - 5} ${height - 5} 5, ${height - 5}`} />
+
         <use stroke={mergedColor[0]} strokeWidth='1' href={`#${path}`} />
 
         <use
@@ -90,7 +92,8 @@ BorderBox.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   color: PropTypes.array,
-  dur: PropTypes.number
+  dur: PropTypes.number,
+  backgroundColor: PropTypes.string
 }
 
 export default BorderBox

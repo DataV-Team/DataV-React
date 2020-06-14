@@ -13,7 +13,7 @@ import './style.less'
 
 const defaultColor = ['red', 'rgba(0,0,255,0.8)']
 
-const BorderBox = forwardRef(({ children, reverse = false, className, style, color = [] }, ref) => {
+const BorderBox = forwardRef(({ children, reverse = false, className, style, color = [], backgroundColor = 'transparent' }, ref) => {
   const { width, height, domRef } = useAutoResize(ref)
 
   const mergedColor = useMemo(() => deepMerge(deepClone(defaultColor, true), color || []), [color])
@@ -29,6 +29,10 @@ const BorderBox = forwardRef(({ children, reverse = false, className, style, col
         width={width}
         height={height}
       >
+        <polygon fill={backgroundColor} points={`
+          ${width - 15}, 22 170, 22 150, 7 40, 7 28, 21 32, 24
+          16, 42 16, ${height - 32} 41, ${height - 7} ${width - 15}, ${height - 7}
+        `} />
         <polyline
           className='dv-bb4-line-1'
           stroke={mergedColor[0]}
@@ -77,12 +81,14 @@ BorderBox.propTypes = {
   reverse: PropTypes.bool,
   className: PropTypes.string,
   style: PropTypes.object,
-  color: PropTypes.array
+  color: PropTypes.array,
+  backgroundColor: PropTypes.string
 }
 
 // 指定 props 的默认值：
 BorderBox.defaultProps = {
-  reverse: false
+  reverse: false,
+  backgroundColor: 'transparent'
 }
 
 export default BorderBox
