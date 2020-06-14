@@ -3,9 +3,12 @@
 ### Perfect
 
 - **BorderBox:** 添加 backgroundColor prop.
+- **BorderBox8:** 添加 reverse prop.
 - **DigitalFlop:** 添加 rowGap 配置.
-- **CapsuleChart:** 添加 showVal 配置.
-- **ActiveRightChart:** 添加 showOriginalValue 配置.
+- **CapsuleChart:** 添加 showValue 配置.
+- **ActiveRightChart:** 添加 showOriginValue 配置.
+
+- **uuid:** 使用 uuid 生成唯一 id.
 
 # 1.1.7-alpha (2020-04-10)
 

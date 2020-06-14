@@ -12,6 +12,8 @@ import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
 
 import useAutoResize from '../../use/autoResize'
 
+import { uuid } from '../../util'
+
 import './style.less'
 
 const defaultColor = ['rgba(3, 166, 224, 0.8)', 'rgba(3, 166, 224, 0.5)']
@@ -21,7 +23,7 @@ const svgWH = [100, 100]
 const Decoration = forwardRef(({ children, className, style, color = [], dur = 3 }, ref) => {
   const { width, height, domRef } = useAutoResize(ref)
 
-  const polygonIdRef = useRef(`decoration-9-polygon-${Date.now()}`)
+  const polygonIdRef = useRef(`decoration-9-polygon-${uuid()}`)
 
   const mergedColor = useMemo(() => deepMerge(deepClone(defaultColor, true), color || []), [color])
 

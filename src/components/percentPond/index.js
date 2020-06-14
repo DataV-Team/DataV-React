@@ -8,6 +8,8 @@ import { deepMerge } from '@jiaminghi/charts/lib/util/index'
 
 import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
 
+import { uuid } from '../../util'
+
 import './style.less'
 
 const defaultConfig = {
@@ -73,8 +75,8 @@ const PercentPond = ({ config = {}, className, style }) => {
   const domRef = useRef(null)
 
   const { gradientId1, gradientId2 } = useRef({
-    gradientId1: `percent-pond-gradientId1-${Date.now()}`,
-    gradientId2: `percent-pond-gradientId2-${Date.now()}`
+    gradientId1: `percent-pond-gradientId1-${uuid()}`,
+    gradientId2: `percent-pond-gradientId2-${uuid()}`
   }).current
 
   const [{ width, height, mergedConfig }, setState] = useState({

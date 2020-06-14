@@ -9,22 +9,41 @@ import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
 
 import useAutoResize from '../../use/autoResize'
 
+import { uuid } from '../../util'
+
 import './style.less'
 
 const defaultColor = ['#235fa7', '#4fd2dd']
 
-const BorderBox = forwardRef(({ children, className, style, color = [], dur = 3, backgroundColor = 'transparent' }, ref) => {
+const BorderBox = forwardRef((
+  {
+    children,
+    className,
+    style,
+    color = [],
+    dur = 3,
+    backgroundColor = 'transparent',
+    reverse = false
+  },
+  ref
+) => {
   const { width, height, domRef } = useAutoResize(ref)
 
   const [{ path, gradient, mask }] = useState(() => {
-    const timestamp = Date.now()
+    const id = uuid()
 
     return {
-      path: `border-box-8-path-${timestamp}`,
-      gradient: `border-box-8-gradient-${timestamp}`,
-      mask: `border-box-8-mask-${timestamp}`
+      path: `border-box-8-path-${id}`,
+      gradient: `border-box-8-gradient-${id}`,
+      mask: `border-box-8-mask-${id}`
     }
   })
+
+  const pathD = useMemo(() =>
+    reverse
+      ? `M 2.5, 2.5 L 2.5, ${height - 2.5} L ${width - 2.5}, ${height - 2.5} L ${width - 2.5}, 2.5 L 2.5, 2.5`
+      : `M2.5, 2.5 L${width - 2.5}, 2.5 L${width - 2.5}, ${height - 2.5} L2.5, ${height - 2.5} L2.5, 2.5`
+  , [width, height, reverse])
 
   const mergedColor = useMemo(() => deepMerge(deepClone(defaultColor, true), color || []), [color])
 
@@ -38,12 +57,7 @@ const BorderBox = forwardRef(({ children, className, style, color = [], dur = 3,
     <div className={classNames} style={style} ref={domRef}>
       <svg className='dv-svg-container' width={width} height={height}>
         <defs>
-          <path
-            id={path}
-            d={`M2.5, 2.5 L${width - 2.5}, 2.5 L${width - 2.5}, ${height -
-              2.5} L2.5, ${height - 2.5} L2.5, 2.5`}
-            fill='transparent'
-          />
+          <path id={path} d={pathD} fill='transparent' />
           <radialGradient id={gradient} cx='50%' cy='50%' r='50%'>
             <stop offset='0%' stopColor='#fff' stopOpacity='1' />
             <stop offset='100%' stopColor='#fff' stopOpacity='0' />
@@ -51,13 +65,7 @@ const BorderBox = forwardRef(({ children, className, style, color = [], dur = 3,
 
           <mask id={mask}>
             <circle cx='0' cy='0' r='150' fill={`url(#${gradient})`}>
-              <animateMotion
-                dur={`${dur}s`}
-                path={`M2.5, 2.5 L${width - 2.5}, 2.5 L${width -
-                  2.5}, ${height - 2.5} L2.5, ${height - 2.5} L2.5, 2.5`}
-                rotate='auto'
-                repeatCount='indefinite'
-              />
+              <animateMotion dur={`${dur}s`} path={pathD} rotate='auto' repeatCount='indefinite' />
             </circle>
           </mask>
         </defs>
@@ -93,7 +101,8 @@ BorderBox.propTypes = {
   style: PropTypes.object,
   color: PropTypes.array,
   dur: PropTypes.number,
-  backgroundColor: PropTypes.string
+  backgroundColor: PropTypes.string,
+  reverse: PropTypes.bool
 }
 
 export default BorderBox

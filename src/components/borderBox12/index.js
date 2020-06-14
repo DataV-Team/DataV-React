@@ -10,12 +10,14 @@ import { fade } from '@jiaminghi/color'
 
 import useAutoResize from '../../use/autoResize'
 
+import { uuid } from '../../util'
+
 import './style.less'
 
 const defaultColor = ['#2e6099', '#7ce7fd']
 
 const BorderBox = forwardRef(({ children, className, style, color = [], backgroundColor = 'transparent' }, ref) => {
-  const filterId = useRef(`border-box-12-filterId-${Date.now()}`).current
+  const filterId = useRef(`border-box-12-filterId-${uuid()}`).current
 
   const { width, height, domRef } = useAutoResize(ref)
 

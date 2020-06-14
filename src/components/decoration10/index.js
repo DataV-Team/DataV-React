@@ -9,6 +9,8 @@ import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
 
 import useAutoResize from '../../use/autoResize'
 
+import { uuid } from '../../util'
+
 import './style.less'
 
 const defaultColor = ['#00c2ff', 'rgba(0, 194, 255, 0.3)']
@@ -25,13 +27,13 @@ const Decoration = forwardRef(({ className, style, color = [] }, ref) => {
     animationId6,
     animationId7
   } = useRef({
-    animationId1: `d10ani1${Date.now()}`,
-    animationId2: `d10ani2${Date.now()}`,
-    animationId3: `d10ani3${Date.now()}`,
-    animationId4: `d10ani4${Date.now()}`,
-    animationId5: `d10ani5${Date.now()}`,
-    animationId6: `d10ani6${Date.now()}`,
-    animationId7: `d10ani7${Date.now()}`
+    animationId1: `d10ani1${uuid()}`,
+    animationId2: `d10ani2${uuid()}`,
+    animationId3: `d10ani3${uuid()}`,
+    animationId4: `d10ani4${uuid()}`,
+    animationId5: `d10ani5${uuid()}`,
+    animationId6: `d10ani6${uuid()}`,
+    animationId7: `d10ani7${uuid()}`
   }).current
 
   const mergedColor = useMemo(() => deepMerge(deepClone(defaultColor, true), color || []), [color])

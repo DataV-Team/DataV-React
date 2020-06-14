@@ -9,6 +9,8 @@ import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
 
 import useAutoResize from '../../use/autoResize'
 
+import { uuid } from '../../util'
+
 import './style.less'
 
 const defaultColor = ['#11eefd', '#0078d2']
@@ -17,11 +19,11 @@ const BorderBox = forwardRef(({ children, className, style, color = [], backgrou
   const { width, height, domRef } = useAutoResize(ref)
 
   const [{ gradientId, maskId }] = useState(() => {
-    const timestamp = Date.now()
+    const id = uuid()
 
     return {
-      gradientId: `border-box-9-gradient-${timestamp}`,
-      maskId: `border-box-9-mask-${timestamp}`
+      gradientId: `border-box-9-gradient-${id}`,
+      maskId: `border-box-9-mask-${id}`
     }
   })
 

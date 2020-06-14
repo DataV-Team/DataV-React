@@ -10,7 +10,7 @@ import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
 
 import useAutoResize from '../../use/autoResize'
 
-import { randomExtend, getPointDistance } from '../../util/index'
+import { randomExtend, getPointDistance, uuid } from '../../util'
 
 import './style.less'
 
@@ -213,8 +213,8 @@ const FlyLineChart = forwardRef(({ config = {}, dev = false, className, style },
 
   const { unique, gradientId, gradient2Id } = useRef({
     unique: Math.random(),
-    gradientId: `gradient-id-${Date.now()}`,
-    gradient2Id: `gradient2-id-${Date.now()}`
+    gradientId: `gradient-id-${uuid()}`,
+    gradient2Id: `gradient2-id-${uuid()}`
   }).current
 
   const { mergedConfig, paths, times, texts } = useMemo(calcData, [

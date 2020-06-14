@@ -10,7 +10,7 @@ import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
 
 import useAutoResize from '../../use/autoResize'
 
-import { randomExtend, getPointDistance } from '../../util/index'
+import { randomExtend, getPointDistance, uuid } from '../../util'
 
 import './style.less'
 
@@ -241,8 +241,8 @@ const FlyLineChartEnhanced = forwardRef(({ config = {}, dev = false, className, 
 
   const { unique, flylineGradientId, haloGradientId } = useRef({
     unique: Math.random(),
-    flylineGradientId: `flyline-gradient-id-${Date.now()}`,
-    haloGradientId: `halo-gradient-id-${Date.now()}`
+    flylineGradientId: `flyline-gradient-id-${uuid()}`,
+    haloGradientId: `halo-gradient-id-${uuid()}`
   }).current
 
   const { mergedConfig, flylinePoints, flylines } = useMemo(calcData, [

@@ -82,11 +82,11 @@ const defaultConfig = {
    */
   animationFrame: 50,
   /**
-   * @description CRender showOriginalValue
+   * @description showOriginValue
    * @type {Boolean}
-   * @default showOriginalValue = false
+   * @default showOriginValue = false
    */
-  showOriginalValue: false
+  showOriginValue: false
 }
 
 const ActiveRingChart = ({ config = {}, className, style }) => {
@@ -101,13 +101,13 @@ const ActiveRingChart = ({ config = {}, className, style }) => {
   const digitalFlop = useMemo(() => {
     if (!mergedConfig) return {}
 
-    const { digitalFlopStyle, digitalFlopToFixed, data, showOriginalValue } = mergedConfig
+    const { digitalFlopStyle, digitalFlopToFixed, data, showOriginValue } = mergedConfig
 
     const value = data.map(({ value }) => value)
 
     let displayValue
 
-    if (showOriginalValue) {
+    if (showOriginValue) {
       displayValue = value[activeIndex]
     } else {
       const sum = value.reduce((all, v) => all + v, 0)
@@ -117,7 +117,7 @@ const ActiveRingChart = ({ config = {}, className, style }) => {
     }
 
     return {
-      content: showOriginalValue ? '{nt}' : '{nt}%',
+      content: showOriginValue ? '{nt}' : '{nt}%',
       number: [displayValue],
       style: digitalFlopStyle,
       toFixed: digitalFlopToFixed

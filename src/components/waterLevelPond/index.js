@@ -10,7 +10,7 @@ import { deepClone } from '@jiaminghi/c-render/lib/plugin/util'
 
 import CRender from '@jiaminghi/c-render'
 
-import { co } from '../../util'
+import { co, uuid } from '../../util'
 
 import './style.less'
 
@@ -166,7 +166,7 @@ function * animationWave(waves, renderer) {
 const WaterLevelPond = ({ config, className, style }) => {
   const [renderer, setRenderer] = useState(null)
 
-  const gradientId = useRef(`water-level-pond-${Date.now()}`).current
+  const gradientId = useRef(`water-level-pond-${uuid()}`).current
 
   const domRef = useRef(null)
 
