@@ -43,6 +43,12 @@ const defaultConfig = {
    */
   textAlign: 'center',
   /**
+   * @description rowGap
+   * @type {Number}
+   *@default rowGap = 0
+   */
+  rowGap: 0,
+  /**
    * @description Text style configuration
    * @type {Object} {CRender Class Style}
    */
@@ -81,7 +87,7 @@ const DigitalFlop = ({ config = {}, className, style }) => {
     })
   }
 
-  function getShape({ number, content, toFixed, textAlign }) {
+  function getShape({ number, content, toFixed, textAlign, rowGap }) {
     const [w, h] = rendererRef.current.area
 
     const position = [w / 2, h / 2]
@@ -89,7 +95,7 @@ const DigitalFlop = ({ config = {}, className, style }) => {
     if (textAlign === 'left') position[0] = 0
     if (textAlign === 'right') position[0] = w
 
-    return { number, content, toFixed, position }
+    return { number, content, toFixed, position, rowGap }
   }
 
   function getStyle({ style, textAlign }) {

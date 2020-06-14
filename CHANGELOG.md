@@ -3,6 +3,7 @@
 ### Perfect
 
 - **BorderBox:** 添加 backgroundColor prop.
+- **DigitalFlop:** 添加 rowGap 配置.
 - **CapsuleChart:** 添加 showVal 配置.
 - **ActiveRightChart:** 添加 showOriginalValue 配置.
 
