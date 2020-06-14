@@ -61,6 +61,8 @@ export function co(gen) {
   // 处理 return 之后 resume 的问题
   let stop = false
 
+  let val = null
+
   if (typeof gen === 'function') gen = gen()
 
   if (!gen || typeof gen.next !== 'function') return () => ({})
@@ -83,18 +85,22 @@ export function co(gen) {
       if (!destroyed) { stop = true }
     },
     resume () {
-      Promise.resolve().then(() => {
-        if (!destroyed && stop) {
-          stop = false
+      const oldVal = val
 
-          next(gen.next())
-        }
-      })
+      if (!destroyed && stop) {
+        stop = false
+
+        Promise.resolve(val).then(function () {
+          if (!destroyed && !stop && oldVal === val) { next(gen.next()) }
+        })
+      }
     }
   }
 
   function next(ret) {
     if (ret.done) return ret.value
+
+    val = ret.value
 
     return Promise.resolve(ret.value).then(() => {
       (!destroyed && !stop) && next(gen.next())

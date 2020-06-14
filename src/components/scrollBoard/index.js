@@ -299,17 +299,15 @@ const ScrollBoard = forwardRef(({ onClick, config = {}, className, style, onMous
 
     if (!mergedConfig.hoverPause) return
 
-    if (enter) {
-      task.pause && task.pause()
-    } else {
-      task.resume && task.resume()
-    }
+    const { pause, resume } = task.current
+
+    enter ? pause() : resume()
   }
 
   const getBackgroundColor = rowIndex =>
     mergedConfig[rowIndex % 2 === 0 ? 'evenRowBGC' : 'oddRowBGC']
 
-  let task = {}
+  const task = useRef({})
 
   useEffect(() => {
     calcData()
@@ -337,9 +335,9 @@ const ScrollBoard = forwardRef(({ onClick, config = {}, className, style, onMous
 
     if (rowNum >= rowLength) return
 
-    task = co(loop)
+    task.current = co(loop)
 
-    return task.end
+    return task.current.end
   }, [config, domRef.current])
 
   useEffect(onResize, [width, height, domRef.current])
