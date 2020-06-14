@@ -544,7 +544,6 @@ FlyLineChartEnhanced.propTypes = {
 
 // 指定 props 的默认值：
 FlyLineChartEnhanced.defaultProps = {
-  config: {},
   dev: false
 }
 

@@ -163,7 +163,7 @@ function * animationWave(waves, renderer) {
   yield renderer.launchAnimation()
 }
 
-const WaterLevelPond = ({ config, className, style }) => {
+const WaterLevelPond = ({ config = {}, className, style }) => {
   const [renderer, setRenderer] = useState(null)
 
   const gradientId = useRef(`water-level-pond-${uuid()}`).current
@@ -220,7 +220,7 @@ const WaterLevelPond = ({ config, className, style }) => {
       }
     }
 
-    const undescribe = co(loop)
+    const { end } = co(loop)
 
     return () => {
       innerRenderer.delAllGraph()
@@ -229,7 +229,7 @@ const WaterLevelPond = ({ config, className, style }) => {
       innerRenderer.graphs.forEach(_ => _.pauseAnimation())
       innerRenderer.animationStatus = false
 
-      undescribe()
+      end()
     }
   }, [mergedConfig])
 
@@ -290,11 +290,6 @@ WaterLevelPond.propTypes = {
   config: PropTypes.object,
   className: PropTypes.string,
   style: PropTypes.object
-}
-
-// 指定 props 的默认值：
-WaterLevelPond.defaultProps = {
-  config: {}
 }
 
 export default WaterLevelPond

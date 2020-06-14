@@ -233,7 +233,7 @@ const ActiveRingChart = ({ config = {}, className, style }) => {
       }
     }
 
-    return co(loop)
+    return co(loop).end
   }, [config])
 
   const classNames = useMemo(
@@ -258,11 +258,6 @@ ActiveRingChart.propTypes = {
   config: PropTypes.object,
   className: PropTypes.string,
   style: PropTypes.object
-}
-
-// 指定 props 的默认值：
-ActiveRingChart.defaultProps = {
-  config: {}
 }
 
 export default ActiveRingChart

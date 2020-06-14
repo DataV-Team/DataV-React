@@ -135,9 +135,4 @@ CapsuleChart.propTypes = {
   style: PropTypes.object
 }
 
-// 指定 props 的默认值：
-CapsuleChart.defaultProps = {
-  config: {}
-}
-
 export default CapsuleChart

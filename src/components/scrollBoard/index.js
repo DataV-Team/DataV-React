@@ -94,7 +94,14 @@ const defaultConfig = {
    * @default carousel = 'single'
    * @example carousel = 'single' | 'page'
    */
-  carousel: 'single'
+  carousel: 'single',
+  /**
+   * @description Pause scroll when mouse hovered
+   * @type {Boolean}
+   * @default hoverPause = true
+   * @example hoverPause = true | false
+   */
+  hoverPause: true
 }
 
 function calcHeaderData({ header, index, indexHeader }) {
@@ -144,7 +151,7 @@ function calcAligns(mergedConfig, header) {
   return deepMerge(aligns, align)
 }
 
-const ScrollBoard = forwardRef(({ onClick, config, className, style }, ref) => {
+const ScrollBoard = forwardRef(({ onClick, config = {}, className, style, onMouseOver }, ref) => {
   const { width, height, domRef } = useAutoResize(ref)
 
   const [state, setState] = useState({
@@ -281,14 +288,28 @@ const ScrollBoard = forwardRef(({ onClick, config, className, style }, ref) => {
     setState(state => ({ ...state, heights: newHeights }))
   }
 
-  function emitEvent(ri, ci, row, ceil) {
+  function emitEvent(handle, ri, ci, row, ceil) {
     const { ceils, rowIndex } = row
 
-    onClick && onClick({ row: ceils, ceil, rowIndex, columnIndex: ci })
+    handle && handle({ row: ceils, ceil, rowIndex, columnIndex: ci })
+  }
+
+  function handleHover(enter, ri, ci, row, ceil) {
+    if (enter) emitEvent(onMouseOver, ri, ci, row, ceil)
+
+    if (!mergedConfig.hoverPause) return
+
+    if (enter) {
+      task.pause && task.pause()
+    } else {
+      task.resume && task.resume()
+    }
   }
 
   const getBackgroundColor = rowIndex =>
     mergedConfig[rowIndex % 2 === 0 ? 'evenRowBGC' : 'oddRowBGC']
+
+  let task = {}
 
   useEffect(() => {
     calcData()
@@ -316,7 +337,9 @@ const ScrollBoard = forwardRef(({ onClick, config, className, style }, ref) => {
 
     if (rowNum >= rowLength) return
 
-    return co(loop)
+    task = co(loop)
+
+    return task.end
   }, [config, domRef.current])
 
   useEffect(onResize, [width, height, domRef.current])
@@ -373,7 +396,9 @@ const ScrollBoard = forwardRef(({ onClick, config, className, style }, ref) => {
                   style={{ width: `${widths[ci]}px` }}
                   align={aligns[ci]}
                   dangerouslySetInnerHTML={{ __html: ceil }}
-                  onClick={() => emitEvent(ri, ci, row, ceil)}
+                  onClick={() => emitEvent(onClick, ri, ci, row, ceil)}
+                  onMouseEnter={() => handleHover(true, ri, ci, row, ceil)}
+                  onMouseLeave={() => handleHover(false)}
                 />
               ))}
             </div>
@@ -387,13 +412,9 @@ const ScrollBoard = forwardRef(({ onClick, config, className, style }, ref) => {
 ScrollBoard.propTypes = {
   config: PropTypes.object,
   onClick: PropTypes.func,
+  onMouseOver: PropTypes.func,
   className: PropTypes.string,
   style: PropTypes.object
-}
-
-// 指定 props 的默认值：
-ScrollBoard.defaultProps = {
-  config: {}
 }
 
 export default ScrollBoard

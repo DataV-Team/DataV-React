@@ -46,9 +46,4 @@ Charts.propTypes = {
   style: PropTypes.object
 }
 
-// 指定 props 的默认值：
-Charts.defaultProps = {
-  option: {}
-}
-
 export default Charts

@@ -82,7 +82,7 @@ function calcRows({ data, rowNum, sort }) {
   return data
 }
 
-const ScrollRankingBoard = forwardRef(({ config, className, style }, ref) => {
+const ScrollRankingBoard = forwardRef(({ config = {}, className, style }, ref) => {
   const { width, height, domRef } = useAutoResize(ref)
 
   const [state, setState] = useState({
@@ -203,7 +203,7 @@ const ScrollRankingBoard = forwardRef(({ config, className, style }, ref) => {
 
     if (rowNum >= rowLength) return
 
-    return co(loop)
+    return co(loop).end
   }, [config, domRef.current])
 
   useEffect(() => {
@@ -255,11 +255,6 @@ ScrollRankingBoard.propTypes = {
   config: PropTypes.object,
   className: PropTypes.string,
   style: PropTypes.object
-}
-
-// 指定 props 的默认值：
-ScrollRankingBoard.defaultProps = {
-  config: {}
 }
 
 export default ScrollRankingBoard
