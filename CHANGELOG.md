@@ -2,7 +2,9 @@
 
 ### Perfect
 
-- **BorderBox:** 添加 backgroundColor 配置项.
+- **BorderBox:** 添加 backgroundColor prop.
+- **CapsuleChart:** 添加 showVal 配置.
+- **ActiveRightChart:** 添加 showOriginalValue 配置.
 
 # 1.1.7-alpha (2020-04-10)
 
