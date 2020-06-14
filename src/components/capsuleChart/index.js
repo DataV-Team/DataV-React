@@ -38,14 +38,17 @@ const defaultConfig = {
    * @type {String}
    * @default unit = ''
    */
-  unit: ''
+  unit: '',
+  showVal: false
 }
 
 const CapsuleChart = ({ config = {}, className, style }) => {
-  const [{ mergedConfig, labelData, capsuleLength }, setState] = useState({
+  const [{ mergedConfig, labelData, capsuleLength, capsuleValue, labelDataLength }, setState] = useState({
     mergedConfig: null,
     labelData: [],
-    capsuleLength: []
+    capsuleLength: [],
+    capsuleValue: [],
+    labelDataLength: []
   })
 
   useEffect(() => {
@@ -59,14 +62,31 @@ const CapsuleChart = ({ config = {}, className, style }) => {
 
     const maxValue = Math.max(...capsuleValue)
 
+    const capsuleLength = capsuleValue.map(v => (maxValue ? v / maxValue : 0))
+
     const oneFifth = maxValue / 5
+
+    const labelData = [...new Set(new Array(6).fill(0).map((v, i) => Math.ceil(i * oneFifth)))]
+
+    const labelDataLength = labelData.map(v => maxValue ? v / maxValue : 0)
 
     setState({
       mergedConfig,
-      capsuleLength: capsuleValue.map(v => (maxValue ? v / maxValue : 0)),
-      labelData: [...new Set(new Array(6).fill(0).map((v, i) => Math.ceil(i * oneFifth)))]
+      capsuleValue,
+      capsuleLength,
+      labelData,
+      labelDataLength
     })
   }, [config])
+
+  /**
+   * 计算x轴label位置
+   */
+  function calcUnitLabelStyle(index) {
+    return labelData.length - 1 === index
+      ? `right: 0;`
+      : `left: ${labelDataLength[index] * 100}%;`
+  }
 
   const classNames = useMemo(() => classnames('dv-capsule-chart', className), [
     className
@@ -93,12 +113,21 @@ const CapsuleChart = ({ config = {}, className, style }) => {
                       mergedConfig.colors[index % mergedConfig.colors.length]
                     }`
                   }}
-                />
+                >
+                  {
+                    mergedConfig.showVal &&
+                      <span
+                        className='capsule-item-val'
+                        style={`right:-${`${capsuleValue[index]}`.length * 7}px`}>
+                        { capsuleValue[index] }
+                      </span>
+                  }
+                </div>
               </div>
             ))}
             <div className='unit-label'>
               {labelData.map((label, index) => (
-                <div key={label + index}>{label}</div>
+                <div key={label + index} style={calcUnitLabelStyle(index)}>{label}</div>
               ))}
             </div>
           </div>

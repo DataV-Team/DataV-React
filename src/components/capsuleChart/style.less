@@ -39,16 +39,27 @@
       margin-top: 1px;
       border-radius: 5px;
       transition: all 0.3s;
+
+      .capsule-item-val {
+        position: absolute;
+        top: -5px;
+        font-size: 12px;
+      }
     }
   }
 
   .unit-label {
     height: 20px;
     font-size: 12px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    position: relative;
+
+    &:not(:first-child) {
+      text-align: right;
+    }
+
+    div {
+      position: absolute;
+    }
   }
 
   .unit-text {
