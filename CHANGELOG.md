@@ -1,3 +1,15 @@
+# 1.2.2-alpha (2020-7-04)
+
+### Bug 修复
+
+- **ScrollRankingBoard:** 计算规则调整 [(#101)](https://github.com/DataV-Team/DataV/pull/101).
+- **scrollBoard:** key 生成策略调整 [(#8)](https://github.com/DataV-Team/DataV-React/issues/8).
+- **uuid:** uuid 生成策略调整 [(#108)](https://github.com/DataV-Team/DataV/issues/108).
+
+### Perfect
+
+- **DigitalFlop:** 添加 `formatter` 配置.
+
 # 1.2.0-alpha (2020-6-14)
 
 ### Perfect
