@@ -356,7 +356,7 @@ const ScrollBoard = forwardRef(({ onClick, config = {}, className, style, onMous
           {header.map((headerItem, i) => (
             <div
               className='header-item'
-              key={headerItem + i}
+              key={`${headerItem}-${i}`}
               style={{
                 height: `${mergedConfig.headerHeight}px`,
                 lineHeight: `${mergedConfig.headerHeight}px`,
@@ -380,7 +380,7 @@ const ScrollBoard = forwardRef(({ onClick, config = {}, className, style, onMous
           {rows.map((row, ri) => (
             <div
               className='row-item'
-              key={row.toString() + row.scroll}
+              key={`${row.toString()}-${row.scroll}`}
               style={{
                 height: `${heights[ri]}px`,
                 lineHeight: `${heights[ri]}px`,
@@ -390,7 +390,7 @@ const ScrollBoard = forwardRef(({ onClick, config = {}, className, style, onMous
               {row.ceils.map((ceil, ci) => (
                 <div
                   className='ceil'
-                  key={ceil + ri + ci}
+                  key={`${ceil}-${ri}-${ci}`}
                   style={{ width: `${widths[ci]}px` }}
                   align={aligns[ci]}
                   dangerouslySetInnerHTML={{ __html: ceil }}
