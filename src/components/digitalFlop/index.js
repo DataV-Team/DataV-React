@@ -57,6 +57,11 @@ const defaultConfig = {
     fill: '#3de7c9'
   },
   /**
+   * @description Number formatter
+   * @type {Null|Function}
+   */
+  formatter: undefined,
+  /**
    * @description CRender animationCurve
    * @type {String}
    * @default animationCurve = 'easeOutCubic'
@@ -87,7 +92,7 @@ const DigitalFlop = ({ config = {}, className, style }) => {
     })
   }
 
-  function getShape({ number, content, toFixed, textAlign, rowGap }) {
+  function getShape({ number, content, toFixed, textAlign, rowGap, formatter }) {
     const [w, h] = rendererRef.current.area
 
     const position = [w / 2, h / 2]
@@ -95,7 +100,7 @@ const DigitalFlop = ({ config = {}, className, style }) => {
     if (textAlign === 'left') position[0] = 0
     if (textAlign === 'right') position[0] = w
 
-    return { number, content, toFixed, position, rowGap }
+    return { number, content, toFixed, position, rowGap, formatter }
   }
 
   function getStyle({ style, textAlign }) {
