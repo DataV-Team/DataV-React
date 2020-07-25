@@ -1,3 +1,9 @@
+# 1.2.4-alpha (2020-7-25)
+
+### Bug 修复
+
+- **scrollBoard:** hover Error [(#9)](https://github.com/DataV-Team/DataV-React/issues/9).
+
 # 1.2.2-alpha (2020-7-04)
 
 ### Bug 修复

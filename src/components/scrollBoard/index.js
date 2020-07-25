@@ -301,7 +301,7 @@ const ScrollBoard = forwardRef(({ onClick, config = {}, className, style, onMous
 
     const { pause, resume } = task.current
 
-    enter ? pause() : resume()
+    enter && pause && resume ? pause() : resume()
   }
 
   const getBackgroundColor = rowIndex =>
