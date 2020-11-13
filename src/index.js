@@ -30,7 +30,7 @@ export { default as Decoration7 } from './components/decoration7'
 export { default as Decoration8 } from './components/decoration8'
 export { default as Decoration9 } from './components/decoration9'
 export { default as Decoration10 } from './components/decoration10'
-export { default as Decoration11 } from './components/Decoration11'
+export { default as Decoration11 } from './components/decoration11'
 
 // charts
 export { default as Charts } from './components/charts'
