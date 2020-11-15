@@ -55,7 +55,7 @@ const BorderBox = forwardRef((
 
   return (
     <div className={classNames} style={style} ref={domRef}>
-      <svg className='dv-svg-container' width={width} height={height}>
+      <svg className='dv-border-svg-container' width={width} height={height}>
         <defs>
           <path id={path} d={pathD} fill='transparent' />
           <radialGradient id={gradient} cx='50%' cy='50%' r='50%'>

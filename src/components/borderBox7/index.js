@@ -31,7 +31,7 @@ const BorderBox = forwardRef(({ children, className, style, color = [], backgrou
 
   return (
     <div className={classNames} style={styles} ref={domRef}>
-      <svg className='dv-svg-container' width={width} height={height}>
+      <svg className='dv-border-svg-container' width={width} height={height}>
         <polyline className='dv-bb7-line-width-2' stroke={mergedColor[0]} points={`0, 25 0, 0 25, 0`} />
         <polyline
           className='dv-bb7-line-width-2'

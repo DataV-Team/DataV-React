@@ -25,7 +25,7 @@ const BorderBox = forwardRef(({ children, reverse = false, className, style, col
   return (
     <div className={classNames} style={style} ref={domRef}>
       <svg
-        className={`dv-svg-container  ${reverse && 'dv-reverse'}`}
+        className={`dv-border-svg-container  ${reverse && 'dv-reverse'}`}
         width={width}
         height={height}
       >

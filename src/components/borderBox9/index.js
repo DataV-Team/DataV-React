@@ -35,7 +35,7 @@ const BorderBox = forwardRef(({ children, className, style, color = [], backgrou
 
   return (
     <div className={classNames} style={style} ref={domRef}>
-      <svg className='dv-svg-container' width={width} height={height}>
+      <svg className='dv-border-svg-container' width={width} height={height}>
         <defs>
           <linearGradient id={gradientId} x1='0%' y1='0%' x2='100%' y2='100%'>
             <animate
