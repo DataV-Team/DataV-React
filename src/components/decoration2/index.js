@@ -13,7 +13,7 @@ import './style.less'
 
 const defaultColor = ['#3faacb', '#fff']
 
-const Decoration = forwardRef(({ reverse = false, className, style, color = [] }, ref) => {
+const Decoration = forwardRef(({ reverse = false, dur = 6, className, style, color = [] }, ref) => {
   const { width, height, domRef } = useAutoResize(ref)
 
   function calcSVGData() {
@@ -38,7 +38,7 @@ const Decoration = forwardRef(({ reverse = false, className, style, color = [] }
             attributeName={reverse ? 'height' : 'width'}
             from='0'
             to={reverse ? height : width}
-            dur='6s'
+            dur={`${dur}s`}
             calcMode='spline'
             keyTimes='0;1'
             keySplines='.42,0,.58,1'
@@ -51,7 +51,7 @@ const Decoration = forwardRef(({ reverse = false, className, style, color = [] }
             attributeName={reverse ? 'y' : 'x'}
             from='0'
             to={reverse ? height : width}
-            dur='6s'
+            dur={`${dur}s`}
             calcMode='spline'
             keyTimes='0;1'
             keySplines='0.42,0,0.58,1'
@@ -64,6 +64,7 @@ const Decoration = forwardRef(({ reverse = false, className, style, color = [] }
 })
 
 Decoration.propTypes = {
+  dur: PropTypes.number,
   reverse: PropTypes.bool,
   className: PropTypes.string,
   style: PropTypes.object,
@@ -72,7 +73,8 @@ Decoration.propTypes = {
 
 // 指定 props 的默认值：
 Decoration.defaultProps = {
-  reverse: false
+  reverse: false,
+  dur: 6
 }
 
 export default Decoration

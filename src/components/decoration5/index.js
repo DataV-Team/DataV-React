@@ -14,7 +14,7 @@ import './style.less'
 
 const defaultColor = ['#3f96a5', '#3f96a5']
 
-const Decoration = forwardRef(({ className, style, color = [] }, ref) => {
+const Decoration = forwardRef(({ className, dur = 1.2, style, color = [] }, ref) => {
   const { width, height, domRef } = useAutoResize(ref)
 
   function calcSVGData() {
@@ -67,7 +67,7 @@ const Decoration = forwardRef(({ className, style, color = [] }, ref) => {
             attributeType='XML'
             from={`0, ${line1Length / 2}, 0, ${line1Length / 2}`}
             to={`0, 0, ${line1Length}, 0`}
-            dur='1.2s'
+            dur={`${dur}s`}
             begin='0s'
             calcMode='spline'
             keyTimes='0;1'
@@ -86,7 +86,7 @@ const Decoration = forwardRef(({ className, style, color = [] }, ref) => {
             attributeType='XML'
             from={`0, ${line2Length / 2}, 0, ${line2Length / 2}`}
             to={`0, 0, ${line2Length}, 0`}
-            dur='1.2s'
+            dur={`${dur}s`}
             begin='0s'
             calcMode='spline'
             keyTimes='0;1'
@@ -100,6 +100,7 @@ const Decoration = forwardRef(({ className, style, color = [] }, ref) => {
 })
 
 Decoration.propTypes = {
+  dur: PropTypes.number,
   className: PropTypes.string,
   style: PropTypes.object,
   color: PropTypes.array

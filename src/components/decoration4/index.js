@@ -13,7 +13,7 @@ import './style.less'
 
 const defaultColor = ['rgba(255, 255, 255, 0.3)', 'rgba(255, 255, 255, 0.3)']
 
-const Decoration = forwardRef(({ reverse = false, className, style, color = [] }, ref) => {
+const Decoration = forwardRef(({ reverse = false, dur = 3, className, style, color = [] }, ref) => {
   const { width, height, domRef } = useAutoResize(ref)
 
   const mergedColor = useMemo(() => deepMerge(deepClone(defaultColor, true), color || []), [color])
@@ -28,8 +28,8 @@ const Decoration = forwardRef(({ reverse = false, className, style, color = [] }
         className={`container ${reverse ? 'reverse' : 'normal'}`}
         style={
           reverse
-            ? { width: `${width}px`, height: `5px` }
-            : { width: `5px`, height: `${height}px` }
+            ? { width: `${width}px`, height: `5px`, animationDuration: `${dur}s` }
+            : { width: `5px`, height: `${height}px`, animationDuration: `${dur}s` }
         }
       >
         <svg width={reverse ? width : 5} height={reverse ? 5 : height}>
@@ -52,6 +52,7 @@ const Decoration = forwardRef(({ reverse = false, className, style, color = [] }
 })
 
 Decoration.propTypes = {
+  dur: PropTypes.number,
   reverse: PropTypes.bool,
   className: PropTypes.string,
   style: PropTypes.object,
@@ -60,7 +61,8 @@ Decoration.propTypes = {
 
 // 指定 props 的默认值：
 Decoration.defaultProps = {
-  reverse: false
+  reverse: false,
+  dur: 3
 }
 
 export default Decoration
