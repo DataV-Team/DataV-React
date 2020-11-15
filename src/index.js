@@ -31,6 +31,7 @@ export { default as Decoration8 } from './components/decoration8'
 export { default as Decoration9 } from './components/decoration9'
 export { default as Decoration10 } from './components/decoration10'
 export { default as Decoration11 } from './components/decoration11'
+export { default as Decoration12 } from './components/decoration12'
 
 // charts
 export { default as Charts } from './components/charts'
