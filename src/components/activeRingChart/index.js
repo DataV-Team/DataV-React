@@ -70,6 +70,11 @@ const defaultConfig = {
    */
   digitalFlopToFixed: 0,
   /**
+   * @description Digital flop unit
+   * @type {String}
+   */
+  digitalFlopUnit: '',
+  /**
    * @description CRender animationCurve
    * @type {String}
    * @default animationCurve = 'easeOutCubic'
@@ -101,7 +106,7 @@ const ActiveRingChart = ({ config = {}, className, style }) => {
   const digitalFlop = useMemo(() => {
     if (!mergedConfig) return {}
 
-    const { digitalFlopStyle, digitalFlopToFixed, data, showOriginValue } = mergedConfig
+    const { digitalFlopStyle, digitalFlopToFixed, data, showOriginValue, digitalFlopUnit } = mergedConfig
 
     const value = data.map(({ value }) => value)
 
@@ -117,7 +122,7 @@ const ActiveRingChart = ({ config = {}, className, style }) => {
     }
 
     return {
-      content: showOriginValue ? '{nt}' : '{nt}%',
+      content: showOriginValue ? `{nt}${digitalFlopUnit}` : `{nt}${digitalFlopUnit || '%'}`,
       number: [displayValue],
       style: digitalFlopStyle,
       toFixed: digitalFlopToFixed
