@@ -270,6 +270,7 @@ const ScrollBoard = forwardRef(({ onClick, config = {}, className, style, onMous
 
     let rows = rowsData.slice(animationIndex)
     rows.push(...rowsData.slice(0, animationIndex))
+    rows = rows.slice(0, carousel === 'page' ? rowNum * 2 : rowNum + 1)
 
     const heights = new Array(rowLength).fill(avgHeight)
     setState(state => ({ ...state, rows, heights }))

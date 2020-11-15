@@ -1,3 +1,19 @@
+# 1.2.5-alpha (2020-11-15)
+
+### New
+
+- **decoration12:** New decoration(Radar scan).
+
+### Optmization
+
+- **ScrollBoard:** Reduce redundant node rendering.
+- **ScrollRankingBoard:** Reduce redundant node rendering.
+- **ScrollRankingBoard:** Add value formatter.
+- **BorderBox:** Canonical class name.
+- **useAutoResize(hooks):** Add exception prompt.
+- **Decoration** add `dur` configuration.
+- **ActiveRingChart** add `digitalFlopUnit` configuration.
+
 # 1.2.4-alpha (2020-7-25)
 
 ### Bug 修复
@@ -70,12 +86,14 @@
 ### Feature
 
 - **BorderBox & Decoration:** **Configurable** color.
+
   ```html
   <!-- Example -->
   <BorderBox1 color={['red', 'green']} />
   <Decoration1 color={['red', 'green']} />
   ```
-- **ScrollBoard:** 配置 header index. 
+
+- **ScrollBoard:** 配置 header index.
 
 ### New
 

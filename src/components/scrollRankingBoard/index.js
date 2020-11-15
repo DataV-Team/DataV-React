@@ -51,7 +51,13 @@ const defaultConfig = {
    * @type {Boolean}
    * @default sort = true
    */
-  sort: true
+  sort: true,
+  /**
+   * @description Value formatter
+   * @type {Function}
+   * @default valueFormatter = null
+   */
+  valueFormatter: null
 }
 
 function calcRows({ data, rowNum, sort }) {
@@ -170,6 +176,7 @@ const ScrollRankingBoard = forwardRef(({ config = {}, className, style }, ref) =
 
     let rows = rowsData.slice(animationIndex)
     rows.push(...rowsData.slice(0, animationIndex))
+    rows = rows.slice(0, rowNum + 1)
 
     const heights = new Array(rowLength).fill(avgHeight)
     setState(state => ({ ...state, rows, heights }))
@@ -244,7 +251,7 @@ const ScrollRankingBoard = forwardRef(({ config = {}, className, style }, ref) =
             <div className='rank'>No.{item.ranking}</div>
             <div className='info-name' dangerouslySetInnerHTML={{ __html: item.name }} />
             <div className='ranking-value'>
-              {item.value + mergedConfig.unit}
+              {mergedConfig.valueFormatter ? mergedConfig.valueFormatter(item) : item.value + mergedConfig.unit}
             </div>
           </div>
 
