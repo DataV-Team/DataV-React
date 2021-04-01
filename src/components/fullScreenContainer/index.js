@@ -8,18 +8,27 @@ import './style.less'
 
 const FullScreenContainer = forwardRef(({ children, className, style }, ref) => {
   const { domRef } = useAutoResize(ref)
+  const [size, setSize] = useState({})
+
+  const onChange = ({ target }) => setSize({
+    width: target.innerWidth,
+    height: target.innerHeight,
+  })
+
+  useEffect(() => {
+    window.addEventListener('resize', onChange)
+    return () => window.removeEventListener('resize', onChange)
+  }, [])
 
   useLayoutEffect(() => {
-    const { width, height } = window.screen
-
     Object.assign(domRef.current.style, {
-      width: `${width}px`,
-      height: `${height}px`
+      width: `${size.width}px`,
+      height: `${size.height}px`
     })
 
     domRef.current.style.transform = `scale(${document.body.clientWidth /
-      width})`
-  })
+      size.width})`
+  }, [size])
 
   return (
     <div
