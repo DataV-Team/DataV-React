@@ -82,7 +82,7 @@ const defaultConfig = {
   animationCurve: 'easeOutCubic',
   /**
    * @description CRender animationFrame
-   * @type {String}
+   * @type {Number}
    * @default animationFrame = 50
    */
   animationFrame: 50,
