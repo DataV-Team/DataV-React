@@ -151,7 +151,7 @@ function calcAligns(mergedConfig, header) {
   return deepMerge(aligns, align)
 }
 
-const ScrollBoard = forwardRef(({ onClick, config = {}, className, style, onMouseOver }, ref) => {
+const ScrollBoard = forwardRef(({ onClick, config = {}, className, style, onMouseOver, onScroll }, ref) => {
   const { width, height, domRef } = useAutoResize(ref)
 
   const [state, setState] = useState({
@@ -267,6 +267,11 @@ const ScrollBoard = forwardRef(({ onClick, config = {}, className, style, onMous
     if (start) yield new Promise(resolve => setTimeout(resolve, waitTime))
 
     const animationNum = carousel === 'single' ? 1 : rowNum
+
+    if (onScroll) { 
+      const { pause, resume } = task.current || {}
+      onScroll({ animationIndex, pause, resume, ele: task.current }) 
+    }
 
     let rows = rowsData.slice(animationIndex)
     rows.push(...rowsData.slice(0, animationIndex))
@@ -412,6 +417,7 @@ ScrollBoard.propTypes = {
   config: PropTypes.object,
   onClick: PropTypes.func,
   onMouseOver: PropTypes.func,
+  onScroll: PropTypes.func,
   className: PropTypes.string,
   style: PropTypes.object
 }
