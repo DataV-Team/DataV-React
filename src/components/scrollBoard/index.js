@@ -52,6 +52,18 @@ const defaultConfig = {
    */
   evenRowBGC: '#0A2732',
   /**
+   * @description Odd row custom classname
+   * @type {String}
+   * @default oddRowCLS = ''
+   */
+  oddRowCLS: '',
+  /**
+  * @description Even row custom classname
+  * @type {String}
+  * @default evenRowBGC = ''
+  */
+  evenRowCLS: '',
+  /**
    * @description Scroll wait time
    * @type {Number}
    * @default waitTime = 2000
@@ -308,6 +320,11 @@ const ScrollBoard = forwardRef(({ onClick, config = {}, className, style, onMous
   const getBackgroundColor = rowIndex =>
     mergedConfig[rowIndex % 2 === 0 ? 'evenRowBGC' : 'oddRowBGC']
 
+  const getCustomClassNames = rowIndex => {
+    const classnames = mergedConfig[rowIndex % 2 === 0 ? 'evenRowCLS' : 'oddRowCLS']
+    return classnames ? (' ' + classnames) : ''
+  }
+
   const task = useRef({})
 
   useEffect(() => {
@@ -380,7 +397,7 @@ const ScrollBoard = forwardRef(({ onClick, config = {}, className, style, onMous
         >
           {rows.map((row, ri) => (
             <div
-              className='row-item'
+              className={'row-item' + getCustomClassNames(row.rowIndex)}
               key={`${row.toString()}-${row.scroll}`}
               style={{
                 height: `${heights[ri]}px`,
